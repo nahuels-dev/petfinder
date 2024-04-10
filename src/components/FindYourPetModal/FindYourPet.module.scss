@@ -1,0 +1,83 @@
+@import '../../styles/variables';
+
+.primaryModal{
+    position: relative;
+    margin: auto;
+    max-width: 578px;
+    width: 100%;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 20px;
+    height: 205px;
+    &::backdrop{
+        background-color: rgba(0,0,0, .5);
+    }
+    p{
+        padding-top: 40px;
+        padding-bottom: 10px;
+        font-size: 24px;
+        color: $primary-color;
+    }
+    &_form{
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        >div{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: end;
+            input{
+                padding-left: 10px;
+                max-width: 265px;
+                height: 37px;
+                width: 100%;
+                border: none;
+                outline:1px solid $primary-color;
+                border-radius: 6px;
+            }
+        }
+        button{
+            background-color: $primary-color;
+            width: 136px;
+            height: 43px;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 35px;
+            &:hover{
+                cursor:pointer;
+            }
+        }
+    }
+
+    &_closebtn{
+        position: absolute;
+        top:16px;
+        right:20px;
+        width: 15px;
+        height: 15px;
+
+        &:hover{
+            cursor:pointer;
+        }
+        
+        &::before,
+        &::after {
+            position: absolute;
+            right: 0;
+            top:16px;
+            content: '';
+            width: 30px;
+            height: 2px; 
+            background-color: $primary-color;
+        }
+
+        &::before {
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            transform: rotate(-45deg);
+        }
+    }
+}
