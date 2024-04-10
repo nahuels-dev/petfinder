@@ -1,4 +1,48 @@
-body{
-    margin: 0;
-    padding:0;
+@import '../../styles/variables';
+.header{
+    border-radius: 39px;
+    max-width: 1140px;
+    margin: 0 auto;
+    background-color: rgba(255, 171, 159,.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 591px;
+    align-items: center;
+    padding: 0 30px;
+    @media screen and (max-width: 1150px) {
+        margin: 0 50px;
+    }
+
+    h1{
+        color: $primary-color;
+        margin-bottom: 19px;
+    }
+
+    &_img{
+        max-width: 513px;
+        height: auto;
+    }
+
+    &_cta{
+        margin-top: 23px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+        width: 203px;
+        height: 66px;
+        background-color: $primary-color;
+        border-radius: 35px;
+        border: none;
+        font-weight: bold;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.carouselsSections{
+    outline: 1px solid red;
 }

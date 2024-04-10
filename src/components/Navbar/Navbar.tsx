@@ -24,7 +24,7 @@ function Navbar() {
                     <li><Link href="algo.com">Adoptar</Link></li>
                     <li><Link href="algo.com">Como funciona?</Link></li>
                 </ul>
-                <button>Iniciar sesion</button>
+                <Link href="google.com" className={`${styles.navbar_container_linksandbtn_login}`}>Iniciar sesion</Link>
             </div>
             <div className={`${styles.navbar_container_close} ${isActive ? styles.isActive : ''}`} onClick={toggleMenu}>
               <span className={`${styles.navbar_container_close_line}`}></span>
