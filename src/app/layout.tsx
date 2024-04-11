@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/global.scss";
 import Navbar from '@/components/Navbar/Navbar'
-
+import { DialogProvider } from "@/context/Dialog";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,7 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        <div>{children}</div>
+        <DialogProvider>
+          <div>{children}</div>
+        </DialogProvider>
       </body>
     </html>
   );
