@@ -22,6 +22,24 @@ export default function Home() {
      </div>
      <div className={`${styles.carouselsSections}`}>
      </div>
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
     </main>
   );
 }

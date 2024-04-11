@@ -1,11 +1,19 @@
 @import '../../styles/variables';
 
 .navbar{
-    -webkit-box-shadow: 0px 4px 27px 0px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 4px 27px 0px rgba(0,0,0,0.1);
-    box-shadow: 0px 4px 27px 0px rgba(0,0,0,0.1);
-
     font-size: 16px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    padding: 30px 0;
+    transition: .3s;
+    background-color: #FFFFFF;
+    &.sticky{
+        padding: 0;
+        -webkit-box-shadow: 0px 4px 27px 0px rgba(0,0,0,0.1);
+        -moz-box-shadow: 0px 4px 27px 0px rgba(0,0,0,0.1);
+        box-shadow: 0px 4px 27px 0px rgba(0,0,0,0.1);
+    }
     /* padding: 0 120px; */
     &_container{
         display: flex;
@@ -71,13 +79,13 @@
         &_close{
             display: none;
             position: absolute;
-            top: 30px;
+            top: 50%;
             right: 50px;
             cursor: pointer;
             z-index: 10;
             width: 30px;
-            height: 30px;
-            transform: rotate(0deg);
+            height: 20px;
+            transform: rotate(0deg) translateY(-50%);
             transition: 0.35s ease;
 
             @media screen and (max-width: 1150px) {
@@ -107,7 +115,9 @@
                   top: 1rem;
                 }
             }
-    
+            &.isActive{
+                top: 30px;
+            }
             &.isActive &_line {
                 &:nth-child(1) {
                     top: 0.5rem;
