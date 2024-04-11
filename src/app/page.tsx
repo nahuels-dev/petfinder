@@ -1,6 +1,7 @@
 "use client"
 import styles from '@/styles/pages/Home.module.scss'
 import headerImg from "../../public/homeHeaderImg.png"
+import huellaImg from "../../public/huella.png"
 import { useContext } from 'react';
 import { DialogContext } from '@/context/Dialog';
 import Image from 'next/image';
@@ -22,7 +23,9 @@ export default function Home() {
       </div>
      </div>
      <div className={`${styles.carouselsSections}`}>
+      <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
       <Carousel />
+      <p>Ver todos</p>
      </div>
      <br />
      <br />
