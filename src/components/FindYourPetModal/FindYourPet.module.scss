@@ -47,10 +47,6 @@
                     display: flex;
                     justify-content: center;
                 }
-
-                button{
-                    margin: 0 auto;
-                }
             }
             input{
                 padding-left: 10px;
@@ -60,18 +56,6 @@
                 border: none;
                 outline:1px solid $primary-color;
                 border-radius: 6px;
-            }
-        }
-        button{
-            background-color: $primary-color;
-            width: 136px;
-            height: 43px;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 35px;
-            &:hover{
-                cursor:pointer;
             }
         }
     }

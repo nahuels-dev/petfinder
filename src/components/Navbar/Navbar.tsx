@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import styles from "./Navbar.module.scss";
 import Link from 'next/link';
-
+import { Button } from '../Button';
 function Navbar() {
 
   const [isActive, setIsActive] = useState(false);
@@ -24,7 +24,7 @@ function Navbar() {
                     <li><Link href="algo.com">Adoptar</Link></li>
                     <li><Link href="algo.com">Como funciona?</Link></li>
                 </ul>
-                <Link href="google.com" className={`${styles.navbar_container_linksandbtn_login}`}>Iniciar sesion</Link>
+                <Button size='medium'>Iniciar sesion</Button>
             </div>
             <div className={`${styles.navbar_container_close} ${isActive ? styles.isActive : ''}`} onClick={toggleMenu}>
               <span className={`${styles.navbar_container_close_line}`}></span>

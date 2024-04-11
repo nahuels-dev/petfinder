@@ -4,7 +4,7 @@ import headerImg from "../../public/homeHeaderImg.png"
 import { useContext } from 'react';
 import { DialogContext } from '@/context/Dialog';
 import Image from 'next/image';
-
+import { Button } from '@/components/Button';
 export default function Home() {
   const { openDialog } = useContext(DialogContext)
 
@@ -14,7 +14,7 @@ export default function Home() {
       <div>
         <h1>Encuentra a tu compañero peludo perdido o adopta a un amigo fiel</h1>
         <p>Perder a una mascota es una experiencia desgarradora, pero estamos aquí para ayudarte a reunirte con tu amigo peludo o encontrar uno nuevo para llenar tu hogar de amor.</p>
-        <button className={`${styles.header_cta}`} onClick={openDialog}>Buscar</button>
+        <Button onClick={openDialog}>Buscar</Button>
       </div>
       <div>
         <Image className={`${styles.header_img}`} src={headerImg} width={1028} height={888} alt="header image"/>

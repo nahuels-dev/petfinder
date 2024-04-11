@@ -66,24 +66,6 @@
                     color:black;
                 }
             }
-
-            &_login{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                color: black;
-                text-decoration: none;
-                width: 191px;
-                height: 46px;
-                background-color: $primary-color;
-                border-radius: 35px;
-                border: none;
-                font-weight: bold;
-
-                &:hover{
-                    cursor: pointer;
-                }
-            }
         }
 
         &_close{

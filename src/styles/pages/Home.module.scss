@@ -22,24 +22,8 @@
         max-width: 513px;
         height: auto;
     }
-
-    &_cta{
-        margin-top: 23px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        color: black;
-        width: 203px;
-        height: 66px;
-        background-color: $primary-color;
-        border-radius: 35px;
-        border: none;
-        font-weight: bold;
-        font-size: 1em;
-        &:hover{
-            cursor: pointer;
-        }
+    p{
+        margin-bottom: 20px;
     }
 }
 

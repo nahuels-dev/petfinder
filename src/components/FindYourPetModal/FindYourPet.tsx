@@ -2,7 +2,7 @@
 import React, { useContext } from 'react'
 import styles from "./FindYourPet.module.scss";
 import { DialogContext } from '@/context/Dialog';
-
+import { Button } from '../Button';
 function FindYourPet() {
     const { closeDialog } = useContext(DialogContext)
   return (
@@ -21,7 +21,7 @@ function FindYourPet() {
                 <label>
                     <input placeholder='Fecha' type='date'/>
                 </label>
-                <button>Buscar</button>
+                <Button size='small' theme='light'>Buscar</Button>
             </div>
         </form>
         <div onClick={closeDialog} className={`${styles.primaryModal_closebtn}`}></div>
