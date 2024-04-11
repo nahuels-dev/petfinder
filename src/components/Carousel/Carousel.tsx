@@ -25,6 +25,7 @@ function Carousel() {
                 <div className={`${styles.embla__slide}`}>Slide 2</div>
                 <div className={`${styles.embla__slide}`}>Slide 3</div>
                 <div className={`${styles.embla__slide}`}>Slide 4</div>
+                <div className={`${styles.embla__slide}`}>Slide 5</div>
             </div>
             <button className={`${styles.embla__prev}`} onClick={scrollPrev}>Prev</button>
             <button className={`${styles.embla__next}`} onClick={scrollNext}>Next</button>
