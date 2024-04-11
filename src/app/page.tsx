@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { DialogContext } from '@/context/Dialog';
 import Image from 'next/image';
 import { Button } from '@/components/Button';
+import Carousel from '@/components/Carousel/Carousel';
 export default function Home() {
   const { openDialog } = useContext(DialogContext)
 
@@ -21,6 +22,7 @@ export default function Home() {
       </div>
      </div>
      <div className={`${styles.carouselsSections}`}>
+      <Carousel />
      </div>
      <br />
      <br />
