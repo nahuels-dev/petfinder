@@ -123,7 +123,6 @@ function Carousel() {
                                 Visto por última vez en Aguada - 4/3/24
                             </span>
                         </div>
-                        
                     </div>
                 </div>
                 <div className={`${styles.embla__slide}`}>

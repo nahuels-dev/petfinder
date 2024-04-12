@@ -19,6 +19,9 @@
             color: white;
             border: none;
             font-size: 30px;
+            &:hover{
+                cursor: pointer;
+            }
         }
         &__prev{
             position: absolute;
@@ -44,7 +47,6 @@
     display: flex;
     justify-content: space-between;
     height: 560px;
-
   }
   .embla__slide {
     max-width: 467px;
@@ -54,7 +56,7 @@
     height: 100%;
     min-width: 0;
     flex: 0 0 45%;
-
+    
     &__content{
         position: relative;
         max-width: 417px;
@@ -63,11 +65,13 @@
         -webkit-box-shadow: 0px 0px 20px 0px rgba(255,171,159,0.4);
         -moz-box-shadow: 0px 0px 20px 0px rgba(255,171,159,0.4);
         box-shadow: 0px 0px 20px 0px rgba(255,171,159,0.4);
-
+        &:hover{
+            cursor: pointer;
+        }    
         &__petState{
             position: absolute;
             top:20px;
-            right:50px;
+            right:20px;
             width: 131px;
             height: 30px;
             display: flex;
