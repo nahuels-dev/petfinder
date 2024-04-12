@@ -4,7 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import styles from "./Carousel.module.scss"
 
-import CarouselItem from '../CarouselItem/CarouselItem'
+import {CarouselItem} from '../CarouselItem/CarouselItem'
 
 //https://www.embla-carousel.com/api/options/
 

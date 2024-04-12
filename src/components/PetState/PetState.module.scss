@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+
+.petState{
+  position: absolute;
+  top:20px;
+  right:20px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 5px;
+  /* retenido */
+  &__r{
+    width: 103px;
+    background: $green-color;
+  }
+  /* visto */
+  &__v{
+    width: 76px;
+    background: $orange-color;
+  }
+  /* en búsqueda */
+  &__b{
+    width: 132px;
+    background: $red-color;
+  }
+}
