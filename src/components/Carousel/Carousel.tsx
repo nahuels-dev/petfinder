@@ -3,6 +3,7 @@ import React , { useCallback }  from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import petImage from "../../../public/petImage.png"
+import lastSeenImg from "../../../public/lastSeenImg.png"
 import Image from 'next/image';
 import styles from "./Carousel.module.scss"
 
@@ -24,6 +25,7 @@ function Carousel() {
             <div className={`${styles.embla__container}`}>
                 <div className={`${styles.embla__slide}`}>
                     <div className={`${styles.embla__slide__content}`}>
+                        <p className={`${styles.embla__slide__content__petState}`}>En busqueda</p>
                         <Image className={`${styles.embla__slide__content__img}`} src={petImage} width={834} height={536} alt="pet image"/>
                         <div className={`${styles.embla__slide__content__copy}`}>
                             <h4>Roku perdido en centro</h4>
@@ -32,72 +34,252 @@ function Carousel() {
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <th scope="row">Chris</th>
-                                            <td>HTML </td>
+                                            <th scope="row">Chip</th>
+                                            <td>Si  </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Dennis</th>
-                                            <td>Web </td>
+                                            <th scope="row">Collar</th>
+                                            <td>Si  </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Sarah</th>
-                                            <td>JavaScript </td>
+                                            <th scope="row">Tamaño</th>
+                                            <td>Si  </td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">Karen</th>
-                                            <td>Web </td>
-                                        </tr>
+                                        
                                     </tbody>  
                                 </table>
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <th scope="row">Chris</th>
-                                            <td>HTML </td>
+                                            <th scope="row">Incapacidades</th>
+                                            <td>Si </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Dennis</th>
-                                            <td>Web </td>
+                                            <th scope="row">Amigable</th>
+                                            <td>Si </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Sarah</th>
-                                            <td>JavaScript </td>
+                                            <th scope="row">Alergias</th>
+                                            <td>Si </td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">Karen</th>
-                                            <td>Web </td>
-                                        </tr>
+                                        
                                     </tbody>  
                                 </table>
                             </div>
-                            <span>Algo</span><br />
-                            <span>Algo</span>
+                            
+                            <span className={`${styles.embla__slide__content__copy__lastSeen}`}>
+                                <Image className={`${styles.embla__slide__content__copy__lastSeen__img}`} src={lastSeenImg} width={36} height={36} alt="Last seen clock"/>
+                                Visto por última vez en Aguada - 4/3/24
+                            </span>
                         </div>
                         
                     </div>
                 </div>
                 <div className={`${styles.embla__slide}`}>
                     <div className={`${styles.embla__slide__content}`}>
-                        <p>Slide 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut, provident officia sed quasi iusto aperiam corporis, numquam reprehenderit molestias a enim voluptates ducimus voluptatem omnis autem alias assumenda ipsum. Ex, illum aperiam provident molestias harum asperiores quibusdam voluptatum vitae vel possimus eius nulla blanditiis ullam ipsam illo, neque cum!</p>
-                        <span>Algo</span>
+                        <p className={`${styles.embla__slide__content__petState}`}>En busqueda</p>
+                        <Image className={`${styles.embla__slide__content__img}`} src={petImage} width={834} height={536} alt="pet image"/>
+                        <div className={`${styles.embla__slide__content__copy}`}>
+                            <h4>Roku perdido en centro</h4>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut, provident officia sed quasi iusto aperiam corporis, numquam reprehenderit molestias a enim voluptates ducimus voluptatem </p>
+                            <div className={`${styles.embla__slide__content__copy__tables}`}>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Chip</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Collar</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tamaño</th>
+                                            <td>Si </td>
+                                        </tr>
+                                    </tbody>  
+                                </table>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Incapacidades</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Amigable</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Alergias</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        
+                                    </tbody>  
+                                </table>
+                            </div>
+                            
+                            <span className={`${styles.embla__slide__content__copy__lastSeen}`}>
+                                <Image className={`${styles.embla__slide__content__copy__lastSeen__img}`} src={lastSeenImg} width={36} height={36} alt="Last seen clock"/>
+                                Visto por última vez en Aguada - 4/3/24
+                            </span>
+                        </div>
+                        
                     </div>
                 </div>
                 <div className={`${styles.embla__slide}`}>
                     <div className={`${styles.embla__slide__content}`}>
-                        <p>Slide 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut, provident officia sed quasi iusto aperiam corporis, numquam reprehenderit molestias a enim voluptates ducimus voluptatem omnis autem alias assumenda ipsum. Ex, illum aperiam provident molestias harum asperiores quibusdam voluptatum vitae vel possimus eius nulla blanditiis ullam ipsam illo, neque cum!</p>
-                        <span>Algo</span>
+                        <p className={`${styles.embla__slide__content__petState}`}>En busqueda</p>
+                        <Image className={`${styles.embla__slide__content__img}`} src={petImage} width={834} height={536} alt="pet image"/>
+                        <div className={`${styles.embla__slide__content__copy}`}>
+                            <h4>Roku perdido en centro</h4>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut, provident officia sed quasi iusto aperiam corporis, numquam reprehenderit molestias a enim voluptates ducimus voluptatem </p>
+                            <div className={`${styles.embla__slide__content__copy__tables}`}>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Chip</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Collar</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tamaño</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        
+                                    </tbody>  
+                                </table>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Incapacidades</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Amigable</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Alergias</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        
+                                    </tbody>  
+                                </table>
+                            </div>
+                            
+                            <span className={`${styles.embla__slide__content__copy__lastSeen}`}>
+                                <Image className={`${styles.embla__slide__content__copy__lastSeen__img}`} src={lastSeenImg} width={36} height={36} alt="Last seen clock"/>
+                                Visto por última vez en Aguada - 4/3/24
+                            </span>
+                        </div>
+                        
                     </div>
                 </div>
                 <div className={`${styles.embla__slide}`}>
                     <div className={`${styles.embla__slide__content}`}>
-                        <p>Slide 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut, provident officia sed quasi iusto aperiam corporis, numquam reprehenderit molestias a enim voluptates ducimus voluptatem omnis autem alias assumenda ipsum. Ex, illum aperiam provident molestias harum asperiores quibusdam voluptatum vitae vel possimus eius nulla blanditiis ullam ipsam illo, neque cum!</p>
-                        <span>Algo</span>
+                        <p className={`${styles.embla__slide__content__petState}`}>En busqueda</p>
+                        <Image className={`${styles.embla__slide__content__img}`} src={petImage} width={834} height={536} alt="pet image"/>
+                        <div className={`${styles.embla__slide__content__copy}`}>
+                            <h4>Roku perdido en centro</h4>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut, provident officia sed quasi iusto aperiam corporis, numquam reprehenderit molestias a enim voluptates ducimus voluptatem </p>
+                            <div className={`${styles.embla__slide__content__copy__tables}`}>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Chip</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Collar</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tamaño</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        
+                                    </tbody>  
+                                </table>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Incapacidades</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Amigable</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Alergias</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        
+                                    </tbody>  
+                                </table>
+                            </div>
+                            
+                            <span className={`${styles.embla__slide__content__copy__lastSeen}`}>
+                                <Image className={`${styles.embla__slide__content__copy__lastSeen__img}`} src={lastSeenImg} width={36} height={36} alt="Last seen clock"/>
+                                Visto por última vez en Aguada - 4/3/24
+                            </span>
+                        </div>
+                        
                     </div>
                 </div>
                 <div className={`${styles.embla__slide}`}>
                     <div className={`${styles.embla__slide__content}`}>
-                        <p>Slide 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut, provident officia sed quasi iusto aperiam corporis, numquam reprehenderit molestias a enim voluptates ducimus voluptatem omnis autem alias assumenda ipsum. Ex, illum aperiam provident molestias harum asperiores quibusdam voluptatum vitae vel possimus eius nulla blanditiis ullam ipsam illo, neque cum!</p>
-                        <span>Algo</span>
+                        <p className={`${styles.embla__slide__content__petState}`}>En busqueda</p>
+                        <Image className={`${styles.embla__slide__content__img}`} src={petImage} width={834} height={536} alt="pet image"/>
+                        <div className={`${styles.embla__slide__content__copy}`}>
+                            <h4>Roku perdido en centro</h4>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut, provident officia sed quasi iusto aperiam corporis, numquam reprehenderit molestias a enim voluptates ducimus voluptatem </p>
+                            <div className={`${styles.embla__slide__content__copy__tables}`}>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Chip</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Collar</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tamaño</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        
+                                    </tbody>  
+                                </table>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Incapacidades</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Amigable</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Alergias</th>
+                                            <td>Si </td>
+                                        </tr>
+                                        
+                                    </tbody>  
+                                </table>
+                            </div>
+                            
+                            <span className={`${styles.embla__slide__content__copy__lastSeen}`}>
+                                <Image className={`${styles.embla__slide__content__copy__lastSeen__img}`} src={lastSeenImg} width={36} height={36} alt="Last seen clock"/>
+                                Visto por última vez en Aguada - 4/3/24
+                            </span>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
