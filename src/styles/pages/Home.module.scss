@@ -1,5 +1,6 @@
 @import '../../styles/variables';
 .header{
+    position: relative;
     border-radius: 39px;
     max-width: 1140px;
     margin: 0 auto;
@@ -13,14 +14,34 @@
         margin: 0 50px;
     }
 
+    @media screen and (max-width: 940px) {
+        display: flex;
+        gap:20px;
+        align-items: center;
+        min-height: 480px;
+    }
+
     h1{
         color: $primary-color;
         margin-bottom: 19px;
     }
 
+    &__text{
+        z-index: 2;
+    }
+
     &_img{
         max-width: 513px;
+        width: 100%;
         height: auto;
+        z-index: 1;
+        @media screen and (max-width: 940px) {
+            width: 59%;
+            position: absolute;
+            bottom:-68px;
+            right: 0;
+           
+        }
     }
     p{
         margin-bottom: 20px;
