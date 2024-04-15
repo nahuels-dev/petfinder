@@ -41,12 +41,21 @@
     align-items: flex-end;
     gap: 17px;
 
+    @media screen and (max-width: 1250px) {
+        max-width: 80%;
+    }
+
     .carouselHuella{
         width: 151px;
         height: 133px;
         position: absolute;
         top: 127px;
         left: -80px;
+
+        @media screen and (max-width: 1250px) {
+            top: 116px;
+            left: -83px;
+        }
     }
 
     &__viewAll{

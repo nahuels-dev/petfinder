@@ -5,6 +5,12 @@
     margin-top: 155px;
     max-width: 1200px;
 
+    @media screen and (max-width: 1250px) {
+        max-width: 100%;
+        min-height: 690px;
+        height: 100%;
+    }
+
     &__viewport{
         position: relative;
         padding-top: 66px;
@@ -22,17 +28,27 @@
             &:hover{
                 cursor: pointer;
             }
+            
         }
         &__prev{
             position: absolute;
             right: 80px;
             top:0;
+            @media screen and (max-width: 1250px) {
+                
+                top: inherit;
+            }
+            
         }
 
         &__next{
             position: absolute;
             right: 0;
             top:0;
+            @media screen and (max-width: 1250px) {
+                
+                top: inherit;
+            }
         }
 
         h3{
