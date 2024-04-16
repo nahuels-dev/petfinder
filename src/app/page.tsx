@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Button } from '@/components/Button';
 import Carousel from '@/components/Carousel/Carousel';
 import Link from 'next/link';
+import GridBlogLinks from '@/components/GridBlogLinks/GridBlogLinks';
 export default function Home() {
   const { openDialog } = useContext(DialogContext)
 
@@ -27,6 +28,9 @@ export default function Home() {
       <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
       <Carousel />
       <Link href="google.com" className={`${styles.carouselsSections__viewAll}`}>Ver todos</Link>
+     </div>
+     <div className={`${styles.gridBlogLinks}`}>
+      <GridBlogLinks />
      </div>
      <br />
      <br />

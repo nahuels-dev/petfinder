@@ -1,0 +1,92 @@
+.parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 7px;
+    grid-row-gap: 7px;
+    min-height: 489px;
+    height: 100%;
+    @media screen and (max-width: 1200px) {
+        display: block;
+    }
+
+    >div{
+        position: relative;
+        min-height: 241px;
+        @media screen and (max-width: 1200px) {
+            margin-bottom: 20px;
+        }
+        h3{
+            color: white;
+            font-size: 48px;
+
+            &.left{
+                position: absolute;
+                top:20px;
+                left:20px;
+            }
+            &.right{
+                position: absolute;
+                top:20px;
+                right:20px;
+                @media screen and (max-width: 1200px) {
+                    right: inherit;
+                    left:20px;
+                }
+            }
+        }
+
+        .btnRight{
+            position: absolute;
+            bottom:20px;
+            right:20px;
+            @media screen and (max-width: 1200px) {
+                right: inherit;
+                left:20px;
+            }
+        }
+
+        .btnLeft{
+            position: absolute;
+            bottom:20px;
+            left:20px;
+        }
+
+        .btnRight, .btnLeft{
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .dog { 
+        grid-area: 1 / 3 / 2 / 5; 
+        background-image: url("../../../public/gridDog.png");
+        background-size: cover;
+        
+    }
+    .cat { 
+        grid-area: 1 / 1 / 3 / 2; 
+        background-image: url("../../../public/gridCat.png");
+        background-size: cover;
+        
+    }
+    .sankes { 
+        grid-area: 2 / 2 / 3 / 4; 
+        background-image: url("../../../public/gridSnake.png");
+        background-size: cover;
+       
+    }
+    .bird { 
+        grid-area: 1 / 2 / 2 / 3; 
+        background-image: url("../../../public/gridBird.png");
+        background-size: cover;
+        
+    }
+    .fish { grid-area: 2 / 4 / 3 / 5; 
+        background-image: url("../../../public/gridFish.png");
+        background-size: cover;
+        
+    }
+}
+    
