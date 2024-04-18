@@ -6,6 +6,12 @@
   max-width: 161px;
   width: 100%;
   font-size: 13px;
+
+
+  @media screen and (max-width: 540px) {
+		max-width: 100%;
+  }
+
   tbody{
     width: 100%;
   }

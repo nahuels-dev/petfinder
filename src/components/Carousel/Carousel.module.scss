@@ -9,6 +9,11 @@
         max-width: 100%;
         min-height: 690px;
         height: 100%;
+        outline: 1px solid red;
+    }
+
+    @media screen and (max-width: 540px) {
+		min-height: 760px;
     }
 
     &__viewport{
@@ -27,6 +32,10 @@
             font-size: 30px;
             &:hover{
                 cursor: pointer;
+            }
+
+            @media screen and (max-width: 540px) {
+                bottom: -60px;
             }
             
         }
@@ -63,5 +72,12 @@
     display: flex;
     justify-content: space-between;
     height: 560px;
+    @media screen and (max-width: 540px) {
+		min-height: 600px;
+    }
+
+    @media screen and (max-width: 490px) {
+		margin-top: 30px;
+    }
   }
   

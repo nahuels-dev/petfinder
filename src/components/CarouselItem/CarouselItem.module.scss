@@ -10,9 +10,18 @@
 	@media screen and (max-width: 1250px) {
 		flex: 0 0 100%;
     }
+
+	@media screen and (max-width: 540px) {
+		max-height: 600px;
+    }
+
 	&__content{
 		position: relative;
 		max-width: 417px;
+		@media screen and (max-width: 1250px) {
+			width: 90%;
+			overflow-x: hidden;
+		}
 		height: 100%;
 		border-radius: 30px;
 		-webkit-box-shadow: 0px 0px 20px 0px rgba(255,171,159,0.4);
@@ -37,6 +46,13 @@
 				color: $gray-color;
 				font-size: 15px;
 				bottom: 14px;
+				@media screen and (max-width: 1250px) {
+					font-size: .7rem;
+				}
+
+				@media screen and (max-width: 540px) {
+					bottom: -40px;
+				}
 				&__img{
 					width: 18px;
 					height: 18px;
@@ -46,9 +62,15 @@
 				font-size: 30px;
 				color: $secondary-color;
 				margin-bottom: 10px;
+
+				/* @media screen and (max-width: 490px) {
+					bottom: -40px;
+				} */
 			}
 			p{
 				font-size: 15px;
+				max-height: 72px;
+				overflow-y: hidden;
 			}
 		}
 	}
