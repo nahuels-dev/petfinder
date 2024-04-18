@@ -3,6 +3,7 @@ import { Rubik } from "next/font/google";
 import "@/styles/global.scss";
 import Navbar from '@/components/Navbar/Navbar'
 import { DialogProvider } from "@/context/Dialog";
+import Footer from "@/components/Footer/Footer";
 const rubik = Rubik({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({
         <DialogProvider>
           <div>{children}</div>
         </DialogProvider>
+        <Footer />
       </body>
     </html>
   );
