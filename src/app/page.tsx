@@ -9,6 +9,7 @@ import { Button } from '@/components/Button';
 import {Carousel} from '@/components/Carousel/Carousel';
 import Link from 'next/link';
 import GridBlogLinks from '@/components/GridBlogLinks/GridBlogLinks';
+import LoginForm from '@/components/LogForm/LoginForm';
 export default function Home() {
   const { openDialog } = useContext(DialogContext)
 
@@ -37,6 +38,7 @@ export default function Home() {
      <div className={`${styles.gridBlogLinks}`}>
       <GridBlogLinks />
      </div>
+     <LoginForm />
      <br />
      <br />
      <br />
