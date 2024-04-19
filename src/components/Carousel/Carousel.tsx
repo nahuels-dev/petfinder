@@ -12,7 +12,7 @@ import { CarouselItem } from '../CarouselItem/CarouselItem'
 
 export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
 
-    const [data, setData] = useState({})
+    const [data, setData] = useState([{}])
 
     useEffect(() => {
         let url = tipo == "busqueda" ? "algo": "algootro"
@@ -46,6 +46,9 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
     <div className={`${styles.embla}`}>
         <div className={`${styles.embla__viewport}`}  ref={emblaRef}>
             <div className={`${styles.embla__container}`}>
+                {data && data.map((item, index) => (
+                  <CarouselItem key={index}/>
+                ))}
                 <CarouselItem />
                 <CarouselItem />
                 <CarouselItem />
