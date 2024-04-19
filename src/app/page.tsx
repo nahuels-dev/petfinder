@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import { DialogContext } from '@/context/Dialog';
 import Image from 'next/image';
 import { Button } from '@/components/Button';
-import Carousel from '@/components/Carousel/Carousel';
+import {Carousel} from '@/components/Carousel/Carousel';
 import Link from 'next/link';
 import GridBlogLinks from '@/components/GridBlogLinks/GridBlogLinks';
 export default function Home() {
@@ -26,7 +26,12 @@ export default function Home() {
      </header>
      <div className={`${styles.carouselsSections}`}>
       <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
-      <Carousel />
+      <Carousel tipo={`Busqueda`} titulo={`Viste alguno de estos?`}/>
+      <Link href="google.com" className={`${styles.carouselsSections__viewAll}`}>Ver todos</Link>
+     </div>
+     <div className={`${styles.carouselsSections}`}>
+      <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
+      <Carousel tipo={`Pertenece`} titulo={`Alguno te pertenece?`} />
       <Link href="google.com" className={`${styles.carouselsSections__viewAll}`}>Ver todos</Link>
      </div>
      <div className={`${styles.gridBlogLinks}`}>

@@ -3,12 +3,14 @@ import React , { useCallback }  from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import styles from "./Carousel.module.scss"
+import {CarouselProps} from '../../types/types'
+import { CarouselItem } from '../CarouselItem/CarouselItem'
 
-import {CarouselItem} from '../CarouselItem/CarouselItem'
 
 //https://www.embla-carousel.com/api/options/
 
-function Carousel() {
+export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
+
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()])
     const scrollPrev = useCallback(() => {
         if (emblaApi) emblaApi.scrollPrev()
@@ -29,12 +31,10 @@ function Carousel() {
                 <CarouselItem />
                 <CarouselItem />
             </div>
-            <h3>Viste alguno de estos?</h3>
+            <h3>{titulo}</h3>
             <button className={`${styles.embla__viewport__prev}`} onClick={scrollPrev}>&lt;</button>
             <button className={`${styles.embla__viewport__next}`} onClick={scrollNext}>&gt;</button>
         </div>
     </div>
   )
 }
-
-export default Carousel

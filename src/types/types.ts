@@ -12,3 +12,7 @@ export interface PetStateProps {
   texto: string
 }
 
+export interface CarouselProps{
+  tipo: string,
+  titulo: string
+}
