@@ -1,13 +1,17 @@
+"use client"
 import React from 'react'
 import styles from "./Footer.module.scss"
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
 
 import FacebookIcon from "../../../public/facebook.svg"
 import MailIcon from "../../../public/gmail.svg"
 import Instagram from "../../../public/isntagram.svg"
 
 function Footer() {
+  const currentPath = usePathname();
   return (
     <footer className={`${styles.footer}`}>
       <div className={`${styles.footer_container}`}>
@@ -21,7 +25,7 @@ function Footer() {
             <h2>PetFinder</h2>
         </div>
         <div className={`${styles.footer_container_links}`}>
-            <Link href={"google.com"}>Inicio</Link>
+            <Link className={currentPath == "/" ? styles.active : ""} href={"google.com"}>Inicio</Link>
             <Link href={"google.com"}>Buscar mascota</Link>
             <Link href={"google.com"}>Reportar mascota</Link>
             <Link href={"google.com"}>Adoptar</Link>

@@ -70,12 +70,19 @@
                 gap: 10px;
             }
 
+            
+
             a{
                 text-decoration: none;
                 color: black;
             
                 &:hover{
                     color: $primary-color;
+                }
+
+                &.active{
+                    color: $primary-color;
+                    text-decoration: underline;
                 }
             }
         }

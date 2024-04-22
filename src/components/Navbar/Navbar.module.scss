@@ -68,6 +68,11 @@
                 padding: 0;
             }
 
+            a{
+                text-decoration: none;
+                color:black;
+            }
+
             ul{
                 list-style: none;
                 display: flex;
@@ -77,10 +82,18 @@
                     display:block;
                 }
 
-                a{
-                    text-decoration: none;
-                    color:black;
+                
+                
+                li{
+                    &.active{
+                        a{
+                            color: $primary-color;
+                            text-decoration: underline;
+                        }
+                    }
                 }
+
+                
             }
 
             button{
