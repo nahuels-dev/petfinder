@@ -403,3 +403,14 @@ body{
       left: 50%;
     }
   }
+
+
+.not-found-page{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  img{
+    width: 100%;
+    max-width: 800px;
+  }
+}

@@ -38,7 +38,6 @@ export default function Home() {
      <div className={`${styles.gridBlogLinks}`}>
       <GridBlogLinks />
      </div>
-     <LoginForm />
      <br />
      <br />
      <br />

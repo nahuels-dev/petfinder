@@ -11,14 +11,24 @@
     &:active{
         transform: scale(.9);
     }
+
+    a{
+        text-decoration: none;
+    }
 }
 .default{
     background-color: $primary-color;
     color: #000000;
+    a{
+        color: #000000;
+    }
 }
 .light{
     background-color: $primary-color;
     color: #FFFFFF;
+    a{
+        color: #FFFFFF;
+    }
 }
 
 .big{
