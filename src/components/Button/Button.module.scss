@@ -16,6 +16,8 @@
         text-decoration: none;
     }
 }
+
+
 .default{
     background-color: $primary-color;
     color: #000000;
@@ -28,6 +30,14 @@
     color: #FFFFFF;
     a{
         color: #FFFFFF;
+    }
+}
+
+.white_bg{
+    background-color: white !important;
+    color:  $primary-color !important;
+    a{
+        color:  $primary-color !important;
     }
 }
 
