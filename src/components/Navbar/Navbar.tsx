@@ -3,6 +3,9 @@ import React, { useState,useEffect,useRef } from 'react'
 import styles from "./Navbar.module.scss";
 import Link from 'next/link';
 import { Button } from '../Button';
+import Image from 'next/image';
+
+import Logo from "@/../public/logo.png"
 
 import { usePathname } from 'next/navigation'
 
@@ -28,7 +31,9 @@ function Navbar() {
   return (
     <nav className={`${styles.navbar}`} ref={header}>
         <div className={`${styles.navbar_container}  ${isActive ? styles.isActive : ''}`}>
-            <div className={`${styles.navbar_container_logo}`}></div>
+            <div className={`${styles.navbar_container_logo}`}>
+              <Link href="/"><Image src={Logo} width={290} height={389} alt="logo"/></Link>
+            </div>
             <div className={`${styles.navbar_container_linksandbtn}`}>
                 <ul>
                     <li className={currentPath == "/" ? styles.active : ""}><Link href="/" >Inicio</Link></li>

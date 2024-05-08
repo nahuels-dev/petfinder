@@ -34,13 +34,14 @@
         }
 
         &_logo{
-            width: 61px;
-            height: 61px;
-            border-radius: 50%;
-            background-color: $primary-color;
+            width: 41px;
             @media screen and (max-width: 1150px) {
                 margin-bottom: 20px;
                 margin-left: 50px;
+            }
+            img{
+                width: 100%;
+                height: auto;
             }
         }
         &.isActive &_linksandbtn{
