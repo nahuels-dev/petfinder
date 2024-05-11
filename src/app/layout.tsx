@@ -5,6 +5,7 @@ import "@/styles/global.scss";
 import Navbar from '@/components/Navbar/Navbar'
 import { DialogProvider } from "@/context/Dialog";
 import Footer from "@/components/Footer/Footer";
+import { AuthProvider } from "@/context/Authentication";
 const rubik = Rubik({ subsets: ["latin"] });
 
 import Toast from "@/components/Toast/Toast";
@@ -22,12 +23,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const showToast = () => {
-    Toast.fire({
-      icon: 'success',
-      title: '¡Operación exitosa!'
-    });
-  };
+  // const showToast = () => {
+  //   Toast.fire({
+  //     icon: 'success',
+  //     title: '¡Operación exitosa!'
+  //   });
+  // };
 
   /* useEffect(() => {
     showToast()
@@ -36,11 +37,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={rubik.className}>
-        <Navbar />
-        <DialogProvider>
-          <div>{children}</div>
-        </DialogProvider>
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          <DialogProvider>
+            <div>{children}</div>
+          </DialogProvider>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

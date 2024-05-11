@@ -1,5 +1,5 @@
 "use client"
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState, useRef, useContext} from 'react'
 import styles from './LoginForm.module.scss'
 
 import login_illustration from '@/assets/images/login_illustration.svg'
@@ -9,9 +9,11 @@ import Image from 'next/image'
 import { Button } from '../Button'
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { AuthenticationContext } from '@/context/Authentication'
 const supabase = createClientComponentClient()
 
 function LoginForm() {
+    const {signIn,signUp} = useContext(AuthenticationContext)
     useEffect(()=>{
 
         const sign_in_btn = document.querySelector("#sign-in-btn");
@@ -33,38 +35,24 @@ function LoginForm() {
     const [emailRegister, setEmailRegister] = useState('')
     const [passRegister, setPassRegister] = useState('')
     const [confirmPass, setConfirmPass] = useState('')
-    const RegistrarUsuario = async () =>{
-        if(passRegister.length < 6){
-            alert("La contraseña debe ser mayor a 6 caracteres.")
-        }else{
-            if(confirmPass == passRegister){
-                const data ={
-                    email: emailRegister,
-                    password: passRegister
-                }
-                const response = await supabase.auth.signUp(data)
-                if(response.error){
-                    alert("Hubo un error")
-                }else{
-                    alert("Registrado")
-                }
-            }else{
-                alert("Las contraseñas no coinciden.")
-            }
-        }
+
+
+
+    const RegistrarUsuario = () =>{
+       const data = {
+        email:emailRegister,
+        password:passRegister,
+        rPass:confirmPass
+       }
+       signUp(data)
     }
-    const IniciarSesion = async ()=>{
+
+    const IniciarSesion = ()=>{
         const data ={
             email: emailLogin,
             password: passLogin
         }
-        const response = await supabase.auth.signInWithPassword(data)
-        console.log(response)
-        if(response.error){
-            alert("Error al iniciar")
-          }else{
-            window.localStorage.setItem("session", JSON.stringify(response.data.session))
-          }
+        signIn(data)
     }
   return (
     <div className={styles.formcontainer}>

@@ -4,7 +4,7 @@ import styles from './Toast.module.scss'
 
 const Toast = Swal.mixin({
     toast: true,
-    position: 'center',
+    position: 'bottom-end',
     iconColor: 'white',
     customClass: {
       popup: 'colored-toast',
