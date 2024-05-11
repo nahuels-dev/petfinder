@@ -16,8 +16,8 @@
     backdrop-filter: blur( 9.5px );
     -webkit-backdrop-filter: blur( 9.5px );
     border-radius: 10px;
-    
-    .onlyMovile{
+    background-color: rgba($color: #FFAB9F, $alpha: .5);
+    .onlymobile{
         display: none;
     }
 
@@ -27,7 +27,7 @@
         flex-direction: column;
         justify-content: center;
         
-        .onlyMovile{
+        .onlymobile{
             display: block;
         }
     }
@@ -39,7 +39,7 @@
         top:-80px;
         left: -45px;
         z-index: 1;
-
+        opacity: .5;
         &.loginPosition{
             left: inherit;
             right: 0;
@@ -58,7 +58,7 @@
 
         @media screen and (max-width: 980px) {
             display: none;
-            &.movileActive{
+            &.mobileActive{
                 display: flex !important;
             }
         }
@@ -68,16 +68,16 @@
         }
 
         label{
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             width: 70%;
         }
 
         input{
             &[type="email"],
             &[type="password"]{
-                padding: 10px;
-                border-radius: 5px;
-                border: 1px solid #000000;
+                padding: 15px;
+                border-radius: 100px;
+                border: none;
                 outline: none;
                 width: 100%;
                 box-sizing: border-box;
@@ -109,7 +109,6 @@
             right: 0;
             z-index: 1;
             transform: rotate(180deg);
-
              &.loginPosition{
                 right: inherit;
                 left:14px;
@@ -138,14 +137,6 @@
             img{
                 width: 100%;
                 height: auto;
-            }
-
-            button{
-                background-color: $secondary-color;
-                border: none;
-                padding: 10px 40px;
-                cursor: pointer;
-                border-radius: 5px;
             }
         }
 
