@@ -55,6 +55,7 @@
         align-items: center;
         justify-content: center;
         z-index: 2;
+        gap: 20px;
 
         @media screen and (max-width: 980px) {
             display: none;
@@ -68,13 +69,28 @@
         }
 
         label{
-            margin-bottom: 20px;
+            position: relative;
             width: 70%;
+
+            &.error{
+                color: red;
+                input{
+                    border: 1px solid red;
+                }
+            }
+            .mostrarContra{
+                width: 24px;
+                height: auto;
+                position: absolute;
+                top:34px;
+                right:20px;
+            }
         }
 
         input{
             &[type="email"],
-            &[type="password"]{
+            &[type="password"],
+            &[type="text"]{
                 padding: 15px;
                 border-radius: 100px;
                 border: none;
@@ -82,6 +98,25 @@
                 width: 100%;
                 box-sizing: border-box;
             }
+
+           
+        }
+
+        .googleLogin{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            img{
+                width: 21px;
+                height: auto;
+            }
+        }
+
+        .olvideLaContra{
+            text-decoration: underline;
+            width: 70%;
+            text-align: right;
         }
     }
     &__animation{
