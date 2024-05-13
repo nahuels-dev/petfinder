@@ -13,6 +13,7 @@ import { AuthenticationContext } from '@/context/Authentication';
 function Navbar() {
   const currentPath = usePathname();
   const [isActive, setIsActive] = useState(false);
+  const [isProfileExpanded, setIsProfileExpanded] = useState(false);
   const header = useRef<HTMLElement>(null)
   const { logOut, isLoggedIn } = useContext(AuthenticationContext)
   const toggleMenu = () => {
@@ -46,8 +47,18 @@ function Navbar() {
                     <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Como funciona?</Link></li>
                 </ul>
                 {isLoggedIn ?
-                <span onClick={()=> logOut()}>Hola usuario</span>
-                  :
+                <div className={`${styles.profileNavbar} ${isProfileExpanded ? styles.expanded : ""}`}>
+                  <div onClick={() => setIsProfileExpanded(!isProfileExpanded)}>Hola usuario</div>
+                  <div className={styles.navbarHided}>
+                    <p >Hola usuario</p>
+                    <p >Hola usuario</p>
+                    <p >Hola usuario</p>
+                    <p >Hola usuario</p>
+                    <p >Hola usuario</p>
+                    <p onClick={()=> logOut()} >Desconectarse</p>
+                  </div>
+                </div>
+                :
                 <Link href="/signup"><Button size='medium'>Iniciar sesion</Button></Link>
                 }
             </div>
