@@ -14,11 +14,12 @@ type SignUpData = {
     email: string,
     password: string,
     rPass: string
+    name: string
 }
 
 type SignInData = {
     email: string,
-    password: string
+    password: string,
 }
 
 
@@ -39,6 +40,34 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
         timerProgressBar: true,
     })
 
+    useEffect(()=>{
+        let storageSession = checkSession() as any
+        if(storageSession){
+            storageSession = JSON.parse(storageSession)
+            signInWithToken(storageSession)
+        }
+    },[])
+
+    const signInWithToken = async (token:any)=>{
+        const { data, error } = await supabase.auth.setSession({
+            access_token: token.access_token,
+            refresh_token: token.refresh_token
+          })
+        if(!error){
+            setIsLoggedIn(true)
+        }
+    }   
+
+    const checkSession = () => {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.startsWith('session' + '=')) {
+                return cookie.substring('session'.length + 1);
+            }
+        }
+        return null;
+    }
 
     const signIn = async (data: SignInData) => {
         const response = await supabase.auth.signInWithPassword(data)
@@ -48,6 +77,7 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
                 title: 'Error al iniciar',
             })
         } else {
+            console.log(response.data.user.user_metadata.full_name)
             const sessionCookie = response.data.session
             document.cookie = `session=${JSON.stringify(sessionCookie)}; Secure`
             const expirationDate = new Date()
@@ -57,6 +87,7 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
                 icon: 'success',
                 title: '¡Inicio de sesión exitoso!',
             })
+
             setIsLoggedIn(true)
         }
     }
@@ -71,7 +102,13 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
             if (data.password == data.rPass) {
                 const userData = {
                     email: data.email,
-                    password: data.password
+                    password: data.password,
+                    options: {
+                        data: {
+                            full_name: data.name,
+                            age: 27,
+                        }
+                    }
                 }
                 const response = await supabase.auth.signUp(userData)
                 if (response.error) {
@@ -83,7 +120,7 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
                     await Toast.fire({
                         icon: 'success',
                         title: 'Registrado correctamente',
-                      })
+                    })
                 }
             } else {
                 await Toast.fire({
@@ -100,7 +137,7 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
         await Toast.fire({
             icon: 'success',
             title: 'Cerraste sesion correctamente',
-          })
+        })
         setIsLoggedIn(false)
     }
 

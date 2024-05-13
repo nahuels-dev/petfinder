@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import Logo from "@/../public/logo.png"
+import Logo from "@/assets/images/logo.png"
 import FacebookIcon from "../../../public/facebook.svg"
 import MailIcon from "../../../public/gmail.svg"
 import Instagram from "../../../public/isntagram.svg"

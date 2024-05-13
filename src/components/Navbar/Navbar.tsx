@@ -5,20 +5,24 @@ import Link from 'next/link';
 import { Button } from '../Button';
 import Image from 'next/image';
 
-import Logo from "@/../public/logo.png"
+import Logo from "@/assets/images/logo.png"
 
 import { usePathname } from 'next/navigation'
 import { AuthenticationContext } from '@/context/Authentication';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 function Navbar() {
   const currentPath = usePathname();
   const [isActive, setIsActive] = useState(false);
   const [isProfileExpanded, setIsProfileExpanded] = useState(false);
+  const [userName, setUserName]= useState('')
   const header = useRef<HTMLElement>(null)
+  const supabase = createClientComponentClient()
   const { logOut, isLoggedIn } = useContext(AuthenticationContext)
   const toggleMenu = () => {
     setIsActive(!isActive);
   };
+
 
   useEffect(()=>{
     document.addEventListener("scroll",()=>{
@@ -28,9 +32,13 @@ function Navbar() {
         header.current?.classList.remove(styles.sticky)
       }
     })
+    getUser()
   },[])
 
-
+const getUser = async ()=>{
+  const { data: { user } } = await supabase.auth.getUser()
+  setUserName(user?.user_metadata.full_name)
+}
 
   return (
     <nav className={`${styles.navbar}`} ref={header}>
@@ -48,7 +56,7 @@ function Navbar() {
                 </ul>
                 {isLoggedIn ?
                 <div className={`${styles.profileNavbar} ${isProfileExpanded ? styles.expanded : ""}`}>
-                  <div onClick={() => setIsProfileExpanded(!isProfileExpanded)}>Hola usuario</div>
+                  <div onClick={() => setIsProfileExpanded(!isProfileExpanded)}>Hola {userName}</div>
                   <div className={styles.navbarHided}>
                     <p >Hola usuario</p>
                     <p >Hola usuario</p>

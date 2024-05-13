@@ -3,10 +3,10 @@ import React, {useEffect, useState, useRef, useContext} from 'react'
 import styles from './LoginForm.module.scss'
 
 import login_illustration from '@/assets/images/login_illustration.svg'
-import LoginHuellaIMG from "@/../public/loginhuella.png"
-import LoginAnimalIMG from "@/../public/loginAnimal.png"
-import GoogleLogo from "@/../public/google.png"
-import ShowPassImg from "@/../public/mostrarContra.png" 
+import LoginHuellaIMG from "@/assets/images/loginhuella.png"
+import LoginAnimalIMG from "@/assets/images/loginAnimal.png"
+import GoogleLogo from "@/assets/images/google.png"
+import ShowPassImg from "@/assets/images/mostrarContra.png" 
 import Image from 'next/image'
 import { Button } from '../Button'
 
@@ -69,7 +69,8 @@ function LoginForm() {
        const data = {
         email:emailRegister,
         password:passRegister,
-        rPass:confirmPass
+        rPass:confirmPass,
+        name: nameRegister
        }
        signUp(data)
     }
@@ -121,11 +122,11 @@ function LoginForm() {
                 <input type="text" placeholder='Ingresa tu nombre' onChange={(e) => RemoveError(setNameRegisterError,setNameRegister, e.target.value) } value={nameRegister} />
             </label>
             <label htmlFor="password" className={`${passRegisterError ? styles.error : ""}`}>Contraseña
-                <input id='registerPassword' type="password" placeholder='************' onChange={(e) => RemoveError(setPassRegisterError,setPassRegister, e.target.value) } value={passRegister}/>
+                <input id='registerPassword' type="password" placeholder='••••••••••' onChange={(e) => RemoveError(setPassRegisterError,setPassRegister, e.target.value) } value={passRegister}/>
                 <Image src={ShowPassImg} width={51} height={34}  onClick={ShowPass} alt='mostrar contraseña' className={styles.mostrarContra} />
             </label>
             <label htmlFor="repeatpassword" className={`${confirmPassError ? styles.error : ""}`}>Repite la Contraseña
-                <input id='registerConfirmationPassword' type="password" placeholder='Repite la contraseña' onChange={(e) => RemoveError(setConfirmPassError,setConfirmPass, e.target.value) } value={confirmPass} />
+                <input id='registerConfirmationPassword' type="password" placeholder='••••••••••' onChange={(e) => RemoveError(setConfirmPassError,setConfirmPass, e.target.value) } value={confirmPass} />
                 <Image width={51} height={34} src={ShowPassImg} alt='mostrar contraseña' className={styles.mostrarContra} onClick={ShowConfirmationPass} />
             </label>
     
@@ -142,7 +143,7 @@ function LoginForm() {
                 <input type="email" placeholder='email@domain.com' onChange={(e) => setEmailLogin(e.target.value)} value={emailLogin} />
             </label>
             <label htmlFor="password">
-                <input type="password" placeholder='************'  onChange={(e) => setPassLogin(e.target.value)} value={passLogin}/>
+                <input type="password" placeholder='••••••••••'  onChange={(e) => setPassLogin(e.target.value)} value={passLogin}/>
             </label>
             <p className={styles.olvideLaContra}>Has olvidado la contraseña?</p>
 
