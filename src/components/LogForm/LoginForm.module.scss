@@ -2,6 +2,7 @@
 .formcontainer{
     width: 100%;
     max-width: 1200px;
+    min-height: 600px;
     margin: 30px auto;
     padding: 50px 0;
     display: flex;
@@ -11,6 +12,41 @@
     position: relative;
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 9.5px );
+    -webkit-backdrop-filter: blur( 9.5px );
+    border-radius: 10px;
+    background-color: rgba($color: #FFAB9F, $alpha: .5);
+    .onlymobile{
+        display: none;
+    }
+
+    @media screen and (max-width: 980px) {
+        margin: 0 10px;
+        width: auto;
+        flex-direction: column;
+        justify-content: center;
+        
+        .onlymobile{
+            display: block;
+        }
+    }
+
+    >.huella{
+        position: absolute;
+        width: 469px;
+        height: auto;
+        top:-80px;
+        left: -45px;
+        z-index: 1;
+        opacity: .5;
+        &.loginPosition{
+            left: inherit;
+            right: 0;
+            transform: rotateY(180deg);
+        }
+    }
+
     form{
         width: 50%;
         box-sizing: border-box;
@@ -18,34 +54,69 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        z-index: 2;
+        gap: 20px;
+
+        @media screen and (max-width: 980px) {
+            display: none;
+            &.mobileActive{
+                display: flex !important;
+            }
+        }
 
         h2{
             margin-bottom: 30px;
         }
 
         label{
-            margin-bottom: 10px;
+            position: relative;
             width: 70%;
+
+            &.error{
+                color: red;
+                input{
+                    border: 1px solid red;
+                }
+            }
+            .mostrarContra{
+                width: 24px;
+                height: auto;
+                position: absolute;
+                top:34px;
+                right:20px;
+            }
         }
 
         input{
             &[type="email"],
-            &[type="password"]{
-                padding: 10px;
-                border-radius: 5px;
-                border: 1px solid #000000;
+            &[type="password"],
+            &[type="text"]{
+                padding: 15px;
+                border-radius: 100px;
+                border: none;
                 outline: none;
                 width: 100%;
                 box-sizing: border-box;
             }
 
-            &[type="submit"]{
-                background-color: $primary-color;
-                border: none;
-                padding: 15px 35px;
-                cursor: pointer;
-                border-radius: 5px;
+           
+        }
+
+        .googleLogin{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            img{
+                width: 21px;
+                height: auto;
             }
+        }
+
+        .olvideLaContra{
+            text-decoration: underline;
+            width: 70%;
+            text-align: right;
         }
     }
     &__animation{
@@ -59,6 +130,27 @@
         right: 0;
         top: 0;
         transition: .5s;
+        z-index: 3;
+
+        @media screen and (max-width: 980px) {
+            display: none;
+        }
+
+        .huella{
+            position: absolute;
+            width: 469px;
+            height: auto;
+            bottom:0px;
+            right: 0;
+            z-index: 1;
+            transform: rotate(180deg);
+             &.loginPosition{
+                right: inherit;
+                left:14px;
+                transform: rotate(-90deg);
+                bottom: -12px;
+            }
+        }
 
         &__text{
             width: 60%;
@@ -66,14 +158,20 @@
             transition: .4s;
             transition-delay: 1s;
             position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            z-index: 2;
 
-            button{
-                background-color: $secondary-color;
-                border: none;
-                padding: 10px 40px;
-                margin-top: 30px;
-                cursor: pointer;
-                border-radius: 5px;
+            h2{
+                color: white;
+                font-size: 2rem;
+            }
+
+            img{
+                width: 100%;
+                height: auto;
             }
         }
 
@@ -93,6 +191,9 @@
             visibility: visible;
         }
     }
+
+    
+   
 }
 @keyframes login{
     0%{
