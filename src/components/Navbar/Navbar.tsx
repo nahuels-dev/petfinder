@@ -46,7 +46,7 @@ const getUser = async ()=>{
             <div className={`${styles.navbar_container_logo}`}>
               <Link href="/"><Image src={Logo} width={290} height={389} alt="logo"/></Link>
             </div>
-            <div className={`${styles.navbar_container_linksandbtn}`}>
+            <div className={`${styles.navbar_container_linksandbtn}  ${isProfileExpanded ? styles.expanded : ""}`}>
                 <ul>
                     <li className={currentPath == "/" ? styles.active : ""}><Link href="/" >Inicio</Link></li>
                     <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Buscar mascota</Link></li>
