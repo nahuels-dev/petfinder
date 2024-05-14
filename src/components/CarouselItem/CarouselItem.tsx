@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
-import petImage from "../../../public/petImage.png"
-import lastSeenImg from "../../../public/lastSeenImg.png"
+import petImage from "@/assets/images/petImage.png"
+import lastSeenImg from "@/assets/images/lastSeenImg.png"
 import styles from "./CarouselItem.module.scss"
 import { PetState } from '../PetState/PetState'
 import { InfoTable } from '../InfoTable/InfoTable'
