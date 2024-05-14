@@ -47,6 +47,7 @@
         &.isActive &_linksandbtn{
             height: 164px;
             padding-bottom: 10px;
+            overflow: visible;
         }
         &_linksandbtn{
             display: flex;
@@ -177,6 +178,7 @@
                 width: 150px;
                 position: absolute;
                 top:20px;
+                height: 114px;
                 background-color: white;
             }
         }
