@@ -58,11 +58,10 @@ const getUser = async ()=>{
                 <div className={`${styles.profileNavbar} ${isProfileExpanded ? styles.expanded : ""}`}>
                   <div onClick={() => setIsProfileExpanded(!isProfileExpanded)}>Hola {userName}</div>
                   <div className={styles.navbarHided}>
-                    <p >Hola usuario</p>
-                    <p >Hola usuario</p>
-                    <p >Hola usuario</p>
-                    <p >Hola usuario</p>
-                    <p >Hola usuario</p>
+                    <p>Perfil</p>
+                    <p>Mis publicaciones</p>
+                    <p>Favoritos</p>
+                    <p>Notificaciones</p>
                     <p onClick={()=> logOut()} >Desconectarse</p>
                   </div>
                 </div>
