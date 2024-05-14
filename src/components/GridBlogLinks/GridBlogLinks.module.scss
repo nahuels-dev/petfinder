@@ -61,30 +61,30 @@
 
     .dog { 
         grid-area: 1 / 3 / 2 / 5; 
-        background-image: url("@/assets/images/gridDog.png");
+        background-image: url("../../assets/images/gridDog.png");
         background-size: cover;
         
     }
     .cat { 
         grid-area: 1 / 1 / 3 / 2; 
-        background-image: url("@/assets/images/gridCat.png");
+        background-image: url("../../assets/images/gridCat.png");
         background-size: cover;
         
     }
     .sankes { 
         grid-area: 2 / 2 / 3 / 4; 
-        background-image: url("@/assets/images/gridSnake.png");
+        background-image: url("../../assets/images/gridSnake.png");
         background-size: cover;
        
     }
     .bird { 
         grid-area: 1 / 2 / 2 / 3; 
-        background-image: url("@/assets/images/gridBird.png");
+        background-image: url("../../assets/images/gridBird.png");
         background-size: cover;
         
     }
     .fish { grid-area: 2 / 4 / 3 / 5; 
-        background-image: url("@/assets/images/gridFish.png");
+        background-image: url("../../assets/images/gridFish.png");
         background-size: cover;
         
     }
