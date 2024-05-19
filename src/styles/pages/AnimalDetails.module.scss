@@ -1,0 +1,122 @@
+.pageContainer{
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    .mainDetails{
+        min-height: 644px;
+        padding: 98px 20px 0;
+        background-color: rgba(#FFAB9F, .5);
+        position: relative;
+        border-radius: 30px;
+        margin-bottom: 32px;
+        .postOptions{
+            position: absolute;
+            top:47px;
+            right:47px;
+            display: flex;
+            gap: 11px;
+    
+            img{
+                width: 29px;
+                height: auto;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    
+        .animalDetails{
+            display: grid;
+            grid-template-columns: 508px 1fr;
+            gap: 24px;
+
+            @media screen and (max-width: 900px) {
+                grid-template-columns: 1fr;
+                justify-items: center;
+
+                .animalTexts .creatorInfo{
+                    margin-bottom: 100px;
+                }
+            }
+            .animalImgs{
+                max-width: 508px;
+                width: 100%;
+                overflow-x: hidden;
+            }
+    
+            .animalTexts{
+                .greyText{
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    color: #818181;
+                    margin-bottom: 20px;
+                    img{
+                        width: 18px;
+                        height: auto;
+                    }
+                }
+    
+                h3{
+                    color: #EB7971;
+                    font-size: 40px;
+                }
+    
+                .mainDescription{
+                    font-size: 24px;
+                    color: #414040;
+                }
+    
+                .tables{
+                    max-width: 357px;
+                    margin-bottom: 20px;
+                }
+    
+                .creatorInfo{
+                    display: flex;
+                    gap: 8px;
+                    .photo{
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50%;
+                        background-color: #F86262;
+                    }
+    
+                    .creatorName{
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+                    .creatorPhone, .creatorMail{
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    
+        .seenAnimalBtn{
+            position: absolute;
+            bottom: 47px;
+            right: 47px;
+        }
+    }
+
+    .seenPlaces{
+        h3{
+            font-size: 36px;
+            margin-bottom: 22px;
+        }
+
+        .places{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #818181;
+            font-size: 15px;
+            margin-bottom: 20px;
+            img{
+                width: 18px;
+                height: auto;
+            }
+        }
+    }
+}
