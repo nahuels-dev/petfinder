@@ -16,9 +16,9 @@ function Footer() {
     <footer className={`${styles.footer}`}>
       <div className={`${styles.footer_container}`}>
         <div className={`${styles.footer_container_icons}`}>
-            <a href="google.com"><Image className={`${styles.footer_container_icons_face}`} src={FacebookIcon} width={90} height={90} alt=""/></a>
+            <a href="https://www.instagram.com/_mascotasinhogar/"><Image className={`${styles.footer_container_icons_face}`} src={FacebookIcon} width={90} height={90} alt=""/></a>
             <a href="mailto:soporte@mascotasinhogar.com"><Image className={`${styles.footer_container_icons_mail}`} src={MailIcon} width={90} height={90} alt=""/></a>
-            <a href="google.com"><Image className={`${styles.footer_container_icons_insta}`} src={Instagram} width={90} height={90} alt=""/></a>
+            <a href="https://www.instagram.com/_mascotasinhogar/"><Image className={`${styles.footer_container_icons_insta}`} src={Instagram} width={90} height={90} alt=""/></a>
         </div>
         <Link href="/">
           <div className={`${styles.footer_container_logocontainer}`}>
