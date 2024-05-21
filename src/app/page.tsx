@@ -1,7 +1,7 @@
 "use client"
 import styles from '@/styles/pages/Home.module.scss'
-import headerImg from "../../public/homeHeaderImg.png"
-import huellaImg from "../../public/huella.png"
+import headerImg from "@/assets/images/homeHeaderImg.png"
+import huellaImg from "@/assets/images/huella.png"
 import { useContext } from 'react';
 import { DialogContext } from '@/context/Dialog';
 import Image from 'next/image';

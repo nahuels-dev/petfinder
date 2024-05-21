@@ -7,7 +7,8 @@ type AuthType = {
     signIn: (data: SignInData) => void,
     signUp: (data: SignUpData) => void,
     logOut: () => void,
-    isLoggedIn: boolean
+    isLoggedIn: boolean,
+    checkSession: any
 }
 
 type SignUpData = {
@@ -139,13 +140,15 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
             title: 'Cerraste sesion correctamente',
         })
         setIsLoggedIn(false)
+        location.reload()
     }
 
     const methods = {
         signIn,
         signUp,
         logOut,
-        isLoggedIn
+        isLoggedIn,
+        checkSession
     }
 
     return <AuthenticationContext.Provider value={methods}>{children}</AuthenticationContext.Provider>

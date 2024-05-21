@@ -47,6 +47,12 @@
         &.isActive &_linksandbtn{
             height: 164px;
             padding-bottom: 10px;
+            overflow: visible;
+            @media screen and (max-width: 1150px) {
+                &.expanded{
+                    height: 250px;
+                }
+            }
         }
         &_linksandbtn{
             display: flex;
@@ -60,7 +66,7 @@
                 background-color: #FFFFFF;
                 width: 100%;
                 text-align: left;
-                justify-content: start;
+                justify-content: flex-start;
                 position: absolute;
                 height: 0;
                 overflow: hidden;
@@ -177,7 +183,11 @@
                 width: 150px;
                 position: absolute;
                 top:20px;
+                height: 114px;
                 background-color: white;
+                @media screen and (max-width: 1150px) {
+                    background-color: rgba(0,0,0,0) !important;
+                }
             }
         }
     }

@@ -4,7 +4,6 @@ import styles from './LoginForm.module.scss'
 
 import login_illustration from '@/assets/images/login_illustration.svg'
 import LoginHuellaIMG from "@/assets/images/loginhuella.png"
-import LoginAnimalIMG from "@/assets/images/loginAnimal.png"
 import GoogleLogo from "@/assets/images/google.png"
 import ShowPassImg from "@/assets/images/mostrarContra.png" 
 import Image from 'next/image'
@@ -12,10 +11,12 @@ import { Button } from '../Button'
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { AuthenticationContext } from '@/context/Authentication'
+
+import { useRouter } from 'next/navigation'
 const supabase = createClientComponentClient()
 
 function LoginForm() {
-    const {signIn,signUp} = useContext(AuthenticationContext)
+    const {signIn,signUp, isLoggedIn} = useContext(AuthenticationContext)
     useEffect(()=>{
 
         const sign_in_btn = document.querySelector("#sign-in-btn");
@@ -30,6 +31,7 @@ function LoginForm() {
             container?.classList.remove("sign-up-mode");
         });
     },[])
+    const router = useRouter()
     const [isLogin, setIsLogin] = useState(false)
     const [emailLogin, setEmailLogin] = useState('')
     const [passLogin, setPassLogin] = useState('')
@@ -109,6 +111,17 @@ function LoginForm() {
         }
     }
 
+    const googleLogin = ()=>{
+        supabase.auth.signInWithOAuth({
+            provider:'google'
+        })
+    }
+
+    useEffect(()=>{
+        if(isLoggedIn){
+            router.back()
+        }
+    },[isLoggedIn])
   return (
     <div className={styles.formcontainer}>
         <Image src={LoginHuellaIMG} width={673} height={711} alt='huella' className={`${styles.huella} ${isLogin ? styles.loginPosition : ""}`} />
@@ -131,7 +144,7 @@ function LoginForm() {
             </label>
     
             <Button theme='light'>Registrarse</Button>
-            <div className={styles.googleLogin}>
+            <div className={styles.googleLogin} onClick={()=> googleLogin()}>
                 <Image src={GoogleLogo} width={43} height={44} alt='google Logo' /> Registate con Google
             </div>
             <p onClick={()=>setIsLogin(!isLogin)} className={styles.onlymobile}>Ya tienes cuenta?</p>

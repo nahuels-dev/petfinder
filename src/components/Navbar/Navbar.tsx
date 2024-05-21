@@ -46,28 +46,27 @@ const getUser = async ()=>{
             <div className={`${styles.navbar_container_logo}`}>
               <Link href="/"><Image src={Logo} width={290} height={389} alt="logo"/></Link>
             </div>
-            <div className={`${styles.navbar_container_linksandbtn}`}>
+            <div className={`${styles.navbar_container_linksandbtn}  ${isProfileExpanded ? styles.expanded : ""}`}>
                 <ul>
                     <li className={currentPath == "/" ? styles.active : ""}><Link href="/" >Inicio</Link></li>
                     <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Buscar mascota</Link></li>
-                    <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Reportar mascota</Link></li>
+                    <li className={currentPath == "/algo" ? styles.active : ""}><Link href="reportar">Reportar mascota</Link></li>
                     <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Adoptar</Link></li>
-                    <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Como funciona?</Link></li>
+                    <li className={currentPath == "/algo" ? styles.active : ""}><Link href="como-funciona">Como funciona?</Link></li>
                 </ul>
                 {isLoggedIn ?
                 <div className={`${styles.profileNavbar} ${isProfileExpanded ? styles.expanded : ""}`}>
                   <div onClick={() => setIsProfileExpanded(!isProfileExpanded)}>Hola {userName}</div>
                   <div className={styles.navbarHided}>
-                    <p >Hola usuario</p>
-                    <p >Hola usuario</p>
-                    <p >Hola usuario</p>
-                    <p >Hola usuario</p>
-                    <p >Hola usuario</p>
+                    <p>Perfil</p>
+                    <p>Mis publicaciones</p>
+                    <p>Favoritos</p>
+                    <p>Notificaciones</p>
                     <p onClick={()=> logOut()} >Desconectarse</p>
                   </div>
                 </div>
                 :
-                <Link href="/signup"><Button size='medium'>Iniciar sesion</Button></Link>
+                <Link href="/iniciar"><Button size='medium'>Iniciar sesion</Button></Link>
                 }
             </div>
             <div className={`${styles.navbar_container_close} ${isActive ? styles.isActive : ''}`} onClick={toggleMenu}>

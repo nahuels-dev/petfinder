@@ -58,6 +58,7 @@
         gap: 20px;
 
         @media screen and (max-width: 980px) {
+            width: 100%;
             display: none;
             &.mobileActive{
                 display: flex !important;
@@ -71,6 +72,10 @@
         label{
             position: relative;
             width: 70%;
+
+            @media screen and (max-width: 980px) {
+                width: 80%;
+            }
 
             &.error{
                 color: red;
