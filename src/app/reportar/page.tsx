@@ -10,9 +10,11 @@ import Location from "@/components/Location"
 import Image from "next/image"
 import logo from '@/assets/images/logo.png'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import {Cloudinary} from "@cloudinary/url-gen";
 
 const Reportar = () => {
     const supabase = createClientComponentClient()
+    const cld = new Cloudinary({cloud: {cloudName: 'dzcsvr49m'}});
     const { checkSession } = useContext(AuthenticationContext)
     const [isAdoption, setAdoption] = useState(false)
     const [step, setStep] = useState(0)
@@ -20,6 +22,7 @@ const Reportar = () => {
     const [enableNext, setEnableNext] = useState(true)
     
     const [images,setImages] = useState([] as any)
+    const [cloudinaryImages, setCloudinaryImages] = useState([] as any)
     const [title,setTitle] = useState('')
     const [description,setDescription] = useState('')
     const [status,setStatus] = useState('')
@@ -56,7 +59,7 @@ const Reportar = () => {
             case 0:
                 return <StepOne setAdoption={handleRadioChange} isAdoption={isAdoption} setNext={setEnableNext} />;
             case 1:
-                return <StepTwo setNext={setEnableNext} setFinalImages={setImages} finalImages={images}/>
+                return <StepTwo setNext={setEnableNext} setFinalImages={setImages} finalImages={images} setCloudinaryImages={setCloudinaryImages}/>
             case 2:
                 return <StepThree isAdoption={isAdoption} functions={{title,setTitle,description,setDescription,status,setStatus}}/>
             case 3:
@@ -65,8 +68,29 @@ const Reportar = () => {
     }
 
     const saveData = async ()=>{
+        let urls = []
+
+        for (const image of cloudinaryImages) {
+            const formData = new FormData();
+            formData.append('file', image);
+            formData.append('upload_preset', 'mascotasdev');
+            const res = await fetch(`https://api.cloudinary.com/v1_1/dzcsvr49m/image/upload`, {
+                method: 'POST',
+                body: formData,
+            });
+            const datares = await res.json();
+            console.log(datares.url) 
+            urls.push(datares.url)
+        }
+        
+        /* for (const image of images) {
+            (Cloudinary as any).uploader.upload(image,
+            { public_id: JSON.parse(checkSession()).user.id + Math.random() * 100}, 
+            function(error:any, result:any) {console.log(result); });
+        }
+        */
         let data = {
-            images: images,
+            images: urls,
             user_id: JSON.parse(checkSession()).user.id,
             title,
             description,
@@ -140,7 +164,7 @@ const StepOne = ({ setAdoption, isAdoption, setNext }: any) => {
     )
 }
 
-const StepTwo = ({ setNext,setFinalImages,finalImages }: any) => {
+const StepTwo = ({ setNext,setFinalImages,finalImages,setCloudinaryImages }: any) => {
     const [images, setImages] = useState<File[]>([]);
     useEffect(() => {
         if(finalImages.length > 0){
@@ -155,8 +179,9 @@ const StepTwo = ({ setNext,setFinalImages,finalImages }: any) => {
         images.length > 0 && setFinalImages(images)
     }, [images])
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
+            setCloudinaryImages(e.target.files)
             const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file)) as any;
             setImages((prevImages) => prevImages.concat(fileArray));
             Array.from(e.target.files).map((file: any) => URL.revokeObjectURL(file));
