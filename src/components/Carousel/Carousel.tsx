@@ -6,6 +6,7 @@ import Autoplay from 'embla-carousel-autoplay'
 import styles from "./Carousel.module.scss"
 import {CarouselProps} from '../../types/types'
 import { CarouselItem } from '../CarouselItem/CarouselItem'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 
 //https://www.embla-carousel.com/api/options/
@@ -13,6 +14,7 @@ import { CarouselItem } from '../CarouselItem/CarouselItem'
 export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
 
     const [data, setData] = useState([{}])
+    const supabase = createClientComponentClient()
 
     useEffect(() => {
         let url = tipo == "busqueda" ? "algo": "algootro"
@@ -41,6 +43,12 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
     const scrollNext = useCallback(() => {
         if (emblaApi) emblaApi.scrollNext()
     }, [emblaApi])
+
+  //   Fetch data
+  //   const { data, error } = await supabase
+  // .from('alert_post')
+  // .select()
+
 
   return (
     <div className={`${styles.embla}`}>
