@@ -50,9 +50,9 @@ const getUser = async ()=>{
                 <ul>
                     <li className={currentPath == "/" ? styles.active : ""}><Link href="/" >Inicio</Link></li>
                     <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Buscar mascota</Link></li>
-                    <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Reportar mascota</Link></li>
+                    <li className={currentPath == "/algo" ? styles.active : ""}><Link href="reportar">Reportar mascota</Link></li>
                     <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Adoptar</Link></li>
-                    <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Como funciona?</Link></li>
+                    <li className={currentPath == "/algo" ? styles.active : ""}><Link href="como-funciona">Como funciona?</Link></li>
                 </ul>
                 {isLoggedIn ?
                 <div className={`${styles.profileNavbar} ${isProfileExpanded ? styles.expanded : ""}`}>
@@ -66,7 +66,7 @@ const getUser = async ()=>{
                   </div>
                 </div>
                 :
-                <Link href="/signup"><Button size='medium'>Iniciar sesion</Button></Link>
+                <Link href="/iniciar"><Button size='medium'>Iniciar sesion</Button></Link>
                 }
             </div>
             <div className={`${styles.navbar_container_close} ${isActive ? styles.isActive : ''}`} onClick={toggleMenu}>
