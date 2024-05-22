@@ -50,13 +50,13 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
         },
         
         breakpoints: {
-          '(max-width: 900px)': {
+          '(max-width: 1200px)': {
             slides: {
               perView: 2,
               spacing: 10,
             },
           },
-          '(max-width: 500px)': {
+          '(max-width: 750px)': {
             slides: {
               perView: 1,
               spacing: 10,

@@ -62,7 +62,7 @@
 
 .carouselsSections{
     position: relative;
-    margin: 0 auto;
+    margin: 155px auto 0;
     max-width: 1200px;
     height: 100%;
     display: flex;
@@ -78,7 +78,7 @@
         width: 151px;
         height: 133px;
         position: absolute;
-        top: 127px;
+        top: -86px;
         left: -80px;
 
         @media screen and (max-width: 1250px) {
