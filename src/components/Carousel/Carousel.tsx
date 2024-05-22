@@ -49,7 +49,7 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
   
 
   return (
-    <div className={`${styles.embla} ${dataFinal.length == 1 ? styles.oneSon : ""}`}>
+    <div className={`${styles.embla} ${dataFinal && dataFinal.length == 1 ? styles.oneSon : ""}`}>
       {!isLoading ? (
         <div className={`${styles.embla__viewport}`}  ref={emblaRef}>
             <div className={`${styles.embla__container} ${dataFinal.length == 1 ? styles.oneSonCentered : ""}`}>
