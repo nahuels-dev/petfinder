@@ -46,14 +46,15 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
     const scrollNext = useCallback(() => {
         if (emblaApi) emblaApi.scrollNext()
     }, [emblaApi])
+  
 
   return (
-    <div className={`${styles.embla}`}>
+    <div className={`${styles.embla} ${dataFinal.length == 1 ? styles.oneSon : ""}`}>
       {!isLoading ? (
         <div className={`${styles.embla__viewport}`}  ref={emblaRef}>
-            <div className={`${styles.embla__container}`}>
+            <div className={`${styles.embla__container} ${dataFinal.length == 1 ? styles.oneSonCentered : ""}`}>
                 {dataFinal && dataFinal.map((item:any, index:any) => (
-                  <CarouselItem key={index} title={item.title} description={item.description} image={item.images[0]} tipo={tipo}/>
+                  <CarouselItem key={index} title={item.title} description={item.description} image={item.images[0]} tipo={tipo} />
                 ))}
             </div>
             <h3>{titulo}</h3>
