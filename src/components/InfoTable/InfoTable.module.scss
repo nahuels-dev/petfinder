@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding-top: 10px;
+  width: 100%;
 
   @media screen and (max-width: 540px) {
     flex-direction: column;

@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
   <main>
-     <header className={`${styles.header}`}>
+     {/* <header className={`${styles.header}`}>
       <div className={`${styles.header__text}`}>
         <h1>Encuentra a tu compañero peludo perdido o adopta a un amigo fiel</h1>
         <p>Perder a una mascota es una experiencia desgarradora, pero estamos aquí para ayudarte a reunirte con tu amigo peludo o encontrar uno nuevo para llenar tu hogar de amor.</p>
@@ -24,7 +24,7 @@ export default function Home() {
       <div>
         <Image className={`${styles.header_img}`} src={headerImg} width={1028} height={888} alt="header image"/>
       </div>
-     </header>
+     </header> */}
      <div className={`${styles.carouselsSections}`}>
       <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
       <Carousel tipo={`Busqueda`} titulo={`Viste alguno de estos?`}/>

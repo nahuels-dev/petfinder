@@ -1,20 +1,13 @@
 @import '../../styles/variables';
-.embla__slide {
-	max-width: 467px;
-	display: flex;
-	justify-content: center;
-	max-height: 553px;
+.slide {
 	height: 100%;
 	min-width: 0;
 	width: 100%;
-
-	@media screen and (max-width: 540px) {
-		max-height: 600px;
-    }
+	margin: 0 auto;
 
 	&__content{
 		position: relative;
-		max-width: 417px;
+		margin: 0 auto;
 		@media screen and (max-width: 1250px) {
 			width: 90%;
 			overflow-x: hidden;
@@ -49,7 +42,7 @@
 				}
 
 				@media screen and (max-width: 540px) {
-					bottom: -40px;
+					bottom: 10px;
 				}
 				&__img{
 					width: 18px;

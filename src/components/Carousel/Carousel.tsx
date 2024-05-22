@@ -112,7 +112,6 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
   return (
     <>
       {!isLoading ? (
-        
         <div ref={sliderRef} className={`keen-slider ${styles.container}`}>
           {dataFinal && dataFinal.map((item:any, index:any) => (
             <CarouselItem key={index} title={item.title} description={item.description} image={item.images[0]} tipo={tipo} datePublished={formatDate(item.lastSeen)}/>
