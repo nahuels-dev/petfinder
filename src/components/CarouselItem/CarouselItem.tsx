@@ -11,9 +11,10 @@ interface CarouselItemProps {
 	description: any;
 	image: any;
 	tipo: any
+	datePublished: any
   }
 
-export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, image, tipo }) => {
+export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, image, tipo, datePublished }) => {
 
 	const [imgSrc, setImgSrc] = useState(image);
 
@@ -21,7 +22,6 @@ export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, 
 	const resultado = tipo === "Visto" ? "v" : tipo === "Busqueda" ? "b" : "r";
 
 	const handleError = () => {
-		//cuando no tenga imagen le ponemos una por defecto
 		setImgSrc(petImage);
 	};
 
@@ -36,7 +36,7 @@ export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, 
 					<InfoTable />
 					<span className={`${styles.embla__slide__content__copy__lastSeen}`}>
 						<Image className={`${styles.embla__slide__content__copy__lastSeen__img}`} src={lastSeenImg} width={36} height={36} alt="Last seen clock" />
-						Visto por última vez en Aguada - 4/3/24
+						Visto por última vez en Aguada - {datePublished}
 					</span>
 				</div>
 			</div>

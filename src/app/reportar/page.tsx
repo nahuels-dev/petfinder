@@ -102,6 +102,9 @@ const Reportar = () => {
         .from('alert_post')
         .insert(data)
     
+        if(!error){
+            alert("Subido a la base de datos!")
+        }
         console.log(error)
     }
 

@@ -1,22 +1,9 @@
 @import '../../styles/variables';
-.embla {
-    overflow: hidden;
-    margin: auto;
+.container {
     margin-top: 155px;
-    max-width: 1200px;
-
    
-    @media screen and (max-width: 1250px) {
-        max-width: 100%;
-        min-height: 690px;
-        height: 100%;
-    }
-
-    @media screen and (max-width: 540px) {
-		min-height: 760px;
-    }
-
-    &__viewport{
+    
+    /* &__viewport{
         position: relative;
         padding-top: 66px;
         &__prev, &__next{
@@ -66,25 +53,7 @@
             color: $secondary-color;
             font-size: 35px;
         }
-    }
-  }
-  .embla__container {
-    display: flex;
-    justify-content: space-between;
-    height: 560px;
-    &.oneSonCentered{
-        justify-content: center;
-    }
-    @media screen and (max-width: 540px) {
-		min-height: 600px;
-    }
-
-    @media screen and (max-width: 490px) {
-		margin-top: 30px;
-    }
+    } */
   }
 
-  .oneSon{
-    width: 100%;
-}
   

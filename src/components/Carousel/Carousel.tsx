@@ -1,12 +1,15 @@
 "use client"
 import React , { useCallback, useEffect, useState }  from 'react'
 
-import useEmblaCarousel from 'embla-carousel-react'
-import Autoplay from 'embla-carousel-autoplay'
 import styles from "./Carousel.module.scss"
 import {CarouselProps} from '../../types/types'
 import { CarouselItem } from '../CarouselItem/CarouselItem'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import "keen-slider/keen-slider.min.css"
+
+
+
+import { useKeenSlider } from "keen-slider/react"
 
 
 //https://www.embla-carousel.com/api/options/
@@ -38,32 +41,88 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
           getData();          
     }, [])
 
-    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()])
-    const scrollPrev = useCallback(() => {
-        if (emblaApi) emblaApi.scrollPrev()
-    }, [emblaApi])
+    const [sliderRef] = useKeenSlider<HTMLDivElement>(
+      {
+        loop: true,
+        slides: {
+          perView: 3,
+          spacing: 20,
+        },
+        
+        breakpoints: {
+          '(max-width: 900px)': {
+            slides: {
+              perView: 2,
+              spacing: 10,
+            },
+          },
+          '(max-width: 500px)': {
+            slides: {
+              perView: 1,
+              spacing: 10,
+            },
+          },
+        },
+      },
+      [
+        (slider) => {
+          let timeout: ReturnType<typeof setTimeout>
+          let mouseOver = false
+          function clearNextTimeout() {
+            clearTimeout(timeout)
+          }
+          function nextTimeout() {
+            clearTimeout(timeout)
+            if (mouseOver) return
+            timeout = setTimeout(() => {
+              slider.next()
+            }, 2000)
+          }
+          slider.on("created", () => {
+            slider.container.addEventListener("mouseover", () => {
+              mouseOver = true
+              clearNextTimeout()
+            })
+            slider.container.addEventListener("mouseout", () => {
+              mouseOver = false
+              nextTimeout()
+            })
+            nextTimeout()
+          })
+          slider.on("dragStarted", clearNextTimeout)
+          slider.on("animationEnded", nextTimeout)
+          slider.on("updated", nextTimeout)
+        },
+      ]
+    )
+
+    function formatDate(dateString:string) {
+      const date = new Date(dateString);
     
-    const scrollNext = useCallback(() => {
-        if (emblaApi) emblaApi.scrollNext()
-    }, [emblaApi])
-  
+      // Obtiene el día, mes y año
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son 0-11
+      const year = date.getFullYear();
+    
+      // Formatea la fecha al estilo día/mes/año
+      return `${day}/${month}/${year}`;
+    }
+
 
   return (
-    <div className={`${styles.embla} ${dataFinal && dataFinal.length == 1 ? styles.oneSon : ""}`}>
+    <>
       {!isLoading ? (
-        <div className={`${styles.embla__viewport}`}  ref={emblaRef}>
-            <div className={`${styles.embla__container} ${dataFinal.length == 1 ? styles.oneSonCentered : ""}`}>
-                {dataFinal && dataFinal.map((item:any, index:any) => (
-                  <CarouselItem key={index} title={item.title} description={item.description} image={item.images[0]} tipo={tipo} />
-                ))}
-            </div>
-            <h3>{titulo}</h3>
-            <button className={`${styles.embla__viewport__prev}`} onClick={scrollPrev}>&lt;</button>
-            <button className={`${styles.embla__viewport__next}`} onClick={scrollNext}>&gt;</button>
+        
+        <div ref={sliderRef} className={`keen-slider ${styles.container}`}>
+          {dataFinal && dataFinal.map((item:any, index:any) => (
+            <CarouselItem key={index} title={item.title} description={item.description} image={item.images[0]} tipo={tipo} datePublished={formatDate(item.lastSeen)}/>
+          ))}
         </div>
       ): (
         <h4>Cargando</h4>
       )}
-    </div>
+      
+    </>
+   
   )
 }
