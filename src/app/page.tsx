@@ -32,7 +32,7 @@ export default function Home() {
      </div>
      <div className={`${styles.carouselsSections}`}>
       <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
-      <Carousel tipo={`Pertenece`} titulo={`Alguno te pertenece?`} />
+      <Carousel tipo={`Visto`} titulo={`Alguno te pertenece?`} />
       <Link href="google.com" className={`${styles.carouselsSections__viewAll}`}>Ver todos</Link>
      </div>
      <div className={`${styles.gridBlogLinks}`}>

@@ -79,7 +79,6 @@ const Reportar = () => {
                 body: formData,
             });
             const datares = await res.json();
-            console.log(datares.url) 
             urls.push(datares.url)
         }
         
@@ -99,7 +98,6 @@ const Reportar = () => {
             isAdoption
         }
 
-        console.log(data)
         const { error } = await supabase
         .from('alert_post')
         .insert(data)
@@ -122,25 +120,6 @@ const Reportar = () => {
                     }
                 </div>
             </div>
-
-
-            {/* <form action="">
-                <select name="" id="">
-                    <option value="">Dar en adopcion</option>
-                    <option value="">Reportar desaparecido/ busqueda</option>
-                </select>
-
-
-                <input type="file" multiple capture="environment" required/>
-                <input type="text" placeholder="Titulo" required/>
-                <textarea name="" id="" placeholder="Description" required></textarea>
-    
-                <select name="" id="" required>
-                    <option value="">Retenido</option>
-                    <option value="">Visto</option>
-                    <option value="">En busqueda</option>
-                </select>
-            </form> */}
         </div>
     )
 }
@@ -197,7 +176,7 @@ const StepTwo = ({ setNext,setFinalImages,finalImages,setCloudinaryImages }: any
     return (
         <div className={styles.reportar__steps__two}>
             <h2>Por favor sube las fotos de la mascota</h2>
-            <input type="file" multiple capture="environment" onChange={handleImageChange} required maxLength={4} />
+            <input type="file" multiple onChange={handleImageChange} required maxLength={4} />
             <div className={styles.reportar__steps__two__images}>
                 {renderPhotos(images as any)}
             </div>
