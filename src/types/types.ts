@@ -1,10 +1,16 @@
 export interface TableProps {
-  chip_incapacidades: boolean,
-  chip_incapacidades_text: string,
-  collar_amigable: boolean,
-  collar_amigable_text: string,
-  size_alergias: string,
-  size_alergias_text: string
+  chip: boolean,
+  chip_text: string,
+  collar: boolean,
+  collar_text: string,
+  size: string,
+  size_text: string
+  incapacidades: boolean,
+  incapacidades_text: string,
+  amigable: boolean,
+  amigable_text: string,
+  alergias: string,
+  alergias_text: string
 }
 
 export interface PetStateProps {

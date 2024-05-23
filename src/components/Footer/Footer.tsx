@@ -23,7 +23,7 @@ function Footer() {
         <Link href="/">
           <div className={`${styles.footer_container_logocontainer}`}>
               <div className={`${styles.footer_container_logocontainer_logo}`}>
-              <Image src={Logo} width={290} height={389} alt="logo"/>
+                <Image src={Logo} width={290} height={389} alt="logo"/>
               </div>
               <h2>Mascota Sin Hogar</h2>
           </div>  

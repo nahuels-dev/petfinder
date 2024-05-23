@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
   <main>
-     {/* <header className={`${styles.header}`}>
+     <header className={`${styles.header}`}>
       <div className={`${styles.header__text}`}>
         <h1>Encuentra a tu compañero peludo perdido o adopta a un amigo fiel</h1>
         <p>Perder a una mascota es una experiencia desgarradora, pero estamos aquí para ayudarte a reunirte con tu amigo peludo o encontrar uno nuevo para llenar tu hogar de amor.</p>
@@ -24,13 +24,15 @@ export default function Home() {
       <div>
         <Image className={`${styles.header_img}`} src={headerImg} width={1028} height={888} alt="header image"/>
       </div>
-     </header> */}
+     </header>
      <div className={`${styles.carouselsSections}`}>
+      <h3>Viste alguno de estos?</h3>
       <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
       <Carousel tipo={`Busqueda`} titulo={`Viste alguno de estos?`}/>
       <Link href="google.com" className={`${styles.carouselsSections__viewAll}`}>Ver todos</Link>
      </div>
      <div className={`${styles.carouselsSections}`}>
+      <h3>Alguno te pertenece?</h3>
       <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
       <Carousel tipo={`Visto`} titulo={`Alguno te pertenece?`} />
       <Link href="google.com" className={`${styles.carouselsSections__viewAll}`}>Ver todos</Link>

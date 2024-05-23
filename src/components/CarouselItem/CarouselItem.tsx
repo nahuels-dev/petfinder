@@ -13,10 +13,9 @@ interface CarouselItemProps {
 	image: any;
 	tipo: any
 	datePublished: any
-	key: any
   }
 
-export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, image, tipo, datePublished, key }) => {
+export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, image, tipo, datePublished}) => {
 
 	const [imgSrc, setImgSrc] = useState(image);
 

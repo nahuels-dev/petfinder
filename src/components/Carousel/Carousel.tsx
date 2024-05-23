@@ -6,6 +6,7 @@ import {CarouselProps} from '../../types/types'
 import { CarouselItem } from '../CarouselItem/CarouselItem'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import "keen-slider/keen-slider.min.css"
+import Link from 'next/link'
 
 
 
@@ -45,8 +46,8 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
       {
         loop: true,
         slides: {
-          perView: 3,
-          spacing: 20,
+          perView: 2.8,
+          spacing: 60,
         },
         
         breakpoints: {
@@ -56,7 +57,7 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
               spacing: 10,
             },
           },
-          '(max-width: 750px)': {
+          '(max-width: 550px)': {
             slides: {
               perView: 1,
               spacing: 10,
@@ -114,7 +115,9 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
       {!isLoading ? (
         <div ref={sliderRef} className={`keen-slider ${styles.container}`}>
           {dataFinal && dataFinal.map((item:any, index:any) => (
-            <CarouselItem key={index} title={item.title} description={item.description} image={item.images[0]} tipo={tipo} datePublished={formatDate(item.lastSeen)}/>
+            <Link href={`/detalles?q=${item.id}`} key={index}>
+              <CarouselItem  title={item.title} description={item.description} image={item.images[0]} tipo={tipo} datePublished={formatDate(item.lastSeen)}/>
+            </Link>
           ))}
         </div>
       ): (
