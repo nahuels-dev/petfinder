@@ -43,7 +43,7 @@ function ThumbnailPlugin(
   }
 }
 
-export default function AnimalsDetailCarousel() {
+export default function AnimalsDetailCarousel(images: any) {
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
   })
@@ -61,6 +61,9 @@ export default function AnimalsDetailCarousel() {
   return (
     <>
       <div ref={sliderRef} className="keen-slider">
+        {/* {images.forEach(image, index => {
+          <div className={`keen-slider__slide number-slide${index+1}`}><img src={image} /></div>
+        });} */}
         <div className="keen-slider__slide number-slide1">1</div>
         <div className="keen-slider__slide number-slide2">2</div>
         <div className="keen-slider__slide number-slide3">3</div>
@@ -68,6 +71,9 @@ export default function AnimalsDetailCarousel() {
       </div>
 
       <div ref={thumbnailRef} className="keen-slider thumbnail">
+        {/* {images.forEach(image, index => {
+          <div className={`keen-slider__slide number-slide${index+1}`}><img src={image} /></div>
+        });} */}
         <div className="keen-slider__slide number-slide1">1</div>
         <div className="keen-slider__slide number-slide2">2</div>
         <div className="keen-slider__slide number-slide3">3</div>

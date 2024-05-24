@@ -209,19 +209,56 @@ const StepFour = ({functions}:any) => {
     const [anchor, setAnchor] = useState([-34.89792, -56.1577984]) as any;
     const [center, setCenter] = useState(anchor) as any
     const {location,setLocation} = functions
-    const centerMap = ()=>{
-        setCenter([anchor[0] - 0.000001, anchor[1] - 0.000001])
+
+    const centerMap = (position: any)=>{
+        setCenter([position[0] - 0.000001, position[1] - 0.000001])
         setTimeout(()=>{
-            setCenter(anchor)
+            setCenter(position)
         },100)
     }
+    
 
-    useEffect(()=>{
-        if(location.length > 0){
-            setAnchor(location)
-            setCenter(location)
+    function getMyLocation(): Promise<{ latitude: number; longitude: number }> {
+        if (navigator.geolocation) {
+            return new Promise<{ latitude: number; longitude: number }>((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        resolve({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                        });
+                    },
+                    (error) => {
+                        console.log(error.message);
+                        reject(error);
+                    }
+                );
+            });
+        } else {
+            console.log('Geolocation is not supported by this browser.');
+            return Promise.reject(new Error('Geolocation is not supported by this browser.'));
         }
+    }
+
+    useEffect( ()=>{
+        const fetchLocation = async () => {
+            if (location.length > 0) {
+                setAnchor(location);
+                setCenter(location);
+            } else {
+                const position = await getMyLocation();
+                if (position) {
+                    const newLocation = [position.latitude, position.longitude];
+                    console.log(newLocation)
+                    setAnchor(newLocation);
+                    setCenter(newLocation);
+                }
+            }
+        };
+
+        fetchLocation();
     },[])
+
     useEffect(()=>{
         setLocation(anchor)
     },[anchor])
@@ -230,7 +267,7 @@ const StepFour = ({functions}:any) => {
             <h2>Selecciona la ubicacion</h2>
             <Location></Location>
             {anchor}
-            <button onClick={()=> centerMap()}>center</button>
+            <button onClick={()=> centerMap(anchor)}>center</button>
             <Map height={500} width={1000} defaultCenter={center} center={center} defaultZoom={17} >
                 <Draggable offset={[20, 50]} anchor={anchor} onDragEnd={setAnchor}>
                     <Image 
