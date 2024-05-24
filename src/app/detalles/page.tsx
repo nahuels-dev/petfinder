@@ -21,8 +21,8 @@ export default function Page() {
   const { checkSession } = useContext(AuthenticationContext)
 
   const supabase = createClientComponentClient()
-  const [petInfo, setPetInfo] = useState<any>()
-  const [creatorInfo, setCreatorInfo] = useState<any>()
+  const [petInfo, setPetInfo] = useState<any>({})
+  const [creatorInfo, setCreatorInfo] = useState<any>({})
   const [loading, setLoading] = useState(true)
   
   const searchParams = useSearchParams()
@@ -34,19 +34,17 @@ export default function Page() {
     if(storageSession){
         storageSession = JSON.parse(storageSession)
         setCreatorInfo(storageSession.user)
-        console.log(storageSession)
+        console.log(storageSession.user)
     }
     async function getData() {
-      console.log(petID)
       try {
         const { data, error } = await supabase
         .from('alert_post')
         .select('*')
         .eq('id', petID)
 
-        setPetInfo(data)
+        setPetInfo(data[0])
         console.log(data)
-        setLoading(false)
       } catch (error: any) {
         console.log('Hubo un problema con la petición Fetch:' + error.message);
       }
@@ -57,9 +55,16 @@ export default function Page() {
     }
   }, [])
   
+
+  useEffect(() => {
+    if(Object.keys(petInfo).length > 0){
+      setLoading(false)
+    }
+  }, [petInfo]);
+  
   return (
     <div className={styles.pageContainer}>
-      {!loading && (petInfo != undefined )&& (
+      {Object.keys(petInfo).length > 0 && (
         <>
         <main className={styles.mainDetails}>
           <div className={styles.postOptions}>
@@ -94,8 +99,8 @@ export default function Page() {
                 <div className={styles.photo}>
                 </div>
                 <div className={styles.creatorText}>
-                  <p className={styles.creatorName}>Tu puta madre</p>
-                  <p className={styles.creatorMail}>email@tuputamadre.com</p>
+                  <p className={styles.creatorName}>{creatorInfo.user_metadata.full_name}</p>
+                  <p className={styles.creatorMail}>{creatorInfo.user_metadata.email}</p>
                   <p className={styles.creatorPhone}>099 se me para y se me mueve</p>
                 </div>
               </div>
