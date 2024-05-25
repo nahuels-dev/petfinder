@@ -82,12 +82,6 @@ const Reportar = () => {
             urls.push(datares.url)
         }
         
-        /* for (const image of images) {
-            (Cloudinary as any).uploader.upload(image,
-            { public_id: JSON.parse(checkSession()).user.id + Math.random() * 100}, 
-            function(error:any, result:any) {console.log(result); });
-        }
-        */
         let data = {
             images: urls,
             user_id: JSON.parse(checkSession()).user.id,
@@ -209,6 +203,7 @@ const StepFour = ({functions}:any) => {
     const [anchor, setAnchor] = useState([-34.89792, -56.1577984]) as any;
     const [center, setCenter] = useState(anchor) as any
     const {location,setLocation} = functions
+    const [searchLocation, setSearchLocation] = useState("")
 
     const centerMap = (position: any)=>{
         setCenter([position[0] - 0.000001, position[1] - 0.000001])
@@ -262,21 +257,51 @@ const StepFour = ({functions}:any) => {
     useEffect(()=>{
         setLocation(anchor)
     },[anchor])
+
+    const searchLocationFunction = () =>{
+        const getLocation = async () => {
+            //Pide direccion y te da coordenadas
+            const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=AIzaSyCT1ozwQNV465oXnnY0fQSvU_trX_SRFyE`)
+            
+            const dataJson = await data.json()
+            let locationFromInput = dataJson.results[0].geometry.location
+            console.log(locationFromInput, locationFromInput)
+            if(Object.keys(dataJson).length > 0) {
+                let position = [locationFromInput.lat, locationFromInput.lng]
+                alert(position)
+                centerMap(position)
+                setAnchor(position)
+            }else{
+                alert("no existe")
+            }
+
+            //Pide coordenadas y te da datos
+            const inverseResult = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locationFromInput.lat},${locationFromInput.lng}&key=AIzaSyCT1ozwQNV465oXnnY0fQSvU_trX_SRFyE`)
+            const inverseData = await inverseResult.json()
+            console.log(inverseData.results[0].address_components)
+        }
+
+        getLocation()
+    }
     return (
         <div className={styles.reportar__steps__three}>
             <h2>Selecciona la ubicacion</h2>
+            <input type="text" placeholder="Ubicacion" required value={searchLocation} onChange={(e)=>setSearchLocation(e.target.value)}/>
+            <button onClick={searchLocationFunction}>Buscar Ubicacion</button>
             <Location></Location>
             {anchor}
             <button onClick={()=> centerMap(anchor)}>center</button>
-            <Map height={500} width={1000} defaultCenter={center} center={center} defaultZoom={17} >
-                <Draggable offset={[20, 50]} anchor={anchor} onDragEnd={setAnchor}>
-                    <Image 
-                        src={logo}
-                        alt=""
-                        width={40}
-                    />
-                </Draggable>
-            </Map>
+            <div className={styles.mapContainer}>
+                <Map height={500} width={1000} defaultCenter={center} center={center} defaultZoom={17} >
+                    <Draggable offset={[20, 50]} anchor={anchor} onDragEnd={setAnchor}>
+                        <Image 
+                            src={logo}
+                            alt=""
+                            width={40}
+                        />
+                    </Draggable>
+                </Map>
+            </div>
         </div>
     )
 }
