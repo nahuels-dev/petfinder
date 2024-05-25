@@ -15,6 +15,9 @@
     .mapContainer{
         max-width: 1200px;
         width: 100%;
+        >div{
+            width: 100% !important;
+        }
     }
 
     &__steps{
@@ -30,15 +33,28 @@
             display: flex;
             justify-content: space-between;
             margin-top: 100px;
-            
+            flex-wrap: wrap;
+
             button:last-of-type{
                 margin-left: auto;
+            }
+
+            @media screen and (max-width: 500px) {
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                margin: 100px 10px;
+                button{
+                    width: 100%;
+                    margin:0 auto;
+                }
             }
         }
 
         &__one{
             text-align: center;
             display: flex;
+            flex-direction: column;
             flex-wrap: wrap;
             justify-content: center;
             gap: 50px;
@@ -50,7 +66,9 @@
             }
 
             label{
-                width: 30%;
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
             }
         }
 
@@ -58,11 +76,13 @@
             input[type="file"]{
                 display: block;
                 width: 100%;
+                margin-bottom: 20px;
             }
             
             &__images{
                 display: flex;
                 align-items: center;
+                justify-content: center;
                 flex-wrap: wrap;
                 gap: 30px;
             }
@@ -70,6 +90,14 @@
                 width: 100px;
                 height: auto;
                 border: 1px solid;
+            }
+        }
+
+        &__three{
+            >div{
+                display: flex;
+                flex-direction: column;
+                gap:20px;
             }
         }
     }

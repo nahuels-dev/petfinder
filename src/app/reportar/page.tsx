@@ -129,7 +129,7 @@ const StepOne = ({ setAdoption, isAdoption, setNext }: any) => {
         <div className={styles.reportar__steps__one}>
             <h2>Que tipo de publicacion deseas hacer?</h2>
             <label htmlFor="">
-                <p>Reportar desaparecido/ busqueda</p>
+                <span>Reportar desaparecido/ busqueda</span>
                 <input type="radio" name="type" value={0} checked={!isAdoption} onChange={(e) => setAdoption(e.target.value)} />
             </label>
             <label htmlFor="">
@@ -186,15 +186,17 @@ const StepThree = ({ isAdoption,functions }: { isAdoption: boolean,functions:any
     return (
         <div className={styles.reportar__steps__three}>
             <h2>Llena los siguientes datos</h2>
-            <input type="text" placeholder="Titulo" required value={title} onChange={(e)=> setTitle(e.target.value)}/>
-            <textarea name="" id="" placeholder="Description" required value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
-            {!isAdoption &&
-                <select name="" id="" required onChange={(e)=>setStatus(e.target.value)}>
-                    <option value="retenido" selected={status=='retenido'}>Retenido</option>
-                    <option value="visto" selected={status=='visto'}>Visto</option>
-                    <option value="busqueda" selected={status=='busqueda'}>En busqueda</option>
-                </select>
-            }
+            <div>
+                <input type="text" placeholder="Titulo" required value={title} onChange={(e)=> setTitle(e.target.value)}/>
+                <textarea name="" id="" placeholder="Description" required value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
+                {!isAdoption &&
+                    <select name="" id="" required onChange={(e)=>setStatus(e.target.value)}>
+                        <option value="retenido" selected={status=='retenido'}>Retenido</option>
+                        <option value="visto" selected={status=='visto'}>Visto</option>
+                        <option value="busqueda" selected={status=='busqueda'}>En busqueda</option>
+                    </select>
+                }
+            </div>
         </div>
     )
 }
