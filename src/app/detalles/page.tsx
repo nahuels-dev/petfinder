@@ -9,6 +9,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import ReportIconIMG from "@/assets/images/reportIcon.png"
 import EditIconIMG from "@/assets/images/editIcon.png"
 import FinishIconIMG from "@/assets/images/finishIcon.png"
+import DeleteIconIMG from "@/assets/images/deleteIcon.png"
 import { AuthenticationContext } from "@/context/Authentication"
 
 import { Button } from '@/components/Button'
@@ -34,7 +35,7 @@ export default function Page() {
     if(storageSession){
         storageSession = JSON.parse(storageSession)
         setCreatorInfo(storageSession.user)
-        console.log(storageSession.user)
+        console.log(storageSession.user.id)
     }
     async function getData() {
       try {
@@ -44,7 +45,7 @@ export default function Page() {
         .eq('id', petID)
 
         setPetInfo(data[0])
-        console.log(data)
+        console.log(data.user_id)
       } catch (error: any) {
         console.log('Hubo un problema con la petición Fetch:' + error.message);
       }
@@ -68,19 +69,19 @@ export default function Page() {
         <>
         <main className={styles.mainDetails}>
           <div className={styles.postOptions}>
-            {creatorInfo.id == petInfo.id && (
+            {creatorInfo.id == petInfo.user_id && (
               <>
                 <Image src={FinishIconIMG} width={60} height={60} alt="Terminar publicacion icono" />
                 <Image src={EditIconIMG} width={58} height={58} alt="Editar publicacion icono" />
               </>
             )}
-            {creatorInfo.id != petInfo.id && (
+            {creatorInfo.id != petInfo.user_id && (
               <>
                 <Image src={ReportIconIMG} width={58} height={58} alt="Reportar publicacion icono" />
               </>
             )}
             {/* Esto de abajo seria si es admin o moderador */}
-            <Image src={ReportIconIMG} width={58} height={58} alt="Borrar publicacion icono" />
+            <Image src={DeleteIconIMG} width={58} height={58} alt="Borrar publicacion icono" />
           </div>
           <div className={styles.animalDetails}>
             <div className={styles.animalImgs}>
