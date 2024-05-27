@@ -22,7 +22,7 @@ const ProfileState = {
 }; 
 
 
-function Page() {
+function PageContent() {
 
   const [profileState, setProfileState] = useState(ProfileState.PanelControl)
   const { checkSession } = useContext(AuthenticationContext)
@@ -97,7 +97,6 @@ function Page() {
 
 
   return (
-    <Suspense>
     <main className={styles.container}>
       <aside className={styles.sidebar}>
         <div onClick={() => handleStateChange(ProfileState.PanelControl)} className={profileState == "PanelControl" ? styles.active : ""}>&gt;&nbsp;Panel de control</div>
@@ -148,8 +147,14 @@ function Page() {
       </div>
       )}
     </main>
-    </Suspense>
   )
 }
 
+function Page(){
+  return(
+    <Suspense>
+      <PageContent/>
+    </Suspense>
+  )
+}
 export default Page
