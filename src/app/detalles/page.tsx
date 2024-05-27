@@ -43,9 +43,10 @@ export default function Page() {
         .from('alert_post')
         .select('*')
         .eq('id', petID)
-
-        setPetInfo(data[0]!)
-        console.log(data.user_id)
+        if(data){
+          setPetInfo(data[0]!)
+          console.log(data.user_id)
+        }
       } catch (error: any) {
         console.log('Hubo un problema con la petición Fetch:' + error.message);
       }
