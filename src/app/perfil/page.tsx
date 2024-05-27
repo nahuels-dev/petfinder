@@ -1,5 +1,7 @@
 "use client"
 import React from 'react'
+import { Suspense } from "react";
+
 import styles from "@/styles/pages/Perfil.module.scss"
 import { useContext, useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
@@ -95,6 +97,7 @@ function Page() {
 
 
   return (
+    <Suspense>
     <main className={styles.container}>
       <aside className={styles.sidebar}>
         <div onClick={() => handleStateChange(ProfileState.PanelControl)} className={profileState == "PanelControl" ? styles.active : ""}>&gt;&nbsp;Panel de control</div>
@@ -145,6 +148,7 @@ function Page() {
       </div>
       )}
     </main>
+    </Suspense>
   )
 }
 

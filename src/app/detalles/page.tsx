@@ -3,6 +3,8 @@ import styles from '@/styles/pages/AnimalDetails.module.scss'
 import AnimalsDetailCarousel from '@/components/animalDetailsCarousel/page'
 import { InfoTable } from '@/components/InfoTable/InfoTable'
 import Image from 'next/image'
+import { Suspense } from "react";
+
 import LastSeenImg from "@/assets/images/lastSeenImg.png"
 import { useSearchParams } from 'next/navigation'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
@@ -64,6 +66,7 @@ export default function Page() {
   }, [petInfo]);
   
   return (
+    <Suspense>
     <div className={styles.pageContainer}>
       {Object.keys(petInfo).length > 0 && (
         <>
@@ -125,5 +128,6 @@ export default function Page() {
       )}
     
     
-    </div>)
+    </div></Suspense>)
+    
 }
