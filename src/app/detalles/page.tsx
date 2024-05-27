@@ -9,7 +9,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import ReportIconIMG from "@/assets/images/reportIcon.png"
 import EditIconIMG from "@/assets/images/editIcon.png"
 import FinishIconIMG from "@/assets/images/finishIcon.png"
-import DeleteIconIMG from "@/assets/images/deleteIcon.png"
+import DeleteIconIMG from "@/assets/images/deleteicon.png"
 import { AuthenticationContext } from "@/context/Authentication"
 
 import { Button } from '@/components/Button'
