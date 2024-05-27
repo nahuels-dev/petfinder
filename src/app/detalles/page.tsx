@@ -19,7 +19,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { formatDate } from '@/helpers/date'
 
-export default function Page() {
+function PageWrapper() {
 
   const { checkSession } = useContext(AuthenticationContext)
 
@@ -66,7 +66,6 @@ export default function Page() {
   }, [petInfo]);
   
   return (
-    <Suspense>
     <div className={styles.pageContainer}>
       {Object.keys(petInfo).length > 0 && (
         <>
@@ -128,6 +127,16 @@ export default function Page() {
       )}
     
     
-    </div></Suspense>)
+    </div>
+    )
     
+}
+
+
+export default function Page(){
+  return (
+    <Suspense>
+      <PageWrapper />
+    </Suspense>
+  )
 }
