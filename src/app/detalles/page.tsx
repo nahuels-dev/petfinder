@@ -102,8 +102,13 @@ function PageWrapper() {
                 <div className={styles.photo}>
                 </div>
                 <div className={styles.creatorText}>
-                  <p className={styles.creatorName}>{creatorInfo.user_metadata.full_name}</p>
-                  <p className={styles.creatorMail}>{creatorInfo.user_metadata.email}</p>
+                  {creatorInfo.user_metadata &&
+                  <>
+                    <p className={styles.creatorName}>{creatorInfo.user_metadata.full_name}</p>
+                    <p className={styles.creatorMail}>{creatorInfo.user_metadata.email}</p>
+                  </>
+                    
+                  }
                   <p className={styles.creatorPhone}>099 se me para y se me mueve</p>
                 </div>
               </div>
