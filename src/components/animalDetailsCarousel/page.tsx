@@ -37,7 +37,9 @@ function ThumbnailPlugin(
 
     slider.on("created", () => {
       if (!mainRef.current) return
-      observer.observe(slider.container, { childList: true })
+      if(typeof window != "undefined"){
+        observer.observe(slider.container, { childList: true })
+      }
       addActive(slider.track.details.rel)
       addClickEvents()
       mainRef.current.on("animationStarted", (main: any) => {
