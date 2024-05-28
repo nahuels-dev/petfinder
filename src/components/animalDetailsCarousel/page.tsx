@@ -37,7 +37,7 @@ function ThumbnailPlugin(
 
     slider.on("created", () => {
       if (!mainRef.current) return
-      observer.observe(slider.container, config)
+      observer.observe(slider.container, { childList: true })
       addActive(slider.track.details.rel)
       addClickEvents()
       mainRef.current.on("animationStarted", (main: any) => {
@@ -47,6 +47,7 @@ function ThumbnailPlugin(
         slider.moveToIdx(Math.min(slider.track.details.maxIdx, next))
       })
     })
+
     slider.on("destroyed", () => {
       observer.disconnect()
     })
