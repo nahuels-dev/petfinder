@@ -29,8 +29,15 @@ function ThumbnailPlugin(
       })
     }
 
+    const observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        slider.update()
+      })
+    })
+
     slider.on("created", () => {
       if (!mainRef.current) return
+      observer.observe(slider.container, config)
       addActive(slider.track.details.rel)
       addClickEvents()
       mainRef.current.on("animationStarted", (main: any) => {
@@ -39,6 +46,9 @@ function ThumbnailPlugin(
         addActive(main.track.absToRel(next))
         slider.moveToIdx(Math.min(slider.track.details.maxIdx, next))
       })
+    })
+    slider.on("destroyed", () => {
+      observer.disconnect()
     })
   }
 }
