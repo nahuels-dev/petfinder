@@ -263,7 +263,7 @@ const StepFour = ({functions}:any) => {
     const searchLocationFunction = () =>{
         const getLocation = async () => {
             //Pide direccion y te da coordenadas
-            const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=AIzaSyCT1ozwQNV465oXnnY0fQSvU_trX_SRFyE`)
+            const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP}`)
             
             const dataJson = await data.json()
             let locationFromInput = dataJson.results[0].geometry.location
@@ -278,7 +278,7 @@ const StepFour = ({functions}:any) => {
             }
 
             //Pide coordenadas y te da datos
-            const inverseResult = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locationFromInput.lat},${locationFromInput.lng}&key=AIzaSyCT1ozwQNV465oXnnY0fQSvU_trX_SRFyE`)
+            const inverseResult = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locationFromInput.lat},${locationFromInput.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP}`)
             const inverseData = await inverseResult.json()
             console.log(inverseData.results[0].address_components)
         }
