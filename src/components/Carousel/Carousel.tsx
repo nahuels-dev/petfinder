@@ -1,73 +1,121 @@
 "use client"
 import React , { useCallback, useEffect, useState }  from 'react'
 
-import useEmblaCarousel from 'embla-carousel-react'
-import Autoplay from 'embla-carousel-autoplay'
 import styles from "./Carousel.module.scss"
 import {CarouselProps} from '../../types/types'
 import { CarouselItem } from '../CarouselItem/CarouselItem'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import "keen-slider/keen-slider.min.css"
+import Link from 'next/link'
+
+import { formatDate } from '@/helpers/date'
+
+
+import { useKeenSlider } from "keen-slider/react"
 
 
 //https://www.embla-carousel.com/api/options/
 
 export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
 
-    const [data, setData] = useState([{}])
+    const [dataFinal, setDataFinal] = useState() as any
+    const [isLoading, setIsLoading] = useState(true)
     const supabase = createClientComponentClient()
-
+    //tipo es busqueda o pertence
     useEffect(() => {
-        let url = tipo == "busqueda" ? "algo": "algootro"
         async function getData() {
             try {
-              const response = await fetch('url');
-              setData(await response.json())
-              if (response.ok) {
-                console.log('Todo bien');
-              } else {
-                console.log('Respuesta de red OK pero respuesta de HTTP no OK');
-              }
+              const { data, error } = await supabase
+              .from('alert_post')
+              .select('*')
+              .eq('status', tipo.toLowerCase())
+              .order('created_at', { ascending: false })
+              .limit(7); 
+
+              setDataFinal(data)
+              console.log(data)
+              setIsLoading(false)
             } catch (error: any) {
               console.log('Hubo un problema con la petición Fetch:' + error.message);
             }
           }
           
-          getData();
+          getData();          
     }, [])
 
-    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()])
-    const scrollPrev = useCallback(() => {
-        if (emblaApi) emblaApi.scrollPrev()
-    }, [emblaApi])
-    
-    const scrollNext = useCallback(() => {
-        if (emblaApi) emblaApi.scrollNext()
-    }, [emblaApi])
+    const [sliderRef] = useKeenSlider<HTMLDivElement>(
+      {
+        loop: true,
+        slides: {
+          perView: 2.8,
+          spacing: 60,
+        },
+        
+        breakpoints: {
+          '(max-width: 1200px)': {
+            slides: {
+              perView: 2,
+              spacing: 10,
+            },
+          },
+          '(max-width: 550px)': {
+            slides: {
+              perView: 1,
+              spacing: 10,
+            },
+          },
+        },
+      },
+      [
+        (slider) => {
+          let timeout: ReturnType<typeof setTimeout>
+          let mouseOver = false
+          function clearNextTimeout() {
+            clearTimeout(timeout)
+          }
+          function nextTimeout() {
+            clearTimeout(timeout)
+            if (mouseOver) return
+            timeout = setTimeout(() => {
+              slider.next()
+            }, 2000)
+          }
+          slider.on("created", () => {
+            slider.container.addEventListener("mouseover", () => {
+              mouseOver = true
+              clearNextTimeout()
+            })
+            slider.container.addEventListener("mouseout", () => {
+              mouseOver = false
+              nextTimeout()
+            })
+            nextTimeout()
+          })
+          slider.on("dragStarted", clearNextTimeout)
+          slider.on("animationEnded", nextTimeout)
+          slider.on("updated", nextTimeout)
+        },
+      ]
+    )
 
-  //   Fetch data
-  //   const { data, error } = await supabase
-  // .from('alert_post')
-  // .select()
+    
 
 
   return (
-    <div className={`${styles.embla}`}>
-        <div className={`${styles.embla__viewport}`}  ref={emblaRef}>
-            <div className={`${styles.embla__container}`}>
-                {data && data.map((item, index) => (
-                  <CarouselItem key={index}/>
-                ))}
-                <CarouselItem />
-                <CarouselItem />
-                <CarouselItem />
-                <CarouselItem />
-                <CarouselItem />
-                <CarouselItem />
-            </div>
-            <h3>{titulo}</h3>
-            <button className={`${styles.embla__viewport__prev}`} onClick={scrollPrev}>&lt;</button>
-            <button className={`${styles.embla__viewport__next}`} onClick={scrollNext}>&gt;</button>
+    <>
+      {!isLoading ? (
+        <div ref={sliderRef} className={`keen-slider ${styles.container}`}>
+          {dataFinal && dataFinal.map((item:any, index:any) => (
+            <Link href={`/detalles?q=${item.id}`} key={index}>
+              <CarouselItem  title={item.title} description={item.description} image={item.images[0]} tipo={tipo} datePublished={formatDate(item.lastSeen)}/>
+            </Link>
+          ))}
         </div>
-    </div>
+      ): (
+        <h4>Cargando</h4>
+      )}
+      
+    </>
+   
   )
 }

@@ -1,29 +1,22 @@
 @import '../../styles/variables';
-.embla__slide {
-	max-width: 467px;
-	display: flex;
-	justify-content: center;
-	max-height: 553px;
+.slide {
+	display: block;
 	height: 100%;
-	min-width: 0;
-	flex: 0 0 45%;
-	@media screen and (max-width: 1250px) {
-		flex: 0 0 100%;
-    }
-
-	@media screen and (max-width: 540px) {
-		max-height: 600px;
-    }
+	overflow: visible !important;
 
 	&__content{
+		margin: 0 auto;
 		position: relative;
-		max-width: 417px;
 		@media screen and (max-width: 1250px) {
 			width: 90%;
 			overflow-x: hidden;
 		}
+		@media screen and (max-width: 750px){
+			margin: 0 auto;
+		}
 		height: 100%;
 		border-radius: 30px;
+		overflow: visible;
 		-webkit-box-shadow: 0px 0px 20px 0px rgba(255,171,159,0.4);
 		-moz-box-shadow: 0px 0px 20px 0px rgba(255,171,159,0.4);
 		box-shadow: 0px 0px 20px 0px rgba(255,171,159,0.4);
@@ -33,6 +26,8 @@
 		&__img{
 			width: 100%;
 			max-height: 268px;
+			background-color: white;
+			border-radius: 30px;
 		}
 		&__copy{
 			position: relative;
@@ -43,7 +38,7 @@
 				display: flex;
 				align-items: center;
 				gap: 5px;
-				color: $gray-color;
+				color: $gray-color !important;
 				font-size: 15px;
 				bottom: 14px;
 				@media screen and (max-width: 1250px) {
@@ -51,7 +46,7 @@
 				}
 
 				@media screen and (max-width: 540px) {
-					bottom: -40px;
+					bottom: 10px;
 				}
 				&__img{
 					width: 18px;
@@ -63,9 +58,6 @@
 				color: $secondary-color;
 				margin-bottom: 10px;
 
-				/* @media screen and (max-width: 490px) {
-					bottom: -40px;
-				} */
 			}
 			p{
 				font-size: 15px;

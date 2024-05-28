@@ -79,16 +79,9 @@ const Reportar = () => {
                 body: formData,
             });
             const datares = await res.json();
-            console.log(datares.url) 
             urls.push(datares.url)
         }
         
-        /* for (const image of images) {
-            (Cloudinary as any).uploader.upload(image,
-            { public_id: JSON.parse(checkSession()).user.id + Math.random() * 100}, 
-            function(error:any, result:any) {console.log(result); });
-        }
-        */
         let data = {
             images: urls,
             user_id: JSON.parse(checkSession()).user.id,
@@ -99,11 +92,13 @@ const Reportar = () => {
             isAdoption
         }
 
-        console.log(data)
         const { error } = await supabase
         .from('alert_post')
         .insert(data)
     
+        if(!error){
+            alert("Subido a la base de datos!")
+        }
         console.log(error)
     }
 
@@ -122,25 +117,6 @@ const Reportar = () => {
                     }
                 </div>
             </div>
-
-
-            {/* <form action="">
-                <select name="" id="">
-                    <option value="">Dar en adopcion</option>
-                    <option value="">Reportar desaparecido/ busqueda</option>
-                </select>
-
-
-                <input type="file" multiple capture="environment" required/>
-                <input type="text" placeholder="Titulo" required/>
-                <textarea name="" id="" placeholder="Description" required></textarea>
-    
-                <select name="" id="" required>
-                    <option value="">Retenido</option>
-                    <option value="">Visto</option>
-                    <option value="">En busqueda</option>
-                </select>
-            </form> */}
         </div>
     )
 }
@@ -153,7 +129,7 @@ const StepOne = ({ setAdoption, isAdoption, setNext }: any) => {
         <div className={styles.reportar__steps__one}>
             <h2>Que tipo de publicacion deseas hacer?</h2>
             <label htmlFor="">
-                <p>Reportar desaparecido/ busqueda</p>
+                <span>Reportar desaparecido/ busqueda</span>
                 <input type="radio" name="type" value={0} checked={!isAdoption} onChange={(e) => setAdoption(e.target.value)} />
             </label>
             <label htmlFor="">
@@ -197,7 +173,7 @@ const StepTwo = ({ setNext,setFinalImages,finalImages,setCloudinaryImages }: any
     return (
         <div className={styles.reportar__steps__two}>
             <h2>Por favor sube las fotos de la mascota</h2>
-            <input type="file" multiple capture="environment" onChange={handleImageChange} required maxLength={4} />
+            <input type="file" multiple onChange={handleImageChange} required maxLength={4} />
             <div className={styles.reportar__steps__two__images}>
                 {renderPhotos(images as any)}
             </div>
@@ -210,15 +186,17 @@ const StepThree = ({ isAdoption,functions }: { isAdoption: boolean,functions:any
     return (
         <div className={styles.reportar__steps__three}>
             <h2>Llena los siguientes datos</h2>
-            <input type="text" placeholder="Titulo" required value={title} onChange={(e)=> setTitle(e.target.value)}/>
-            <textarea name="" id="" placeholder="Description" required value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
-            {!isAdoption &&
-                <select name="" id="" required onChange={(e)=>setStatus(e.target.value)}>
-                    <option value="retenido" selected={status=='retenido'}>Retenido</option>
-                    <option value="visto" selected={status=='visto'}>Visto</option>
-                    <option value="busqueda" selected={status=='busqueda'}>En busqueda</option>
-                </select>
-            }
+            <div>
+                <input type="text" placeholder="Titulo" required value={title} onChange={(e)=> setTitle(e.target.value)}/>
+                <textarea name="" id="" placeholder="Description" required value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
+                {!isAdoption &&
+                    <select name="" id="" required onChange={(e)=>setStatus(e.target.value)}>
+                        <option value="retenido" selected={status=='retenido'}>Retenido</option>
+                        <option value="visto" selected={status=='visto'}>Visto</option>
+                        <option value="busqueda" selected={status=='busqueda'}>En busqueda</option>
+                    </select>
+                }
+            </div>
         </div>
     )
 }
@@ -227,37 +205,105 @@ const StepFour = ({functions}:any) => {
     const [anchor, setAnchor] = useState([-34.89792, -56.1577984]) as any;
     const [center, setCenter] = useState(anchor) as any
     const {location,setLocation} = functions
-    const centerMap = ()=>{
-        setCenter([anchor[0] - 0.000001, anchor[1] - 0.000001])
+    const [searchLocation, setSearchLocation] = useState("")
+
+    const centerMap = (position: any)=>{
+        setCenter([position[0] - 0.000001, position[1] - 0.000001])
         setTimeout(()=>{
-            setCenter(anchor)
+            setCenter(position)
         },100)
     }
+    
 
-    useEffect(()=>{
-        if(location.length > 0){
-            setAnchor(location)
-            setCenter(location)
+    function getMyLocation(): Promise<{ latitude: number; longitude: number }> {
+        if (navigator.geolocation) {
+            return new Promise<{ latitude: number; longitude: number }>((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        resolve({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                        });
+                    },
+                    (error) => {
+                        console.log(error.message);
+                        reject(error);
+                    }
+                );
+            });
+        } else {
+            console.log('Geolocation is not supported by this browser.');
+            return Promise.reject(new Error('Geolocation is not supported by this browser.'));
         }
+    }
+
+    useEffect( ()=>{
+        const fetchLocation = async () => {
+            if (location.length > 0) {
+                setAnchor(location);
+                setCenter(location);
+            } else {
+                const position = await getMyLocation();
+                if (position) {
+                    const newLocation = [position.latitude, position.longitude];
+                    console.log(newLocation)
+                    setAnchor(newLocation);
+                    setCenter(newLocation);
+                }
+            }
+        };
+
+        fetchLocation();
     },[])
+
     useEffect(()=>{
         setLocation(anchor)
     },[anchor])
+
+    const searchLocationFunction = () =>{
+        const getLocation = async () => {
+            //Pide direccion y te da coordenadas
+            const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP}`)
+            
+            const dataJson = await data.json()
+            let locationFromInput = dataJson.results[0].geometry.location
+            console.log(locationFromInput, locationFromInput)
+            if(Object.keys(dataJson).length > 0) {
+                let position = [locationFromInput.lat, locationFromInput.lng]
+                alert(position)
+                centerMap(position)
+                setAnchor(position)
+            }else{
+                alert("no existe")
+            }
+
+            //Pide coordenadas y te da datos
+            const inverseResult = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locationFromInput.lat},${locationFromInput.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP}`)
+            const inverseData = await inverseResult.json()
+            console.log(inverseData.results[0].address_components)
+        }
+
+        getLocation()
+    }
     return (
         <div className={styles.reportar__steps__three}>
             <h2>Selecciona la ubicacion</h2>
+            <input type="text" placeholder="Ubicacion" required value={searchLocation} onChange={(e)=>setSearchLocation(e.target.value)}/>
+            <button onClick={searchLocationFunction}>Buscar Ubicacion</button>
             <Location></Location>
             {anchor}
-            <button onClick={()=> centerMap()}>center</button>
-            <Map height={500} width={1000} defaultCenter={center} center={center} defaultZoom={17} >
-                <Draggable offset={[20, 50]} anchor={anchor} onDragEnd={setAnchor}>
-                    <Image 
-                        src={logo}
-                        alt=""
-                        width={40}
-                    />
-                </Draggable>
-            </Map>
+            <button onClick={()=> centerMap(anchor)}>center</button>
+            <div className={styles.mapContainer}>
+                <Map height={500} width={1000} defaultCenter={center} center={center} defaultZoom={17} >
+                    <Draggable offset={[20, 50]} anchor={anchor} onDragEnd={setAnchor}>
+                        <Image 
+                            src={logo}
+                            alt=""
+                            width={40}
+                        />
+                    </Draggable>
+                </Map>
+            </div>
         </div>
     )
 }

@@ -1,0 +1,105 @@
+@import '@/styles/variables';
+
+.container{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 45px;
+
+    @media screen and (max-width: 1200px) {
+        padding: 0 10px;
+    }
+
+    .sidebar{
+        min-width: 296px;
+        width: 296px;
+        max-width: 296px;
+        height: 317px;
+        background-color: #FFD6D0;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        padding-left: 30px;
+        div:hover{
+            cursor: pointer;
+        }
+        .active{
+            color: #F86262;
+            font-weight: bold;
+        }
+    }
+
+    .main_content{
+        width: 100%;
+        max-width: 864px;
+        border-radius: 30px;
+        min-height: 744px;
+        padding: 16px 36px;
+
+        .profilePanel{
+            .title, .salutation{
+                padding-bottom: 10px;
+
+                
+            }
+            .salutation{
+                font-size: 20px;
+                .colored{
+                    color:#F86262;
+                }
+            }
+            .description{
+                padding-bottom: 40px;
+            }
+        }
+
+        .account_information{
+
+            .subTitle{
+                padding-bottom: 10px;
+                font-size: 24px;
+            }
+
+            .columns{
+                display: flex;
+                gap: 15px;
+                @media screen and (max-width: 865px) {
+                    flex-direction: column;
+                }
+                p{
+                    width: 50%;
+                    @media screen and (max-width: 865px) {
+                        width: 100%;
+                    }
+                    display: flex;
+                    justify-content: space-between;
+                    border-bottom: 1px solid black;
+                    .editBtn{
+                        color: #F86262;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+
+        .publicaciones{
+            .columns{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                .carouselItemContainer{
+                    width: 100%;
+                    max-width: 410px;
+                    text-decoration: none;
+                    color: black;
+                }
+            }
+        }
+
+    }
+}

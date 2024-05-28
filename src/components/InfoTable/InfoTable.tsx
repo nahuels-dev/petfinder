@@ -5,8 +5,7 @@ import {SingleTable} from '../SingleTable/SingleTable'
 export const InfoTable: React.FC = () => {
   return (
     <div className={styles.tables} >
-      <SingleTable chip_incapacidades={true} chip_incapacidades_text='Chip' collar_amigable={true} collar_amigable_text='Collar' size_alergias='5kg' size_alergias_text='Tamaño' />
-      <SingleTable chip_incapacidades={true} chip_incapacidades_text='Incapacidades' collar_amigable={false} collar_amigable_text='Amigable' size_alergias='Si' size_alergias_text='Alergias' />
+      <SingleTable chip={true} chip_text='Chip' collar={true} collar_text='Collar' size='5kg' size_text='Tamaño' incapacidades={true} incapacidades_text='Incapacidades' amigable={false} amigable_text='Amigable' alergias='Si' alergias_text='Alergias' />
     </div>
   )
 }

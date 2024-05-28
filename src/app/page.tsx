@@ -26,13 +26,15 @@ export default function Home() {
       </div>
      </header>
      <div className={`${styles.carouselsSections}`}>
+      <h3>Viste alguno de estos?</h3>
       <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
       <Carousel tipo={`Busqueda`} titulo={`Viste alguno de estos?`}/>
       <Link href="google.com" className={`${styles.carouselsSections__viewAll}`}>Ver todos</Link>
      </div>
      <div className={`${styles.carouselsSections}`}>
+      <h3>Alguno te pertenece?</h3>
       <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
-      <Carousel tipo={`Pertenece`} titulo={`Alguno te pertenece?`} />
+      <Carousel tipo={`Visto`} titulo={`Alguno te pertenece?`} />
       <Link href="google.com" className={`${styles.carouselsSections__viewAll}`}>Ver todos</Link>
      </div>
      <div className={`${styles.gridBlogLinks}`}>
