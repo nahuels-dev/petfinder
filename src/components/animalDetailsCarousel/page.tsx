@@ -7,6 +7,11 @@ import {
 } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import styles from "./AnimalDetailsCarousel.module.scss"
+
+
+
+
+
 function ThumbnailPlugin(
     //@ts-ignore
   mainRef: MutableRefObject<KeenSliderInstance | null>
@@ -56,6 +61,23 @@ function ThumbnailPlugin(
   }
 }
 
+const MutationPlugin: KeenSliderPlugin = (slider) => {
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      slider.update()
+    })
+  })
+  const config = { childList: true }
+
+  slider.on("created", () => {
+    observer.observe(slider.container, config)
+  })
+  slider.on("destroyed", () => {
+    observer.disconnect()
+  })
+}
+
+
 export default function AnimalsDetailCarousel(images: any = []) {
 
   const [imagesState, setImagesState] = useState([])  
@@ -66,7 +88,7 @@ export default function AnimalsDetailCarousel(images: any = []) {
       perView: 1,
       spacing: 0,
     },
-  })
+  },[MutationPlugin])
   const [thumbnailRef] = useKeenSlider<HTMLDivElement>(
     {
       initial: 0,
