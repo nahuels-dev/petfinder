@@ -21,7 +21,9 @@
     }
 
     &__steps{
-
+        @media screen and (max-width: 600px) {
+            margin: 0 10px;
+        }
         h2{
             width: 100%;
             font-size: 30px;

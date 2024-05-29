@@ -270,7 +270,6 @@ const StepFour = ({functions}:any) => {
             console.log(locationFromInput, locationFromInput)
             if(Object.keys(dataJson).length > 0) {
                 let position = [locationFromInput.lat, locationFromInput.lng]
-                alert(position)
                 centerMap(position)
                 setAnchor(position)
             }else{
