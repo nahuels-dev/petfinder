@@ -29,11 +29,11 @@ function Footer() {
           </div>  
         </Link>
         <div className={`${styles.footer_container_links}`}>
-            <Link className={currentPath == "/" ? styles.active : ""} href={"google.com"}>Inicio</Link>
+            <Link className={currentPath == "/" ? styles.active : ""} href={"/"}>Inicio</Link>
             <Link href={"google.com"}>Buscar mascota</Link>
-            <Link href={"google.com"}>Reportar mascota</Link>
+            <Link href={"/reportar"}>Reportar mascota</Link>
             <Link href={"google.com"}>Adoptar</Link>
-            <Link href={"google.com"}>Como funciona?</Link>
+            <Link href={"/como-funciona"}>Como funciona?</Link>
         </div>
         <div className={`${styles.footer_container_footnotes}`}>
             <p>&reg; 2024 Mascota Sin Hogar.</p>
