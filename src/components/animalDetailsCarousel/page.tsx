@@ -112,13 +112,6 @@ export default function AnimalsDetailCarousel(images: any = []) {
           <img src={image} alt={`Slide ${index + 1}`} />
         </div>
       ))}
-      
-        {/* 
-        asi si anda
-        <div className="keen-slider__slide number-slide1"><img src={imagesState[0]} /></div>
-        <div className="keen-slider__slide number-slide2"><img src={imagesState[1]} /></div>
-        <div className="keen-slider__slide number-slide3"><img src={imagesState[2]} /></div>
-        <div className="keen-slider__slide number-slide4"><img src={imagesState[3]} /></div> */}
       </div>
 
       <div ref={thumbnailRef} className="keen-slider thumbnail">
