@@ -25,6 +25,7 @@ function PageWrapper() {
 
   const supabase = createClientComponentClient()
   const [petInfo, setPetInfo] = useState<any>({})
+  const [loggedInfo, setLoggedInfo] = useState<any>({})
   const [creatorInfo, setCreatorInfo] = useState<any>({})
   const [loading, setLoading] = useState(true)
   
@@ -36,8 +37,7 @@ function PageWrapper() {
     let storageSession = checkSession() as any
     if(storageSession){
         storageSession = JSON.parse(storageSession)
-        setCreatorInfo(storageSession.user)
-        console.log(storageSession.user.id)
+        setLoggedInfo(storageSession.user)
     }
     async function getData() {
       try {
@@ -47,6 +47,21 @@ function PageWrapper() {
         .eq('id', petID)
         if(data){
           setPetInfo(data[0]!)
+          await getCreatorData(data[0].user_id)
+        }
+      } catch (error: any) {
+        console.log('Hubo un problema con la petición Fetch:' + error.message);
+      }
+    }
+
+    async function getCreatorData(id: string) {
+      console.log(id)
+      try {
+        //solo en serverside recomiendan el admin NAHUEL y no me esta trayendo nada por eso creo
+        const { data, error } = await supabase.auth.admin.getUserById(id)
+        if(data){
+          setCreatorInfo(data.user)
+          console.log(creatorInfo)
         }
       } catch (error: any) {
         console.log('Hubo un problema con la petición Fetch:' + error.message);
@@ -60,24 +75,24 @@ function PageWrapper() {
   
 
   useEffect(() => {
-    if(Object.keys(petInfo).length > 0){
+    if(Object.keys(petInfo).length > 0 /* && Object.keys(creatorInfo).length > 0 */){
       setLoading(false)
     }
-  }, [petInfo]);
+  }, [petInfo,creatorInfo]);
   
   return (
     <div className={styles.pageContainer}>
-      {Object.keys(petInfo).length > 0 && (
+      {!loading  &&(
         <>
         <main className={styles.mainDetails}>
           <div className={styles.postOptions}>
-            {creatorInfo.id == petInfo.user_id && (
+            {loggedInfo.id == petInfo.user_id && (
               <>
                 <Image src={FinishIconIMG} width={60} height={60} alt="Terminar publicacion icono" />
                 <Image src={EditIconIMG} width={58} height={58} alt="Editar publicacion icono" />
               </>
             )}
-            {creatorInfo.id != petInfo.user_id && (
+            {loggedInfo.id != petInfo.user_id && (
               <>
                 <Image src={ReportIconIMG} width={58} height={58} alt="Reportar publicacion icono" />
               </>
@@ -98,14 +113,14 @@ function PageWrapper() {
             <div className={styles.tables}>
               <InfoTable />
             </div>
-              <div className={styles.creatorInfo}>
+              <div className={styles.loggedInfo}>
                 <div className={styles.photo}>
                 </div>
                 <div className={styles.creatorText}>
-                  {creatorInfo.user_metadata &&
+                  {loggedInfo.user_metadata &&
                   <>
-                    <p className={styles.creatorName}>{creatorInfo.user_metadata.full_name}</p>
-                    <p className={styles.creatorMail}>{creatorInfo.user_metadata.email}</p>
+                    <p className={styles.creatorName}>{loggedInfo.user_metadata.full_name}</p>
+                    <p className={styles.creatorMail}>{loggedInfo.user_metadata.email}</p>
                   </>
                     
                   }
