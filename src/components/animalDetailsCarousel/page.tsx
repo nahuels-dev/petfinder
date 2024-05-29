@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react"
+import Image from "next/image"
 import {
   useKeenSlider,
   KeenSliderPlugin,
@@ -7,6 +8,7 @@ import {
 } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import styles from "./AnimalDetailsCarousel.module.scss"
+
 
 
 
@@ -104,9 +106,12 @@ export default function AnimalsDetailCarousel(images: any = []) {
     setImagesState(images.images)
   }, [])
 
+  
+
   return (
     <>
-      <div ref={sliderRef} className="keen-slider">
+      <div ref={sliderRef} className={`keen-slider ${styles.container}`}>
+        
       {imagesState.map((image, index) => (
         <div key={index} className={`keen-slider__slide number-slide${index + 1} ${styles.carousel_item}`}>
           <img src={image} alt={`Slide ${index + 1}`} />

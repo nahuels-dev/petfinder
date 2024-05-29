@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation"
 import { CarouselItem } from '@/components/CarouselItem/CarouselItem'
 import Link from 'next/link'
 import { formatDate } from '@/helpers/date'
+import { Button } from '@/components/Button';
 
 const ProfileState = {
   PanelControl: 'PanelControl',
@@ -27,6 +28,8 @@ function PageContent() {
   const [profileState, setProfileState] = useState(ProfileState.PanelControl)
   const { checkSession } = useContext(AuthenticationContext)
   const [creatorInfo, setCreatorInfo] = useState<any>({})
+  const [favoritesPets, setFavoritesPets] = useState<any>({})
+  const [openAccordeon, setOpenAccordeon] = useState<any>({})
   const [petInfo, setPetInfo] = useState<any>({})
   const searchParams = useSearchParams()
   const initialParams = searchParams.get('q') || ProfileState.PanelControl
@@ -83,10 +86,24 @@ function PageContent() {
         console.log('Hubo un problema con la petición Fetch:' + error.message);
       }
     }
+    async function getFavorites() {
+     /*  try {
+        const { data, error } = await supabase
+        .from('alert_post')
+        .select('*')
+        .eq('user_id', creatorInfo.id)
+
+        setFavoritesPets(data)
+        console.log(data)
+      } catch (error: any) {
+        console.log('Hubo un problema con la petición Fetch:' + error.message);
+      } */
+    }
 
     if(creatorInfo.id){
       console.log("si")
       getData();   
+      getFavorites();
     }
   }, [creatorInfo])
 
@@ -122,7 +139,23 @@ function PageContent() {
             </div>
           )}
           {profileState == "Perfil" && (
-            <h1>Perfil</h1>
+            <div className={styles.perfil}>
+              <h1>Perfil</h1>
+              <p>Nombre: </p>
+              <p>Telefono: </p>
+              <p>Email: </p>
+              <p>Contraseña: </p>
+              <p>Biografia: </p>
+              <h2>Contacto Publico</h2>
+              <p>Facebook:</p>
+              <p>Instagram:</p>
+              <p>Twitter:</p>
+              <p>Email:</p>
+              <h2>Direcciones</h2>
+              <p>Direccion 1</p>
+              <p>Direccion 1</p>
+              <p>Direccion 1</p>
+            </div>
           )}
           {profileState == "Publicaciones" && Object.keys(petInfo).length > 0 && (
               <div className={styles.publicaciones}>
@@ -138,10 +171,51 @@ function PageContent() {
             )
           }
           {profileState == "Favoritos" && (
-            <h1>Favoritos</h1>
+            <div className={styles.publicaciones}>
+              <h1>Favoritos</h1>
+              <div className={styles.columns}>
+                {Object.keys(favoritesPets).length > 0  && favoritesPets.map((pet: any, index: number) => (
+                  <Link className={styles.carouselItemContainer} href={`/detalles?q=${pet.id}`} key={index}>
+                    <CarouselItem title={pet.title} description={pet.description} image={pet.images[0]} tipo={pet.status} datePublished={formatDate(pet.created_at)}/>
+                  </Link>
+                ))}
+              </div>
+            </div>
           )}
           {profileState == "Notificaciones" && (
-            <h1>Notificaciones</h1>
+            <div className={styles.notificaciones}>
+              <h1>Notificaciones</h1>
+              <p>Notificacion 1 <span>x</span></p>
+              <p>Notificacion 2 <span>x</span></p>
+              <p>Notificacion 3 <span>x</span></p>
+              <Button theme='light'>Añadir Notificacion</Button>
+              <div className={styles.nuevaNoti}>
+                <div className={styles.acordionContainer}>
+                  <button className={styles.accordion} onClick={(e) => setOpenAccordeon(!openAccordeon)}>Tipo de notificación <span>X</span></button>
+                  <div className={`${styles.panel} ${ openAccordeon && styles.active}`}>
+                    <label htmlFor=''>
+                        <input type="checkbox" /> Vacunaciones gratuitas
+                    </label>
+                    <label htmlFor=''>
+                        <input type="checkbox" /> Castraciones “ ”
+                    </label>
+                    <label htmlFor=''>
+                        <input type="checkbox" /> Doy en adopción
+                    </label>
+                    <label htmlFor=''>
+                        <input type="checkbox" /> Promociones
+                    </label>
+                  </div>   
+                </div>
+                <div className={styles.tags}>
+                    <div className={styles.tag}></div>
+                    <div className={styles.tag}></div>
+                    <div className={styles.tag}></div>
+                </div>
+
+                <Button theme='light'>Guardar</Button>
+              </div>
+            </div>
           )}
         
       </div>

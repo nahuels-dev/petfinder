@@ -14,6 +14,25 @@
 		@media screen and (max-width: 750px){
 			margin: 0 auto;
 		}
+
+		.favoriteImg{
+			position: absolute;
+			top:20px;
+			left:20px;
+			z-index: 5;
+
+			&:hover{
+				cursor: pointer;
+			}
+
+			img{
+				background-color: transparent !important;
+				width: 33px;
+				height: auto;
+				filter: drop-shadow((0 0 0.2rem rgba(0, 0, 0, 0.62)));
+			}
+		}
+
 		height: 100%;
 		border-radius: 30px;
 		overflow: visible;

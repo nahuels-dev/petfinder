@@ -1,5 +1,5 @@
 "use client"
-import React , { useCallback, useEffect, useState }  from 'react'
+import React , { useCallback, useContext, useEffect, useState }  from 'react'
 
 import styles from "./Carousel.module.scss"
 import {CarouselProps} from '../../types/types'
@@ -7,6 +7,7 @@ import { CarouselItem } from '../CarouselItem/CarouselItem'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import "keen-slider/keen-slider.min.css"
 import Link from 'next/link'
+import { AuthenticationContext } from "@/context/Authentication"
 
 import { formatDate } from '@/helpers/date'
 
@@ -17,13 +18,20 @@ import { useKeenSlider } from "keen-slider/react"
 //https://www.embla-carousel.com/api/options/
 
 export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
-
+    const { checkSession } = useContext(AuthenticationContext)
     const [dataFinal, setDataFinal] = useState() as any
     const [isLoading, setIsLoading] = useState(true)
+    const [loggedInfo, setLoggedInfo] = useState<any>({})
     const supabase = createClientComponentClient()
     //tipo es busqueda o pertence
     useEffect(() => {
         async function getData() {
+          let storageSession = checkSession() as any
+          if(storageSession){
+              storageSession = JSON.parse(storageSession)
+              setLoggedInfo(storageSession.user)
+          }
+
             try {
               const { data, error } = await supabase
               .from('alert_post')
@@ -33,7 +41,6 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
               .limit(7); 
 
               setDataFinal(data)
-              console.log(data)
               setIsLoading(false)
             } catch (error: any) {
               console.log('Hubo un problema con la petición Fetch:' + error.message);

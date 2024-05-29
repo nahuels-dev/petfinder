@@ -101,5 +101,100 @@
             }
         }
 
+
+        .perfil{
+            h2,h1{
+                margin-bottom: 21px;
+            }
+            h2{
+                margin-top: 21px;
+            }
+            p{
+                margin-bottom: 10px;
+            }
+            
+        }
+
+        .notificaciones{
+
+            h1{
+                margin-bottom: 35px;
+            }
+
+            >p{
+                margin-bottom: 20px;
+            }
+
+            .nuevaNoti{
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .acordionContainer{
+                    margin-top: 42px;
+                    width: 221px;
+                    /* Style the buttons that are used to open and close the accordion panel */
+                    .accordion {
+                        background-color: #eee;
+                        border-top-left-radius: 6px;
+                        border-top-right-radius: 6px;
+                        color: #444;
+                        cursor: pointer;
+                        padding: 13px;
+                        text-align: left;
+                        border: none;
+                        outline: none;
+                        width: 100%;
+                        transition: 0.4s;
+                        display: flex;
+                        justify-content: space-between;
+                        font-weight: bold;
+                    }
+                    
+                    
+                    
+                    /* Style the accordion panel. Note: hidden by default */
+                    .panel {
+                        padding: 0 10px;
+                        background-color: white;
+                        display: none;
+                        overflow: hidden;
+    
+                        label{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 5px 0;
+                            font-size: 16px;
+                            display: block;
+                        }
+                    }
+    
+                    /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+                    .active {
+                        background-color: #ccc;
+                        display: block;
+                    }
+    
+                   
+                }
+    
+                .tags{
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                    .tag{
+                        width: 132px;
+                        height: 31px;
+                        border-radius: 25px;
+                        background-color: grey;
+                    }
+                }
+            }
+
+            
+            
+        }
+
     }
 }

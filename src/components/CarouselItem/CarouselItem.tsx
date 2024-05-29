@@ -7,6 +7,9 @@ import { PetState } from '../PetState/PetState'
 import { InfoTable } from '../InfoTable/InfoTable'
 import { useState } from 'react'
 import "keen-slider/keen-slider.min.css"
+
+import FavoriteImg from "@/assets/images/favoriteFullIcon.png"
+import NoFavoriteImg from "@/assets/images/favoriteEmptyIcon.png"
 interface CarouselItemProps {
 	title: any;
 	description: any;
@@ -26,11 +29,24 @@ export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, 
 		setImgSrc(petImage);
 	};
 
+
+	const favorite = (e: any) => {
+		// Nahuel boton clickea pero tambien te tira para detalles
+		e.stopPropagation()
+		console.log("favorite function")
+	}
+
 	return (
 		<div className={`${styles.slide} keen-slider__slide`}>
 			<div className={`${styles.slide__content}`}>
 				<PetState estado={resultado} texto={tipo} />
+				<div className={styles.favoriteImg} onClick={(e) => favorite(e)}>
+				{/* IF FAVORITE */}
+					<Image className={`${styles.slide__content__img}`} src={NoFavoriteImg} width={33} height={31} alt="favorite img" onError={handleError} />
+				</div>
+
 				<Image className={`${styles.slide__content__img}`} src={imgSrc} width={834} height={536} alt="pet image" onError={handleError} />
+				
 				<div className={`${styles.slide__content__copy}`}>
 					<h4>{title}</h4>
 					<p>{description} </p>

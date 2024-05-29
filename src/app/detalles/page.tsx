@@ -14,10 +14,15 @@ import FinishIconIMG from "@/assets/images/finishIcon.png"
 import DeleteIconIMG from "@/assets/images/deleteicon.png"
 import { AuthenticationContext } from "@/context/Authentication"
 
+
+import FavoriteImg from "@/assets/images/favoriteFullIcon.png"
+import NoFavoriteImg from "@/assets/images/favoriteEmptyIcon.png"
+
 import { Button } from '@/components/Button'
 import { useContext, useEffect, useState } from 'react'
 
 import { formatDate } from '@/helpers/date'
+import { PetState } from '@/components/PetState/PetState'
 
 function PageWrapper() {
 
@@ -47,6 +52,7 @@ function PageWrapper() {
         .eq('id', petID)
         if(data){
           setPetInfo(data[0]!)
+          console.log(data[0])
           await getCreatorData(data[0].user_id)
         }
       } catch (error: any) {
@@ -72,6 +78,12 @@ function PageWrapper() {
       getData();   
     }
   }, [])
+
+  const favorite = (e: any) => {
+		// Nahuel Funcion duplicada, para helpers y ver lo de redirect en la home (carouselItem component, comentario //nahuel)
+		e.stopPropagation()
+		console.log("favorite function")
+	}
   
 
   useEffect(() => {
@@ -102,6 +114,13 @@ function PageWrapper() {
           </div>
           <div className={styles.animalDetails}>
             <div className={styles.animalImgs}>
+            <div className={styles.state}>
+              <PetState estado={petInfo.status === "visto" ? "v" : petInfo.status === "busqueda" ? "b" : "r"} texto={petInfo.status} />
+            </div>
+            <div className={styles.favoriteImg} onClick={(e) => favorite(e)}>
+            {/* IF FAVORITE */}
+              <Image className={`${styles.slide__content__img}`} src={NoFavoriteImg} width={33} height={31} alt="favorite img" />
+            </div>  
               <div>
                 <AnimalsDetailCarousel images={petInfo.images} />
               </div>
