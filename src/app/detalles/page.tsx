@@ -7,7 +7,6 @@ import { Suspense } from "react";
 
 import LastSeenImg from "@/assets/images/lastSeenImg.png"
 import { useSearchParams } from 'next/navigation'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import ReportIconIMG from "@/assets/images/reportIcon.png"
 import EditIconIMG from "@/assets/images/editIcon.png"
 import FinishIconIMG from "@/assets/images/finishIcon.png"
@@ -23,12 +22,11 @@ import { useContext, useEffect, useState } from 'react'
 
 import { formatDate } from '@/helpers/date'
 import { PetState } from '@/components/PetState/PetState'
+import { createClient } from '@supabase/supabase-js'
 
 function PageWrapper() {
 
   const { checkSession } = useContext(AuthenticationContext)
-
-  const supabase = createClientComponentClient()
   const [petInfo, setPetInfo] = useState<any>({})
   const [loggedInfo, setLoggedInfo] = useState<any>({})
   const [creatorInfo, setCreatorInfo] = useState<any>({})
@@ -38,6 +36,13 @@ function PageWrapper() {
  
   const petID = searchParams.get('q')
 
+  const supa = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL || '', process.env.NEXT_PUBLIC_SUPABASE_SERVICE || '', {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    }
+  })
+  
   useEffect(() => {
     let storageSession = checkSession() as any
     if(storageSession){
@@ -46,7 +51,7 @@ function PageWrapper() {
     }
     async function getData() {
       try {
-        const { data, error } = await supabase
+        const { data, error } = await supa
         .from('alert_post')
         .select('*')
         .eq('id', petID)
@@ -64,10 +69,11 @@ function PageWrapper() {
       console.log(id)
       try {
         //solo en serverside recomiendan el admin NAHUEL y no me esta trayendo nada por eso creo
-        const { data, error } = await supabase.auth.admin.getUserById(id)
+        const { data } = await supa.auth.admin.getUserById(id)
+
         if(data){
           setCreatorInfo(data.user)
-          console.log(creatorInfo)
+          console.log(data.user)
         }
       } catch (error: any) {
         console.log('Hubo un problema con la petición Fetch:' + error.message);
@@ -136,10 +142,10 @@ function PageWrapper() {
                 <div className={styles.photo}>
                 </div>
                 <div className={styles.creatorText}>
-                  {loggedInfo.user_metadata &&
+                  {creatorInfo.user_metadata &&
                   <>
-                    <p className={styles.creatorName}>{loggedInfo.user_metadata.full_name}</p>
-                    <p className={styles.creatorMail}>{loggedInfo.user_metadata.email}</p>
+                    <p className={styles.creatorName}>{creatorInfo.user_metadata.full_name}</p>
+                    <p className={styles.creatorMail}>{creatorInfo.user_metadata.email}</p>
                   </>
                     
                   }
