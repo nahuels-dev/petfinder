@@ -1,0 +1,39 @@
+.buscarComponent{
+
+    max-width: 1200px !important;
+    margin: 0 auto;
+
+    .mainContainer{
+        display: flex;
+        gap: 12px;
+        .aside{
+            min-width: 267px !important;
+            height: 524px !important;
+            background-color: rgba(#FFAB9F, .4);
+            border-radius: 12px;
+            ul{
+                padding: 15px 18px;
+                li{
+                    list-style: none;
+                }
+            }
+            
+        }
+    
+        .columns{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            .carouselItemContainer{
+                width: 100%;
+                max-width: 299px;
+                height: auto;
+                text-decoration: none;
+                color: black;
+            }
+        }
+    }
+}
+
+
+

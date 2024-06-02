@@ -49,7 +49,7 @@ const getUser = async ()=>{
             <div className={`${styles.navbar_container_linksandbtn}  ${isProfileExpanded ? styles.expanded : ""}`}>
                 <ul>
                     <li className={currentPath == "/" ? styles.active : ""}><Link href="/" >Inicio</Link></li>
-                    <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Buscar mascota</Link></li>
+                    <li className={currentPath == "/algo" ? styles.active : ""}><Link href="buscar">Buscar mascota</Link></li>
                     <li className={currentPath == "/algo" ? styles.active : ""}><Link href="reportar">Reportar mascota</Link></li>
                     <li className={currentPath == "/algo" ? styles.active : ""}><Link href="algo.com">Adoptar</Link></li>
                     <li className={currentPath == "/algo" ? styles.active : ""}><Link href="como-funciona">Como funciona?</Link></li>

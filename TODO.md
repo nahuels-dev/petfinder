@@ -8,7 +8,11 @@ Project Description
 
 ### Column Name
 - [ ] Base de datos
-    - [ ] Crear la tabla reportes
+    - [ ] Crear la tabla reportes 🟡
+    - [ ] Roles usuarios 🟢
+    - [ ] Mas info de los animales 🟢
+
+- [ ] Api 🟡
 
 - [ ] Home
   - [ ] carousel de adopcion y blog 🔴
@@ -17,7 +21,8 @@ Project Description
     - [ ] redirect to last page () 🟢
 
 - [ ] Buscar Mascota
-    - [ ] Hacer completa 🟢
+    - [x] Hacer
+    - [ ] Aplicarle flitros al fetch 🟢
 
 - [ ] Reportar Mascota
     - [ ] Estilos 🟢
@@ -27,9 +32,10 @@ Project Description
     - [ ] Botones en la seccion mapa estilos 🟢
     - [ ] Modales indicativos de publicada o no 🟢
     - [ ] Funcion en base a la localizacion que la persona elija, le muestre resultados ya en la abse de datos y pueda ver si va a repetir 🔴
+    - [ ] Averiguar el ID antes de mandarlo a la base de datos para poder crear la carpeta en Cloudinary
 
 - [ ] Adoptar Mascota
-    - [ ] Hacer completa 🟢
+    - [ ] Hacer 🟢
 
 - [ ] Como funciona
     - [x] Pagina basica
@@ -39,10 +45,14 @@ Project Description
     - [ ] Terminar pagina 🟢
     - [ ] Boton compartir animal 🟢
     - [ ] Boton favorito 🟢
+    - [ ] Funciones botones borrar, editar, terminar, reportar 🟢
+    - [ ] Funcion boton: La vi!
 
 - [ ] Perfil Pagina
     - [ ] Terminar Pagina 🟢
-    - [ ] Ver el fetch a usuarios que requiere serverside 🟢
+
+- [ ] Perfil Ajeno
+    - [ ] Hacer 🟢
 
 - [ ] Alertas 🟡
     - [ ] Animales buscados 🟡
@@ -54,7 +64,7 @@ Project Description
 - [ ] Metadata 🟡
     - [ ] Hacer metadata 🟡
     - [ ] Aplicar idea que vimos en linkedin 🟡
-    - [ ] Favico
+    - [ ] Favico 🟢
 
 - [ ] Loading Components 🟢
     - [ ] Tener loadings para cuando esta cargando la data 🟢

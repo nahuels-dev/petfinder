@@ -98,6 +98,10 @@ function PageWrapper() {
     }
   }, [petInfo,creatorInfo]);
   
+
+  const iSawIt = (e: any) =>{
+    console.log("visto!")
+  }
   return (
     <div className={styles.pageContainer}>
       {!loading  &&(
@@ -115,8 +119,10 @@ function PageWrapper() {
                 <Image src={ReportIconIMG} width={58} height={58} alt="Reportar publicacion icono" />
               </>
             )}
-            {/* Esto de abajo seria si es admin o moderador */}
-            <Image src={DeleteIconIMG} width={58} height={58} alt="Borrar publicacion icono" />
+            {/* Esto de abajo seria si es admin o moderador lo voy a dejar asi hasta tener roles */}
+            {loggedInfo.id == petInfo.user_id && (
+              <Image src={DeleteIconIMG} width={58} height={58} alt="Borrar publicacion icono" />
+            )}
           </div>
           <div className={styles.animalDetails}>
             <div className={styles.animalImgs}>
@@ -138,7 +144,7 @@ function PageWrapper() {
             <div className={styles.tables}>
               <InfoTable />
             </div>
-              <div className={styles.loggedInfo}>
+              <div className={styles.creatorInfo}>
                 <div className={styles.photo}>
                 </div>
                 <div className={styles.creatorText}>
@@ -155,7 +161,7 @@ function PageWrapper() {
             </div>
           </div>
           <div className={styles.seenAnimalBtn}>
-            <Button size='medium' theme='light'>La ví!</Button>
+            <Button size='medium' theme='light' /* onClick={iSawIt} */>La ví!</Button>
           </div>
         </main>
         <div className={styles.seenPlaces}>

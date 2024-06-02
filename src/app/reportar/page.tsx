@@ -69,11 +69,14 @@ const Reportar = () => {
 
     const saveData = async ()=>{
         let urls = []
+        
 
         for (const image of cloudinaryImages) {
             const formData = new FormData();
             formData.append('file', image);
             formData.append('upload_preset', 'mascotasdev');
+            //Necesitariamos el ID de la publicacion para poder crear la carpeta especifica para esa publicacion
+            //formData.append('folder', `publications/${publicationId}`);
             const res = await fetch(`https://api.cloudinary.com/v1_1/dzcsvr49m/image/upload`, {
                 method: 'POST',
                 body: formData,
@@ -190,7 +193,7 @@ const StepThree = ({ isAdoption,functions }: { isAdoption: boolean,functions:any
                 <input type="text" placeholder="Titulo" required value={title} onChange={(e)=> setTitle(e.target.value)}/>
                 <textarea name="" id="" placeholder="Description" required value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
                 {!isAdoption &&
-                    <select name="" id="" required onChange={(e)=>setStatus(e.target.value)}>
+                    <select name="" id="" required onChange={(e)=>setStatus(e.target.value)} value={status}>
                         <option value="retenido" selected={status=='retenido'}>Retenido</option>
                         <option value="visto" selected={status=='visto'}>Visto</option>
                         <option value="busqueda" selected={status=='busqueda'}>En busqueda</option>
