@@ -14,6 +14,8 @@ Project Description
     - [ ] Crear la tabla reportes 🟡
     - [ ] Roles usuarios 🟢
     - [ ] Mas info de los animales 🟢
+    - [ ] Foto de perfil
+    - [ ] Favoritos - Chequear en la home que al ser todo un link es imposible darle click a fav (podemos hacer que para darle o sacarle a fav tengas que entrar al animal en cuestion, que no se pueda agregar desde cualquier lado)
 
 - [ ] Api 🟡
 
