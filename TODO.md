@@ -1,4 +1,4 @@
-# Project Name
+# Pet finder
 Project Description
 
 
@@ -36,6 +36,7 @@ Project Description
     - [ ] Modales indicativos de publicada o no 🟢
     - [ ] Funcion en base a la localizacion que la persona elija, le muestre resultados ya en la abse de datos y pueda ver si va a repetir 🔴
     - [x] Averiguar el ID antes de mandarlo a la base de datos para poder crear la carpeta en Cloudinary
+    - [ ] Warnings en la consola en el step 2 o 3 🟢
 
 - [ ] Adoptar Mascota
     - [ ] Hacer 🟢
