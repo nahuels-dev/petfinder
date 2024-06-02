@@ -7,6 +7,9 @@ Project Description
 🟡 - No tan urgente
 
 ### Column Name
+
+- [ ] MANEJO DE ERRORES DE TODO :V 🟢
+
 - [ ] Base de datos
     - [ ] Crear la tabla reportes 🟡
     - [ ] Roles usuarios 🟢
@@ -32,7 +35,7 @@ Project Description
     - [ ] Botones en la seccion mapa estilos 🟢
     - [ ] Modales indicativos de publicada o no 🟢
     - [ ] Funcion en base a la localizacion que la persona elija, le muestre resultados ya en la abse de datos y pueda ver si va a repetir 🔴
-    - [ ] Averiguar el ID antes de mandarlo a la base de datos para poder crear la carpeta en Cloudinary
+    - [x] Averiguar el ID antes de mandarlo a la base de datos para poder crear la carpeta en Cloudinary
 
 - [ ] Adoptar Mascota
     - [ ] Hacer 🟢

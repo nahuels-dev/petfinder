@@ -70,23 +70,8 @@ const Reportar = () => {
     const saveData = async ()=>{
         let urls = []
         
-
-        for (const image of cloudinaryImages) {
-            const formData = new FormData();
-            formData.append('file', image);
-            formData.append('upload_preset', 'mascotasdev');
-            //Necesitariamos el ID de la publicacion para poder crear la carpeta especifica para esa publicacion
-            //formData.append('folder', `publications/${publicationId}`);
-            const res = await fetch(`https://api.cloudinary.com/v1_1/dzcsvr49m/image/upload`, {
-                method: 'POST',
-                body: formData,
-            });
-            const datares = await res.json();
-            urls.push(datares.url)
-        }
-        
         let data = {
-            images: urls,
+            images: [""],
             user_id: JSON.parse(checkSession()).user.id,
             title,
             description,
@@ -95,12 +80,34 @@ const Reportar = () => {
             isAdoption
         }
 
-        const { error } = await supabase
+
+        const { data: insertedData, error } = await supabase
         .from('alert_post')
-        .insert(data)
+        .insert(data)  
+        .select('id');
     
         if(!error){
             alert("Subido a la base de datos!")
+            if(insertedData){
+                const insertedId = insertedData[0];
+                for (const image of cloudinaryImages) {
+                    const formData = new FormData();
+                    formData.append('file', image);
+                    formData.append('upload_preset', 'mascotasdev');
+                    formData.append('folder', `publications/${insertedId.id}`);
+                    const res = await fetch(`https://api.cloudinary.com/v1_1/dzcsvr49m/image/upload`, {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    const datares = await res.json();
+                    urls.push(datares.url)
+                }
+    
+                const { error } = await supabase
+                .from('alert_post')
+                .update({ images: urls })
+                .eq('id', insertedId.id)
+            }
         }
         console.log(error)
     }
