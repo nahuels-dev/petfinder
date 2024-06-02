@@ -11,7 +11,7 @@ import Image from "next/image"
 import logo from '@/assets/images/logo.png'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import {Cloudinary} from "@cloudinary/url-gen";
-
+import AnimationSteps from "./animation"
 const Reportar = () => {
     const supabase = createClientComponentClient()
     const cld = new Cloudinary({cloud: {cloudName: 'dzcsvr49m'}});
@@ -115,6 +115,7 @@ const Reportar = () => {
     return (
         <div className={`${styles.container} ${styles.reportar}`}>
             <div className={styles.reportar__steps}>
+                <AnimationSteps step={step}/>
                 {RenderSteps()}
                 <div className={styles.reportar__steps__buttons}>
                     {step > 0 &&
