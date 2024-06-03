@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { CarouselItem } from '@/components/CarouselItem/CarouselItem'
 import { formatDate } from '@/helpers/date'
 import  styles from "@/styles/pages/Buscar.module.scss"
+import Loading from '@/components/Loading/Loading'
 
 function Buscar() {
     const MAXPETSFORPAGES = 7
@@ -73,7 +74,7 @@ function Buscar() {
             </div>
             )}
             {loading &&(
-                <h2>Loading</h2>
+                <Loading />
             )}
         </main>
         {!loading && (

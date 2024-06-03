@@ -72,8 +72,8 @@ Project Description
     - [ ] Aplicar idea que vimos en linkedin 🟡
     - [ ] Favico 🟢
 
-- [ ] Loading Components 🟢
-    - [ ] Tener loadings para cuando esta cargando la data 🟢
+- [x] Loading Components 🟢
+    - [x] Tener loadings para cuando esta cargando la data 🟢
 
 - [ ] Modales
     - [ ] Errores de fetch (subir o bajar info) 🟢

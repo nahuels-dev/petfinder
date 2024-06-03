@@ -12,6 +12,8 @@ import logo from '@/assets/images/logo.png'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import {Cloudinary} from "@cloudinary/url-gen";
 import AnimationSteps from "./animation"
+import Router from "next/router"
+
 const Reportar = () => {
     const supabase = createClientComponentClient()
     const cld = new Cloudinary({cloud: {cloudName: 'dzcsvr49m'}});
@@ -87,7 +89,6 @@ const Reportar = () => {
         .select('id');
     
         if(!error){
-            alert("Subido a la base de datos!")
             if(insertedData){
                 const insertedId = insertedData[0];
                 for (const image of cloudinaryImages) {
@@ -108,7 +109,20 @@ const Reportar = () => {
                 .update({ images: urls })
                 .eq('id', insertedId.id)
             }
+            
+            
+            Toast.fire({
+                icon: 'success',
+                title: 'Animal reportado, redirigiendo.',
+            })
+            if(insertedData){
+                router.push(`/detalles?q=${insertedData[0].id}`)
+            }    
         }
+        Toast.fire({
+            icon: 'error',
+            title: 'Error de conexion con la base de datos',
+        })
         console.log(error)
     }
 
@@ -227,6 +241,17 @@ const StepFour = ({functions}:any) => {
     
 
     function getMyLocation(): Promise<{ latitude: number; longitude: number }> {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast',
+            },
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+        })
         if (navigator.geolocation) {
             return new Promise<{ latitude: number; longitude: number }>((resolve, reject) => {
                 navigator.geolocation.getCurrentPosition(
@@ -244,6 +269,10 @@ const StepFour = ({functions}:any) => {
             });
         } else {
             console.log('Geolocation is not supported by this browser.');
+            Toast.fire({
+                icon: 'error',
+                title: 'Geolocalizacion no esta soportada por su navegador',
+            })
             return Promise.reject(new Error('Geolocation is not supported by this browser.'));
         }
     }
@@ -274,23 +303,43 @@ const StepFour = ({functions}:any) => {
     const searchLocationFunction = () =>{
         const getLocation = async () => {
             //Pide direccion y te da coordenadas
-            const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP}`)
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom-end',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast',
+                },
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            })
+            try {
+                const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchLocation}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP}`)
+                const dataJson = await data.json()
+                console.log(dataJson)
+                let locationFromInput = dataJson.results[0].geometry.location
+                console.log(locationFromInput, locationFromInput)
+                if(Object.keys(dataJson).length > 0 && locationFromInput) {
+                    let position = [locationFromInput.lat, locationFromInput.lng]
+                    centerMap(position)
+                    setAnchor(position)
+                }else{
+                    alert("no existe")
+                }
             
-            const dataJson = await data.json()
-            let locationFromInput = dataJson.results[0].geometry.location
-            console.log(locationFromInput, locationFromInput)
-            if(Object.keys(dataJson).length > 0) {
-                let position = [locationFromInput.lat, locationFromInput.lng]
-                centerMap(position)
-                setAnchor(position)
-            }else{
-                alert("no existe")
+                //Pide coordenadas y te da datos
+                const inverseResult = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locationFromInput.lat},${locationFromInput.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP}`)
+                const inverseData = await inverseResult.json()
+                console.log(inverseData.results[0].address_components)
+            } catch (error) {
+                console.log(error)
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Error al intentar obtener la ubicacion<br/> Intente mover la marca manualmente',
+                })
             }
-
-            //Pide coordenadas y te da datos
-            const inverseResult = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locationFromInput.lat},${locationFromInput.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP}`)
-            const inverseData = await inverseResult.json()
-            console.log(inverseData.results[0].address_components)
+            
         }
 
         getLocation()

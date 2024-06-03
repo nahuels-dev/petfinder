@@ -23,6 +23,7 @@ import { useContext, useEffect, useState } from 'react'
 import { formatDate } from '@/helpers/date'
 import { PetState } from '@/components/PetState/PetState'
 import { createClient } from '@supabase/supabase-js'
+import Loading from '@/components/Loading/Loading'
 
 function PageWrapper() {
 
@@ -93,7 +94,7 @@ function PageWrapper() {
   
 
   useEffect(() => {
-    if(Object.keys(petInfo).length > 0 /* && Object.keys(creatorInfo).length > 0 */){
+    if(Object.keys(petInfo).length > 0 && Object.keys(creatorInfo).length > 0){
       setLoading(false)
     }
   }, [petInfo,creatorInfo]);
@@ -174,7 +175,7 @@ function PageWrapper() {
       )}
       
       {loading && (
-        <h1>Cargando</h1>
+        <Loading />
       )}
     
     

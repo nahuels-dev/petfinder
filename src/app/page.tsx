@@ -9,7 +9,7 @@ import { Button } from '@/components/Button';
 import {Carousel} from '@/components/Carousel/Carousel';
 import Link from 'next/link';
 import GridBlogLinks from '@/components/GridBlogLinks/GridBlogLinks';
-import LoginForm from '@/components/LogForm/LoginForm';
+import Loading from '@/components/Loading/Loading';
 export default function Home() {
   const { openDialog } = useContext(DialogContext)
 
@@ -26,13 +26,11 @@ export default function Home() {
       </div>
      </header>
      <div className={`${styles.carouselsSections}`}>
-      <h3>Viste alguno de estos?</h3>
       <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
       <Carousel tipo={`Busqueda`} titulo={`Viste alguno de estos?`}/>
       <Link href="google.com" className={`${styles.carouselsSections__viewAll}`}>Ver todos</Link>
      </div>
      <div className={`${styles.carouselsSections}`}>
-      <h3>Alguno te pertenece?</h3>
       <Image className={`${styles.carouselHuella}`} src={huellaImg} width={301} height={299} alt="huella image"></Image>
       <Carousel tipo={`Visto`} titulo={`Alguno te pertenece?`} />
       <Link href="google.com" className={`${styles.carouselsSections__viewAll}`}>Ver todos</Link>

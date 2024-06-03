@@ -14,6 +14,8 @@ import { formatDate } from '@/helpers/date'
 
 import { useKeenSlider } from "keen-slider/react"
 
+import Loading from '../Loading/Loading'
+
 
 //https://www.embla-carousel.com/api/options/
 
@@ -111,15 +113,18 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
   return (
     <>
       {!isLoading ? (
-        <div ref={sliderRef} className={`keen-slider ${styles.container}`}>
-          {dataFinal && dataFinal.map((item:any, index:any) => (
-            <Link href={`/detalles?q=${item.id}`} key={index}>
-              <CarouselItem  title={item.title} description={item.description} image={item.images[0]} tipo={tipo} datePublished={formatDate(item.lastSeen)}/>
-            </Link>
-          ))}
-        </div>
+        <>
+          <h3 className={styles.carouselTitle}>{titulo} </h3>
+          <div ref={sliderRef} className={`keen-slider ${styles.container}`}>
+            {dataFinal && dataFinal.map((item:any, index:any) => (
+              <Link href={`/detalles?q=${item.id}`} key={index}>
+                <CarouselItem  title={item.title} description={item.description} image={item.images[0]} tipo={tipo} datePublished={formatDate(item.lastSeen)}/>
+              </Link>
+            ))}
+          </div>
+        </>
       ): (
-        <h4>Cargando</h4>
+          <Loading />
       )}
       
     </>

@@ -6,57 +6,13 @@
         text-decoration: none;
         color: black;
     }
-    /* &__viewport{
-        position: relative;
-        padding-top: 66px;
-        &__prev, &__next{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 57px;
-            height: 57px;
-            background-color: $secondary-color;
-            border-radius: 50%;
-            color: white;
-            border: none;
-            font-size: 30px;
-            &:hover{
-                cursor: pointer;
-            }
-
-            @media screen and (max-width: 540px) {
-                bottom: -60px;
-            }
-            
-        }
-        &__prev{
-            position: absolute;
-            right: 80px;
-            top:0;
-            @media screen and (max-width: 1250px) {
-                
-                top: inherit;
-            }
-            
-        }
-
-        &__next{
-            position: absolute;
-            right: 0;
-            top:0;
-            @media screen and (max-width: 1250px) {
-                
-                top: inherit;
-            }
-        }
-
-        h3{
-            position: absolute;
-            top:0;
-            color: $secondary-color;
-            font-size: 35px;
-        }
-    } */
-  }
+}
+.carouselTitle{
+    position: absolute;
+    top:-50px;
+    left: 90px;
+    color: $secondary-color;
+    font-size: 35px;
+}
 
   
