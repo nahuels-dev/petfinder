@@ -77,7 +77,7 @@ function LoginForm() {
         rPass:confirmPass,
         name: nameRegister,
         image: imageProfile,
-        role: "admin",
+        role: "user",
        }
        let registered = await signUp(data)
        if(registered) {

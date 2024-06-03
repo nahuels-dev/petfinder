@@ -19,7 +19,8 @@ const ProfileState = {
   Perfil: 'Perfil',
   Publicaciones: 'Publicaciones',
   Favoritos: 'Favoritos',
-  Notificaciones: "Notificaciones"
+  Notificaciones: "Notificaciones",
+  Admin: "Admin"
 }; 
 
 
@@ -113,6 +114,7 @@ function PageContent() {
   }
 
 
+
   return (
     <main className={styles.container}>
       <aside className={styles.sidebar}>
@@ -121,6 +123,9 @@ function PageContent() {
         <div onClick={() => handleStateChange(ProfileState.Publicaciones)} className={profileState == "Publicaciones" ? styles.active : ""}>&gt;&nbsp;Publicaciones</div>
         <div onClick={() => handleStateChange(ProfileState.Favoritos)} className={profileState == "Favoritos" ? styles.active : ""}>&gt;&nbsp;Favoritos</div>
         <div onClick={() => handleStateChange(ProfileState.Notificaciones)} className={profileState == "Notificaciones" ? styles.active : ""}>&gt;&nbsp;Notificaciones</div>
+        { creatorInfo.user_metadata.role === "admin" &&
+            <div onClick={() => handleStateChange(ProfileState.Admin)} className={profileState == "Admin" ? styles.active : ""}>&gt;&nbsp;Admin Panel</div>
+        }
       </aside>
       {Object.keys(creatorInfo).length > 0 && (
       <div className={styles.main_content}>
@@ -215,6 +220,11 @@ function PageContent() {
 
                 <Button theme='light'>Guardar</Button>
               </div>
+            </div>
+          )}
+          {profileState == "Admin" && (
+            <div className={styles.notificaciones}>
+              Guenas
             </div>
           )}
         

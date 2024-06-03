@@ -49,6 +49,7 @@ function PageWrapper() {
     if(storageSession){
         storageSession = JSON.parse(storageSession)
         setLoggedInfo(storageSession.user)
+        console.log(storageSession.user)
     }
     async function getData() {
       try {
@@ -58,7 +59,6 @@ function PageWrapper() {
         .eq('id', petID)
         if(data){
           setPetInfo(data[0]!)
-          console.log(data[0])
           await getCreatorData(data[0].user_id)
         }
       } catch (error: any) {
@@ -67,14 +67,12 @@ function PageWrapper() {
     }
 
     async function getCreatorData(id: string) {
-      console.log(id)
       try {
         //solo en serverside recomiendan el admin NAHUEL y no me esta trayendo nada por eso creo
         const { data } = await supa.auth.admin.getUserById(id)
 
         if(data){
           setCreatorInfo(data.user)
-          console.log(data.user)
         }
       } catch (error: any) {
         console.log('Hubo un problema con la petición Fetch:' + error.message);
@@ -121,7 +119,7 @@ function PageWrapper() {
               </>
             )}
             {/* Esto de abajo seria si es admin o moderador lo voy a dejar asi hasta tener roles */}
-            {loggedInfo.id == petInfo.user_id && (
+            {loggedInfo.user_metadata.role == "admin" && (
               <Image src={DeleteIconIMG} width={58} height={58} alt="Borrar publicacion icono" />
             )}
           </div>
