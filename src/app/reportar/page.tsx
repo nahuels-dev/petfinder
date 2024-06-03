@@ -12,7 +12,6 @@ import logo from '@/assets/images/logo.png'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import {Cloudinary} from "@cloudinary/url-gen";
 import AnimationSteps from "./animation"
-import Router from "next/router"
 
 const Reportar = () => {
     const supabase = createClientComponentClient()
@@ -44,10 +43,7 @@ const Reportar = () => {
     })
     useEffect(() => {
         if (!checkSession()) {
-            Toast.fire({
-                icon: 'error',
-                title: 'Debes iniciar sesion, redirigiendo.',
-            })
+            Toast.fire({icon: 'error',title: 'Debes iniciar sesion, redirigiendo.',})
             router.push('/iniciar')
         }
     }, [])
@@ -135,7 +131,8 @@ const Reportar = () => {
                     {step > 0 &&
                         <Button theme="light" onClick={() => setStep(step - 1)}>Anterior</Button>
                     }{step <=2 &&
-                        <Button theme="light" onClick={() => { enableNext && setStep(step + 1) }}>Siguiente</Button>
+                        <Button theme="light" onClick={() => { enableNext ? setStep(step + 1) : Toast.fire({icon: 'error',title: 'Debes añadir 1 imagen como minimo.',})
+                    }}>Siguiente</Button>
                     }
                     {step ==3 &&
                         <Button theme="light" onClick={()=>saveData()}>Guardar</Button>
@@ -153,13 +150,13 @@ const StepOne = ({ setAdoption, isAdoption, setNext }: any) => {
     return (
         <div className={styles.reportar__steps__one}>
             <h2>Que tipo de publicacion deseas hacer?</h2>
-            <label htmlFor="">
-                <span>Reportar desaparecido/ busqueda</span>
-                <input type="radio" name="type" value={0} checked={!isAdoption} onChange={(e) => setAdoption(e.target.value)} />
+            <label htmlFor="desaparecido">
+                <span>Reportar desaparecido</span>
+                <input type="radio" name="type" id="desaparecido" value={0} checked={!isAdoption} onChange={(e) => setAdoption(e.target.value)} />
             </label>
-            <label htmlFor="">
+            <label htmlFor="adopcion">
                 <p>Dar en adopcion</p>
-                <input type="radio" name="type" value={1} checked={isAdoption} onChange={(e) => setAdoption(e.target.value)} />
+                <input type="radio" name="type" id="adopcion" value={1} checked={isAdoption} onChange={(e) => setAdoption(e.target.value)} />
             </label>
         </div>
     )
@@ -191,14 +188,18 @@ const StepTwo = ({ setNext,setFinalImages,finalImages,setCloudinaryImages }: any
 
     const renderPhotos = (source: string[]) => {
         return source.map((photo) => {
-            return <img src={photo} key={photo} alt="" className={styles.previewImage} />;
+            return <img src={photo} key={photo} alt="" className={styles.previewImage} draggable={false}/>;
         });
     };
 
     return (
         <div className={styles.reportar__steps__two}>
             <h2>Por favor sube las fotos de la mascota</h2>
-            <input type="file" multiple onChange={handleImageChange} required maxLength={4} />
+            <label htmlFor="fileinput">
+                <input type="file" id="fileinput" multiple onChange={handleImageChange} required maxLength={4} />
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>
+                <span>Selecciona las imagenes</span>
+            </label>
             <div className={styles.reportar__steps__two__images}>
                 {renderPhotos(images as any)}
             </div>
@@ -212,8 +213,9 @@ const StepThree = ({ isAdoption,functions }: { isAdoption: boolean,functions:any
         <div className={styles.reportar__steps__three}>
             <h2>Llena los siguientes datos</h2>
             <div>
-                <input type="text" placeholder="Titulo" required value={title} onChange={(e)=> setTitle(e.target.value)}/>
-                <textarea name="" id="" placeholder="Description" required value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
+                <div className={styles.reportar__steps__three__row}>
+
+                <input type="text" placeholder="Titulo o nombre de mascota" required value={title} onChange={(e)=> setTitle(e.target.value)}/>
                 {!isAdoption &&
                     <select name="" id="" required onChange={(e)=>setStatus(e.target.value)} value={status}>
                         <option value="retenido" selected={status=='retenido'}>Retenido</option>
@@ -221,6 +223,8 @@ const StepThree = ({ isAdoption,functions }: { isAdoption: boolean,functions:any
                         <option value="busqueda" selected={status=='busqueda'}>En busqueda</option>
                     </select>
                 }
+                </div>
+                <textarea name="" id="" placeholder="Descripcion" required value={description} onChange={(e)=>setDescription(e.target.value)}></textarea>
             </div>
         </div>
     )
@@ -345,15 +349,15 @@ const StepFour = ({functions}:any) => {
         getLocation()
     }
     return (
-        <div className={styles.reportar__steps__three}>
+        <div className={styles.reportar__steps__four}>
             <h2>Selecciona la ubicacion</h2>
-            <input type="text" placeholder="Ubicacion" required value={searchLocation} onChange={(e)=>setSearchLocation(e.target.value)}/>
-            <button onClick={searchLocationFunction}>Buscar Ubicacion</button>
-            <Location></Location>
-            {anchor}
-            <button onClick={()=> centerMap(anchor)}>center</button>
-            <div className={styles.mapContainer}>
-                <Map height={500} width={1000} defaultCenter={center} center={center} defaultZoom={17} >
+            <div className={styles.reportar__steps__four__row}>
+                <input type="text" placeholder="Ubicacion" required value={searchLocation} onChange={(e)=>setSearchLocation(e.target.value)}/>
+                <Button onClick={searchLocationFunction} theme="default" size="small">Buscar</Button>
+            </div>
+            <div className={styles.reportar__steps__four__map}>
+            <button onClick={()=> centerMap(anchor)} className={styles.reportar__steps__four__map__center}><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M440-42v-80q-125-14-214.5-103.5T122-440H42v-80h80q14-125 103.5-214.5T440-838v-80h80v80q125 14 214.5 103.5T838-520h80v80h-80q-14 125-103.5 214.5T520-122v80h-80Zm40-158q116 0 198-82t82-198q0-116-82-198t-198-82q-116 0-198 82t-82 198q0 116 82 198t198 82Zm0-120q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T560-480q0-33-23.5-56.5T480-560q-33 0-56.5 23.5T400-480q0 33 23.5 56.5T480-400Zm0-80Z"/></svg></button>
+                <Map height={400} width={1000} defaultCenter={center} center={center} defaultZoom={17} >
                     <Draggable offset={[20, 50]} anchor={anchor} onDragEnd={setAnchor}>
                         <Image 
                             src={logo}
