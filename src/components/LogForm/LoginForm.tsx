@@ -40,14 +40,17 @@ function LoginForm() {
     const [nameRegister, setNameRegister] = useState('')
     const [passRegister, setPassRegister] = useState('')
     const [confirmPass, setConfirmPass] = useState('')
+    const [imageProfile, setImageProfile] = useState("")
     const [emailRegisterError, setEmailRegisterError] = useState(false)
     const [nameRegisterError, setNameRegisterError] = useState(false)
     const [passRegisterError, setPassRegisterError] = useState(false)
     const [confirmPassError, setConfirmPassError] = useState(false)
 
+    const [registered, setRegistered] = useState(false)
 
 
-    const RegistrarUsuario = () =>{
+
+    const RegistrarUsuario = async() =>{
         let error = false;
         if(emailRegister == ""){
             setEmailRegisterError(true)
@@ -72,9 +75,15 @@ function LoginForm() {
         email:emailRegister,
         password:passRegister,
         rPass:confirmPass,
-        name: nameRegister
+        name: nameRegister,
+        image: imageProfile,
+        role: "admin",
        }
-       signUp(data)
+       let registered = await signUp(data)
+       if(registered) {
+           setRegistered(true)
+       }
+
     }
 
     const IniciarSesion = ()=>{
@@ -122,64 +131,93 @@ function LoginForm() {
             router.back()
         }
     },[isLoggedIn])
+
+    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const formData = new FormData();
+            formData.append('file', e.target.files[0]);
+            formData.append('upload_preset', 'mascotasdev');
+            formData.append('folder', `perfiles`);
+            const res = await fetch(`https://api.cloudinary.com/v1_1/dzcsvr49m/image/upload`, {
+                method: 'POST',
+                body: formData,
+            });
+            const datares = await res.json();
+            setImageProfile(datares.url)
+        }
+    };
   return (
     <div className={styles.formcontainer}>
-        <Image src={LoginHuellaIMG} width={673} height={711} alt='huella' className={`${styles.huella} ${isLogin ? styles.loginPosition : ""}`} />
-        <form action={RegistrarUsuario} className={`${styles.formcontainer__signup} ${isLogin ? styles.mobileActive: ""}`}>
-            <h2>Registrarse</h2>
-            <label htmlFor="email" className={`${emailRegisterError ? styles.error : ""}`}>
-                Email
-                <input type="email" placeholder='email@domain.com' onChange={(e) => RemoveError(setEmailRegisterError,setEmailRegister, e.target.value) } value={emailRegister}/>
-            </label>
-            <label htmlFor="name" className={`${nameRegisterError ? styles.error : ""}`}>Nombre
-                <input type="text" placeholder='Ingresa tu nombre' onChange={(e) => RemoveError(setNameRegisterError,setNameRegister, e.target.value) } value={nameRegister} />
-            </label>
-            <label htmlFor="password" className={`${passRegisterError ? styles.error : ""}`}>Contraseña
-                <input id='registerPassword' type="password" placeholder='••••••••••' onChange={(e) => RemoveError(setPassRegisterError,setPassRegister, e.target.value) } value={passRegister}/>
-                <Image src={ShowPassImg} width={51} height={34}  onClick={ShowPass} alt='mostrar contraseña' className={styles.mostrarContra} />
-            </label>
-            <label htmlFor="repeatpassword" className={`${confirmPassError ? styles.error : ""}`}>Repite la Contraseña
-                <input id='registerConfirmationPassword' type="password" placeholder='••••••••••' onChange={(e) => RemoveError(setConfirmPassError,setConfirmPass, e.target.value) } value={confirmPass} />
-                <Image width={51} height={34} src={ShowPassImg} alt='mostrar contraseña' className={styles.mostrarContra} onClick={ShowConfirmationPass} />
-            </label>
-    
-            <Button theme='light'>Registrarse</Button>
-            <div className={styles.googleLogin} onClick={()=> googleLogin()}>
-                <Image src={GoogleLogo} width={43} height={44} alt='google Logo' /> Registate con Google
-            </div>
-            <p onClick={()=>setIsLogin(!isLogin)} className={styles.onlymobile}>Ya tienes cuenta?</p>
-        </form>
+        {!registered && (
+            <>
+            <Image src={LoginHuellaIMG} width={673} height={711} alt='huella' className={`${styles.huella} ${isLogin ? styles.loginPosition : ""}`} />
+            <form action={RegistrarUsuario} className={`${styles.formcontainer__signup} ${isLogin ? styles.mobileActive: ""}`}>
+                <h2>Registrarse</h2>
+                <label htmlFor="email" className={`${emailRegisterError ? styles.error : ""}`}>
+                    Email
+                    <input type="email" placeholder='email@domain.com' onChange={(e) => RemoveError(setEmailRegisterError,setEmailRegister, e.target.value) } value={emailRegister}/>
+                </label>
+                <label htmlFor="name" className={`${nameRegisterError ? styles.error : ""}`}>Nombre
+                    <input type="text" placeholder='Ingresa tu nombre' onChange={(e) => RemoveError(setNameRegisterError,setNameRegister, e.target.value) } value={nameRegister} />
+                </label>
+                <label htmlFor="password" className={`${passRegisterError ? styles.error : ""}`}>Contraseña
+                    <input id='registerPassword' type="password" placeholder='••••••••••' onChange={(e) => RemoveError(setPassRegisterError,setPassRegister, e.target.value) } value={passRegister}/>
+                    <Image src={ShowPassImg} width={51} height={34}  onClick={ShowPass} alt='mostrar contraseña' className={styles.mostrarContra} />
+                </label>
+                <label htmlFor="repeatpassword" className={`${confirmPassError ? styles.error : ""}`}>Repite la Contraseña
+                    <input id='registerConfirmationPassword' type="password" placeholder='••••••••••' onChange={(e) => RemoveError(setConfirmPassError,setConfirmPass, e.target.value) } value={confirmPass} />
+                    <Image width={51} height={34} src={ShowPassImg} alt='mostrar contraseña' className={styles.mostrarContra} onClick={ShowConfirmationPass} />
+                </label>
+                <label htmlFor="image">
+                    <input type="file" onChange={handleImageChange} required/>
+                </label>
+        
+                <Button theme='light'>Registrarse</Button>
+                <div className={styles.googleLogin} onClick={()=> googleLogin()}>
+                    <Image src={GoogleLogo} width={43} height={44} alt='google Logo' /> Registate con Google
+                </div>
+                <p onClick={()=>setIsLogin(!isLogin)} className={styles.onlymobile}>Ya tienes cuenta?</p>
+            </form>
 
-        <form action={IniciarSesion} className={`${styles.formcontainer__signin} ${isLogin ? "" : styles.mobileActive}`}>
-            <h2>Iniciar Sesión</h2>
-            <label htmlFor="email">
-                <input type="email" placeholder='email@domain.com' onChange={(e) => setEmailLogin(e.target.value)} value={emailLogin} />
-            </label>
-            <label htmlFor="password">
-                <input type="password" placeholder='••••••••••'  onChange={(e) => setPassLogin(e.target.value)} value={passLogin}/>
-            </label>
-            <p className={styles.olvideLaContra}>Has olvidado la contraseña?</p>
+            <form action={IniciarSesion} className={`${styles.formcontainer__signin} ${isLogin ? "" : styles.mobileActive}`}>
+                <h2>Iniciar Sesión</h2>
+                <label htmlFor="email">
+                    <input type="email" placeholder='email@domain.com' onChange={(e) => setEmailLogin(e.target.value)} value={emailLogin} />
+                </label>
+                <label htmlFor="password">
+                    <input type="password" placeholder='••••••••••'  onChange={(e) => setPassLogin(e.target.value)} value={passLogin}/>
+                </label>
+                <p className={styles.olvideLaContra}>Has olvidado la contraseña?</p>
 
-            <Button theme='light'>Iniciar Sesion</Button>
-            <div className={styles.googleLogin}>
-                <Image src={GoogleLogo} width={43} height={44} alt='google Logo' /> Iniciar con Google
-            </div>
-            <p onClick={()=>setIsLogin(!isLogin)} className={styles.onlymobile}>Aun no tienes cuenta?</p>
-        </form>
+                <Button theme='light'>Iniciar Sesion</Button>
+                <div className={styles.googleLogin}>
+                    <Image src={GoogleLogo} width={43} height={44} alt='google Logo' /> Iniciar con Google
+                </div>
+                <p onClick={()=>setIsLogin(!isLogin)} className={styles.onlymobile}>Aun no tienes cuenta?</p>
+            </form>
 
-        <div className={`${styles.formcontainer__animation} ${isLogin ? styles.formcontainer__animation__login : styles.formcontainer__animation__signup }`}>
-            <div className={styles.formcontainer__animation__text}>
-                <h2>No tienes cuenta?</h2>
-                <Image src={login_illustration} width={656} height={512} alt='Login Animal' />
-                <Button theme='white_bg' onClick={()=>setIsLogin(!isLogin)}>Registrarse</Button>
+            <div className={`${styles.formcontainer__animation} ${isLogin ? styles.formcontainer__animation__login : styles.formcontainer__animation__signup }`}>
+                <div className={styles.formcontainer__animation__text}>
+                    <h2>No tienes cuenta?</h2>
+                    <Image src={login_illustration} width={656} height={512} alt='Login Animal' />
+                    <Button theme='white_bg' onClick={()=>setIsLogin(!isLogin)}>Registrarse</Button>
+                </div>
+            
+                <div className={styles.formcontainer__animation__text}>
+                    <h2>Ya tienes una cuenta?</h2>
+                    <Image src={login_illustration} width={656} height={512} alt='Login Animal' />
+                    <Button theme='white_bg' onClick={()=>setIsLogin(!isLogin)}>Iniciar Sesión</Button>
+                </div>
             </div>
-           
-            <div className={styles.formcontainer__animation__text}>
-                <h2>Ya tienes una cuenta?</h2>
-                <Image src={login_illustration} width={656} height={512} alt='Login Animal' />
-                <Button theme='white_bg' onClick={()=>setIsLogin(!isLogin)}>Iniciar Sesión</Button>
+            </>
+        )}
+
+        {registered && (
+            <div className={styles.registered}>
+                <h3>Revisa tu correo!</h3>
+                <p>Sigue los pasos que llegaron a tu email para completar el registro! <br /> Ten paciencia, puede tomar unos minutos en llegar</p>
             </div>
-        </div>
+        )}
     </div>
   )
 }

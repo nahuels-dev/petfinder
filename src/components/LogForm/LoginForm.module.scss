@@ -197,7 +197,15 @@
         }
     }
 
-    
+    .registered{
+        max-width: 1200px;
+        margin: 0 auto;
+        h3{
+            color: $secondary-color;
+            font-size: 35px;
+            margin-bottom: 20px;
+        }
+    }
    
 }
 @keyframes login{

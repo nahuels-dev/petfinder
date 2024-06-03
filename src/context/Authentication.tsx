@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 
 type AuthType = {
     signIn: (data: SignInData) => void,
-    signUp: (data: SignUpData) => void,
+    signUp: (data: SignUpData) => Promise<boolean>,
     logOut: () => void,
     isLoggedIn: boolean,
     checkSession: any
@@ -16,6 +16,8 @@ type SignUpData = {
     password: string,
     rPass: string
     name: string
+    image: string
+    role: string
 }
 
 type SignInData = {
@@ -99,6 +101,7 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
                 icon: 'error',
                 title: 'La contraseña debe ser mayor a 6 caracteres.',
             })
+            return false
         } else {
             if (data.password == data.rPass) {
                 const userData = {
@@ -108,6 +111,8 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
                         data: {
                             full_name: data.name,
                             age: 27,
+                            image: data.image,
+                            role: data.role
                         }
                     }
                 }
@@ -129,6 +134,7 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
                     title: 'Las contraseñas no coinciden.',
                 })
             }
+            return true
         }
     }
 
