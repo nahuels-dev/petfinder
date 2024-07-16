@@ -5,7 +5,7 @@ export function Button({children,className,size,theme,onClick}:{
     className?:string,
     size?:string,
     theme?:string,
-    onClick?: ()=> any
+    onClick?: (e?:any)=> any
 }){
 return(
     <button className={`${styles.button} ${className ? className : ''} ${styles[theme || 'default']} ${styles[size || 'big']}`} onClick={onClick}>
