@@ -54,6 +54,7 @@ function PageContent() {
 
     let storageSession = checkSession() as any
     if(storageSession){
+      console.log(storageSession)
         storageSession = JSON.parse(storageSession)
         setCreatorInfo(storageSession.user)
     }
@@ -112,7 +113,7 @@ function PageContent() {
     setProfileState(newState)
     router.push(`?q=${newState}`)
   }
-
+  console.log(creatorInfo.user_metadata)
 
 
   return (
@@ -123,7 +124,7 @@ function PageContent() {
         <div onClick={() => handleStateChange(ProfileState.Publicaciones)} className={profileState == "Publicaciones" ? styles.active : ""}>&gt;&nbsp;Publicaciones</div>
         <div onClick={() => handleStateChange(ProfileState.Favoritos)} className={profileState == "Favoritos" ? styles.active : ""}>&gt;&nbsp;Favoritos</div>
         <div onClick={() => handleStateChange(ProfileState.Notificaciones)} className={profileState == "Notificaciones" ? styles.active : ""}>&gt;&nbsp;Notificaciones</div>
-        { creatorInfo.user_metadata.role === "admin" &&
+        { creatorInfo.user_metadata && creatorInfo.user_metadata.role == "admin" &&
             <div onClick={() => handleStateChange(ProfileState.Admin)} className={profileState == "Admin" ? styles.active : ""}>&gt;&nbsp;Admin Panel</div>
         }
       </aside>
