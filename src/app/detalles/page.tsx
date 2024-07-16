@@ -13,6 +13,8 @@ import FinishIconIMG from "@/assets/images/finishIcon.png"
 import DeleteIconIMG from "@/assets/images/deleteicon.png"
 import { AuthenticationContext } from "@/context/Authentication"
 
+import DefaultProfilePhoto from "@/assets/images/logo.png"
+
 
 import FavoriteImg from "@/assets/images/favoriteFullIcon.png"
 import NoFavoriteImg from "@/assets/images/favoriteEmptyIcon.png"
@@ -145,6 +147,13 @@ function PageWrapper() {
             </div>
               <div className={styles.creatorInfo}>
                 <div className={styles.photo}>
+                  {creatorInfo.user_metadata.image && (
+                    <img src={creatorInfo.user_metadata.image} />
+                  )}
+                  {!creatorInfo.user_metadata.image && (
+                    <Image src={DefaultProfilePhoto} width={36} height={36} alt="Reloj imagen"/>
+                  )}
+  
                 </div>
                 <div className={styles.creatorText}>
                   {creatorInfo.user_metadata &&
