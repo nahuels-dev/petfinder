@@ -249,7 +249,7 @@ function PageWrapper() {
             <div className={styles.seenPlaces}>
               <h3>Historial de avistamientos:</h3>
             
-              {petInfo && petInfo.lastSeen.map((el:any)=>(
+              {petInfo && petInfo.lastSeen && petInfo.lastSeen.map((el:any)=>(
                 <p className={styles.places}><Image src={LastSeenImg} width={36} height={36} alt="Reloj imagen" />{el.calle} {el.esquina && 'esq: ' + el.esquina} - {el.fecha} </p>
               ))
 
