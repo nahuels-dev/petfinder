@@ -32,6 +32,7 @@ export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, 
 
 	const favorite = (e: any) => {
 		// Nahuel boton clickea pero tambien te tira para detalles
+		// Aca es imposible darle click porque esta adentro de un LINK y se ejecuta el link antes
 		e.stopPropagation()
 		console.log("favorite function")
 	}
