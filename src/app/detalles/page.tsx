@@ -45,6 +45,9 @@ function PageWrapper() {
   const [loggedInfo, setLoggedInfo] = useState<any>({})
   const [creatorInfo, setCreatorInfo] = useState<any>({})
   const [loading, setLoading] = useState(true)
+  const [sawitModalOn, setSawitModalOn] = useState(false)
+  const [reportModalOn, setReportModalOn] = useState(false)
+  const [reportMsg,setReportMsg]= useState("")
 
   const searchParams = useSearchParams()
 
@@ -112,7 +115,11 @@ function PageWrapper() {
 
 
   const iSawIt = (e: any) => {
-    console.log(e)
+    setSawitModalOn(true)
+  }
+
+  const report = (e: any) => {
+    setReportModalOn(true)
   }
 
   
@@ -128,13 +135,14 @@ function PageWrapper() {
   const [seenDate,setSeenDate]= useState(today)
 
   const sendLastSeen =async ()=>{
+    //Habria que lockear la opcion de hacerlo muchas veces seguido en la misma publicacion
    if(street || esq){
       const json = {
         "calle": street,
         "esquina": esq,
         "fecha": seenDate
       }
-      
+
       const { data, error } = await supa
           .from('alert_post')
           .select('lastSeen')
@@ -142,7 +150,7 @@ function PageWrapper() {
       if(!data![0].lastSeen){
         const a = await supa
         .from('alert_post')
-        .update({ lastSeen: json })
+        .update({ lastSeen: [json] })
         .eq('id', petID)
 
         console.log(a)
@@ -165,14 +173,82 @@ function PageWrapper() {
       })
    }
   }
+
+  const editPost = ()=> {
+    console.log("editando")
+  }
+  const finishPost = ()=> {
+    console.log("terminando post")
+  }
+  const reportPost = async () => {
+    //Si tiene 3 o mas reporte no se tendria que poder ver la publicacion hasta que un mod evalue
+    //Habria que lockear la opcion de hacerlo muchas veces seguido en la misma publicacion
+    if(!loggedInfo){
+      Toast.fire({
+        icon: 'error',
+        title: 'Debes estar logueado para reportar',
+        })
+      return
+    }
+    if(reportMsg){
+      const json = {
+        "reporte": reportMsg,
+        "usuarioQueReporta": loggedInfo.id
+      }
+      const { data, error } = await supa
+          .from('alert_post')
+          .select('reports')
+          .eq('id', petID)
+      if(!data![0].reports){
+        const a = await supa
+        .from('alert_post')
+        .update({ reports: [json] })
+        .eq('id', petID)
+
+        location.reload()
+      }else{
+        let arr = data![0].reports
+        arr.push(json)
+        const a = await supa
+        .from('alert_post')
+        .update({ report: arr })
+        .eq('id', petID)
+
+        location.reload()
+      }
+
+   }else{
+    Toast.fire({
+      icon: 'error',
+      title: 'Debes Explicar porque el reporte',
+      })
+   }
+  }
+  const deletePost = ()=> {
+    console.log("borrando")
+    /* 
+    Ademas de borrar el post, se deberia de mandar un email a la persona avisando que un post fue borrado, que se contacte con nuestro email para saber el motivo.
+    Esto guardaria el post en otra tabla y lo borraria de la actual. Asi la actual no se llena de cosas, y si fue un error, la podriamos devolver.
+    Tendriamos tambien que contar cuantos post ya le borramos, al 3ero pa la calle, ban a la cuenta
+    */
+  }
   return (
     <>
-      <div className={styles.iSawItModal}>
+      <div className={`${styles.iSawItModal} ${ sawitModalOn ? styles.iSawItModal_on : ""}`}>
         <div className={styles.iSawItModal__body}>
           <input type="text" placeholder='Calle' value={street} onChange={(e)=> setStreet(e.target.value)}/>
           <input type="text" placeholder='Esq' value={esq} onChange={(e)=> setEsq(e.target.value)}/>
           <input type="date" max={today} defaultValue={seenDate} onChange={(e)=> setSeenDate(e.target.value)}/>
           <Button size='small' theme='light' onClick={()=> sendLastSeen()}>Enviar</Button>
+          <div className={styles.closeModal} onClick={()=> setSawitModalOn(false) }></div>
+        </div>
+      </div>
+
+      <div className={`${styles.reportModal} ${ reportModalOn ? styles.reportModal_on : ""}`}>
+        <div className={styles.reportModal__body}>
+        <textarea placeholder='Explicanos porque lo quieres reportar' value={reportMsg} onChange={(e)=> setReportMsg(e.target.value)}/>
+          <Button size='small' theme='light' onClick={()=> reportPost()}>Enviar</Button>
+          <div className={styles.closeModal} onClick={()=> setReportModalOn(false) }></div>
         </div>
       </div>
       <div className={styles.pageContainer}>
@@ -185,18 +261,18 @@ function PageWrapper() {
               <div className={styles.postOptions}>
                 {loggedInfo.id == petInfo.user_id && (
                   <>
-                    <Image src={FinishIconIMG} width={60} height={60} alt="Terminar publicacion icono" />
-                    <Image src={EditIconIMG} width={58} height={58} alt="Editar publicacion icono" />
+                    <Image src={FinishIconIMG} width={60} height={60} alt="Terminar publicacion icono" onClick={finishPost} />
+                    <Image src={EditIconIMG} width={58} height={58} alt="Editar publicacion icono" onClick={editPost}/>
                   </>
                 )}
                 {loggedInfo.id != petInfo.user_id && (
                   <>
-                    <Image src={ReportIconIMG} width={58} height={58} alt="Reportar publicacion icono" />
+                    <Image src={ReportIconIMG} width={58} height={58} alt="Reportar publicacion icono" onClick={report}/>
                   </>
                 )}
-                {/* Esto de abajo seria si es admin o moderador lo voy a dejar asi hasta tener roles */}
+                {/* Esto de abajo seria si es admin o moderador lo voy a dejar asi hasta tener roles  y el usuario mismo*/}
                 {loggedInfo.user_metadata != undefined && loggedInfo.user_metadata.role == "admin" && (
-                  <Image src={DeleteIconIMG} width={58} height={58} alt="Borrar publicacion icono" />
+                  <Image src={DeleteIconIMG} width={58} height={58} alt="Borrar publicacion icono" onClick={deletePost}/>
                 )}
               </div>
               <div className={styles.animalDetails}>
@@ -248,12 +324,12 @@ function PageWrapper() {
             </main>
             <div className={styles.seenPlaces}>
               <h3>Historial de avistamientos:</h3>
-            
-              {petInfo && petInfo.lastSeen && petInfo.lastSeen.map((el:any)=>(
-                <p className={styles.places}><Image src={LastSeenImg} width={36} height={36} alt="Reloj imagen" />{el.calle} {el.esquina && 'esq: ' + el.esquina} - {el.fecha} </p>
-              ))
-
-              }
+              {petInfo?.lastSeen?.length > 0 && petInfo.lastSeen.map((el: any, index: number) => (
+                <p key={index} className={styles.places}>
+                  <Image src={LastSeenImg} width={36} height={36} alt="Reloj imagen" />
+                  {el.calle} {el.esquina && 'esq: ' + el.esquina} - {el.fecha}
+                </p>
+              ))}
             </div>
           </>
         )}
