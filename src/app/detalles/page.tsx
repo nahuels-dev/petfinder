@@ -48,6 +48,7 @@ function PageWrapper() {
   const [sawitModalOn, setSawitModalOn] = useState(false)
   const [reportModalOn, setReportModalOn] = useState(false)
   const [reportMsg,setReportMsg]= useState("")
+  const [editModal, setEditModal] = useState(false)
 
   const searchParams = useSearchParams()
 
@@ -120,6 +121,10 @@ function PageWrapper() {
 
   const report = (e: any) => {
     setReportModalOn(true)
+  }
+
+  const edit = (e: any) => {
+    setEditModal(true)
   }
 
   
@@ -251,6 +256,15 @@ function PageWrapper() {
           <div className={styles.closeModal} onClick={()=> setReportModalOn(false) }></div>
         </div>
       </div>
+
+      <div className={`${styles.editModal} ${ editModal ? styles.editModal_on : ""}`}>
+        <div className={styles.editModal__body}>
+          <input type="text" placeholder='Calle' value={"Por ahora nada"} onChange={(e)=> console.log("algo")}/>
+          <textarea placeholder='Descripcion' value={"Por ahora nada"} onChange={(e)=> console.log("algo")}/>
+          <Button size='small' theme='light' onClick={()=> reportPost()}>Enviar</Button>
+          <div className={styles.closeModal} onClick={()=> setEditModal(false) }></div>
+        </div>
+      </div>
       <div className={styles.pageContainer}>
 
 
@@ -262,7 +276,7 @@ function PageWrapper() {
                 {loggedInfo.id == petInfo.user_id && (
                   <>
                     <Image src={FinishIconIMG} width={60} height={60} alt="Terminar publicacion icono" onClick={finishPost} />
-                    <Image src={EditIconIMG} width={58} height={58} alt="Editar publicacion icono" onClick={editPost}/>
+                    <Image src={EditIconIMG} width={58} height={58} alt="Editar publicacion icono" onClick={edit}/>
                   </>
                 )}
                 {loggedInfo.id != petInfo.user_id && (
