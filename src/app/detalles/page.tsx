@@ -49,6 +49,7 @@ function PageWrapper() {
   const [reportModalOn, setReportModalOn] = useState(false)
   const [reportMsg,setReportMsg]= useState("")
   const [editModal, setEditModal] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(false)
 
   const searchParams = useSearchParams()
 
@@ -67,7 +68,11 @@ function PageWrapper() {
       storageSession = JSON.parse(storageSession)
       setLoggedInfo(storageSession.user)
       console.log(storageSession.user)
+      checkIfFavorite()
     }
+    console.log(loggedInfo.id)
+   
+
     async function getData() {
       try {
         const { data, error } = await supa
@@ -101,8 +106,72 @@ function PageWrapper() {
     }
   }, [])
 
-  const favorite = (e: any) => {
+  useEffect(() => {
+    
+    async function checkLoggedInfoForFavorite(){
+      let itsFavorite = await checkIfFavorite()
+      if(itsFavorite){
+        setIsFavorite(true)
+      }
+    }
+
+    if(loggedInfo){
+      checkLoggedInfoForFavorite()
+    }
+  }, [loggedInfo])
+
+  async function checkIfFavorite(){
+    const { data, error } = await supa
+    .from('favorites')
+    .select('*')
+    .eq('user_id', loggedInfo.id)
+    if (data?.length >= 1) {
+      console.log(data)
+      return true
+    }else{
+      return false
+    }
+  }
+
+  const favorite = async (e: any) => {
     // Nahuel Funcion duplicada, para helpers y ver lo de redirect en la home (carouselItem component, comentario //nahuel)
+    if(loggedInfo){
+      let alreadyFavorite = await checkIfFavorite()
+      if(alreadyFavorite){
+        const {data, error} = await supa
+        .from('favorites')
+        .delete()
+        .eq("post_id", petID)
+        .eq("user_id",loggedInfo.id)
+        if(error){
+          Toast.fire({
+            icon: 'error',
+            title: 'Un error ha ocurrido, vuelve a intentarlo mas tarde.',
+            })
+        }else{
+          setIsFavorite(false)
+        }
+      }else{
+        const {data, error} = await supa
+        .from('favorites')
+        .insert({ post_id: petID, user_id: loggedInfo.id})
+        if(error){
+          Toast.fire({
+            icon: 'error',
+            title: 'Un error ha ocurrido, vuelve a intentarlo mas tarde.',
+            })
+        }else{
+          setIsFavorite(true)
+        }
+      }
+
+      
+    }else{
+      Toast.fire({
+        icon: 'error',
+        title: 'Debes Loggearte para añadir a favoritos',
+        })
+    }
     e.stopPropagation()
     console.log("favorite function")
   }
@@ -295,8 +364,7 @@ function PageWrapper() {
                     <PetState estado={petInfo.status === "visto" ? "v" : petInfo.status === "busqueda" ? "b" : "r"} texto={petInfo.status} />
                   </div>
                   <div className={styles.favoriteImg} onClick={(e) => favorite(e)}>
-                    {/* IF FAVORITE */}
-                    <Image className={`${styles.slide__content__img}`} src={NoFavoriteImg} width={33} height={31} alt="favorite img" />
+                      <Image className={`${styles.slide__content__img}`} src={isFavorite ? FavoriteImg : NoFavoriteImg} width={33} height={31} alt="favorite img" />
                   </div>
                   <div>
                     <AnimalsDetailCarousel images={petInfo.images} />
