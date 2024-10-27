@@ -414,23 +414,33 @@ function PageWrapper() {
 
       <div className={`${styles.editModal} ${ editModal ? styles.editModal_on : ""}`}>
         <div className={styles.editModal__body}>
-          <input type="text" placeholder='Titulo' value={editInfo.title} onChange={(e) => handleTitleChange(e)}/>
-          <input type="text" placeholder='Descripcion' value={editInfo.description} onChange={(e) => handleDescriptionChange(e)}/>
-          <input type="text" placeholder='Tamaño' value={editInfo.tamaño} onChange={(e) => handleTamañoChange(e)}/>
-          <input type='text' placeholder='Alergias' value={editInfo.alergias} onChange={(e) => handleAlergiasChange(e)}/>
-
-          <label>
-            <input type='checkbox' checked={editInfo.chip} onChange={(e) => handleAdditionalInformationChange(e, 'chip')} />Chip
-          </label>
-          <label>
-            <input type='checkbox' checked={editInfo.collar} onChange={(e) => handleAdditionalInformationChange(e, 'collar')} />Collar
-          </label>
-          <label>
-            <input type='checkbox' checked={editInfo.incapacidades} onChange={(e) => handleAdditionalInformationChange(e, 'incapacidades')} />Incapacidades
-          </label>
-          <label>
-            <input type='checkbox' checked={editInfo.amigable} onChange={(e) => handleAdditionalInformationChange(e, 'amigable')} />Amigable
-          </label>
+          <div className={styles.editModal__body__inputs}>
+            <label>
+              Titulo:&nbsp;<input type="text" placeholder='Titulo' value={editInfo.title} onChange={(e) => handleTitleChange(e)}/>
+            </label>
+            <label>
+              Descripcion:&nbsp;<input type="text" placeholder='Descripcion' value={editInfo.description} onChange={(e) => handleDescriptionChange(e)}/>
+            </label>
+            <label>
+              Tamaño:&nbsp;<input type="text" placeholder='Tamaño' value={editInfo.tamaño} onChange={(e) => handleTamañoChange(e)}/>
+            </label>
+            <label>
+              Alergias:&nbsp;<input type='text' placeholder='Alergias' value={editInfo.alergias} onChange={(e) => handleAlergiasChange(e)}/>
+            </label>
+              <label>
+                <input type='checkbox' checked={editInfo.chip} onChange={(e) => handleAdditionalInformationChange(e, 'chip')} />Chip
+              </label>
+              <label>
+                <input type='checkbox' checked={editInfo.collar} onChange={(e) => handleAdditionalInformationChange(e, 'collar')} />Collar
+              </label>
+              <label>
+                <input type='checkbox' checked={editInfo.incapacidades} onChange={(e) => handleAdditionalInformationChange(e, 'incapacidades')} />Incapacidades
+              </label>
+              <label>
+                <input type='checkbox' checked={editInfo.amigable} onChange={(e) => handleAdditionalInformationChange(e, 'amigable')} />Amigable
+              </label>
+          </div>
+         
           
           <Button size='small' theme='light' onClick={()=> editPost()}>Enviar</Button>
           <div className={styles.closeModal} onClick={()=> setEditModal(false) }></div>
