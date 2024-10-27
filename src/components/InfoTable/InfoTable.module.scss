@@ -1,0 +1,9 @@
+.tables{
+  padding-top: 10px;
+  width: 100%;
+  @media screen and (max-width: 540px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}

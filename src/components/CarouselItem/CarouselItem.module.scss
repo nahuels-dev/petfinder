@@ -1,0 +1,88 @@
+@import '../../styles/variables';
+.slide {
+	display: block;
+	height: 100%;
+	overflow: visible !important;
+
+	&__content{
+		margin: 0 auto;
+		position: relative;
+		@media screen and (max-width: 1250px) {
+			width: 90%;
+			overflow-x: hidden;
+		}
+		@media screen and (max-width: 750px){
+			margin: 0 auto;
+		}
+
+		.favoriteImg{
+			position: absolute;
+			top:20px;
+			left:20px;
+			z-index: 3;
+
+			&:hover{
+				cursor: pointer;
+			}
+
+			img{
+				background-color: transparent !important;
+				width: 33px;
+				height: auto;
+				filter: drop-shadow((0 0 0.2rem rgba(0, 0, 0, 0.62)));
+			}
+		}
+
+		height: 100%;
+		border-radius: 30px;
+		overflow: visible;
+		-webkit-box-shadow: 0px 0px 20px 0px rgba(255,171,159,0.4);
+		-moz-box-shadow: 0px 0px 20px 0px rgba(255,171,159,0.4);
+		box-shadow: 0px 0px 20px 0px rgba(255,171,159,0.4);
+		&:hover{
+			cursor: pointer;
+		}
+		&__img{
+			width: 100%;
+			max-height: 268px;
+			background-color: white;
+			border-radius: 30px;
+		}
+		&__copy{
+			position: relative;
+			padding:20px 30px 0;
+			height: 260px;
+			&__lastSeen{
+				position: absolute;
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				color: $gray-color !important;
+				font-size: 15px;
+				bottom: 14px;
+				@media screen and (max-width: 1250px) {
+					font-size: .7rem;
+				}
+
+				@media screen and (max-width: 540px) {
+					bottom: 10px;
+				}
+				&__img{
+					width: 18px;
+					height: 18px;
+				}
+			}
+			h4{
+				font-size: 30px;
+				color: $secondary-color;
+				margin-bottom: 10px;
+
+			}
+			p{
+				font-size: 15px;
+				max-height: 72px;
+				overflow-y: hidden;
+			}
+		}
+	}
+}

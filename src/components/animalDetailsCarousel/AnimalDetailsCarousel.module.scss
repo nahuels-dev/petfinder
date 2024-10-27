@@ -1,0 +1,28 @@
+.carousel_item{
+    background-color: transparent;
+
+    
+
+    img{
+        width: 100%;
+    }
+
+    
+}
+
+.container{
+    [data-aspect-ratio="tall"]{
+        height: 100%;
+        width: auto;
+    }
+    [data-aspect-ratio="wide"]{
+        width: 100%;
+        height: auto;
+    }
+}
+
+.thumbnails{
+    div img{
+        width: 100%;
+    }
+}

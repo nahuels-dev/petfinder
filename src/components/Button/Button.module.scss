@@ -1,0 +1,53 @@
+@import '@/styles/variables';
+.button{
+    display: block;
+    width: max-content;
+    border-radius: 100px;
+    border: none;
+    font-weight: 700;
+    font-size: 1em;
+    cursor: pointer;
+    transition: .3s;
+    &:active{
+        transform: scale(.9);
+    }
+
+    a{
+        text-decoration: none;
+    }
+}
+
+
+.default{
+    background-color: $primary-color;
+    color: #000000;
+    a{
+        color: #000000;
+    }
+}
+.light{
+    background-color: $primary-color;
+    color: #FFFFFF;
+    a{
+        color: #FFFFFF;
+    }
+}
+
+.white_bg{
+    background-color: white !important;
+    color:  $primary-color !important;
+    a{
+        color:  $primary-color !important;
+    }
+}
+
+.big{
+    padding: 20px 70px;
+}
+.medium{
+    padding: 13px 50px;
+}
+.small{
+    padding: 13px 50px;
+    font-size: .9em;
+}
