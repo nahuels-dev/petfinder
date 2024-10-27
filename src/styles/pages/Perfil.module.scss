@@ -67,20 +67,28 @@
             .columns{
                 display: flex;
                 gap: 15px;
+                >div{
+                    width: 100%;
+                }
                 @media screen and (max-width: 865px) {
                     flex-direction: column;
                 }
+                p:nth-child(1){
+                    border-bottom: 1px solid black;
+                }
                 p{
-                    width: 50%;
+                    width: 100%;
                     @media screen and (max-width: 865px) {
                         width: 100%;
                     }
                     display: flex;
                     justify-content: space-between;
-                    border-bottom: 1px solid black;
                     .editBtn{
                         color: #F86262;
                         text-decoration: underline;
+                        &:hover{
+                            cursor: pointer;
+                        }
                     }
                 }
             }
@@ -103,18 +111,32 @@
 
 
         .perfil{
+            h1{
+                display: flex;
+                align-items: baseline;
+                gap: 30px;
+                span{
+                    font-size: 50%;
+                    font-weight: normal;
+                    color: #F86262;
+                    text-decoration: underline;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
             h2,h1{
                 margin-bottom: 21px;
             }
             h2{
                 margin-top: 21px;
             }
+            
             p{
                 margin-bottom: 10px;
             }
             
         }
-
         .notificaciones{
 
             h1{
@@ -196,5 +218,47 @@
             
         }
 
+    }
+
+    .iSawItModal{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(#000, .5);
+        z-index: 10;
+        top: 0;
+        left: 0;
+        display: none;
+        &_on{
+            display: flex;
+        }
+        &__body{
+            position: relative;
+            width: 500px;
+            height: 300px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            input{
+                max-width: 250px;
+                width: 100%;
+                height: 50px;
+            }
+    
+            .closeModal{
+                position: absolute;
+                top:0;
+                right: 0;
+                width: 25px;
+                height: 25px;
+                outline: 3px solid red;
+            }
+        }
     }
 }

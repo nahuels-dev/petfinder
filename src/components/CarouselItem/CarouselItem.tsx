@@ -14,14 +14,14 @@ interface CarouselItemProps {
 	title: any;
 	description: any;
 	image: any;
-	tipo: any
-	datePublished: any
+	tipo: any;
+	datePublished: any;
+	additionalInformation: any;
   }
 
-export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, image, tipo, datePublished}) => {
+export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, image, tipo, datePublished, additionalInformation}) => {
 
 	const [imgSrc, setImgSrc] = useState(image);
-
 
 	const resultado = tipo === "Visto" ? "v" : tipo === "Busqueda" ? "b" : "r";
 
@@ -41,17 +41,17 @@ export const CarouselItem: React.FC<CarouselItemProps> = ({ title, description, 
 		<div className={`${styles.slide} keen-slider__slide`}>
 			<div className={`${styles.slide__content}`}>
 				<PetState estado={resultado} texto={tipo} />
-				<div className={styles.favoriteImg} onClick={(e) => favorite(e)}>
+				{/* <div className={styles.favoriteImg} onClick={(e) => favorite(e)}> */}
 				{/* IF FAVORITE */}
-					<Image className={`${styles.slide__content__img}`} src={NoFavoriteImg} width={33} height={31} alt="favorite img" onError={handleError} />
-				</div>
+					{/* <Image className={`${styles.slide__content__img}`} src={NoFavoriteImg} width={33} height={31} alt="favorite img" onError={handleError} />
+				</div> */}
 
 				<Image className={`${styles.slide__content__img}`} src={imgSrc} width={834} height={536} alt="pet image" onError={handleError} />
 				
 				<div className={`${styles.slide__content__copy}`}>
 					<h4>{title}</h4>
 					<p>{description} </p>
-					<InfoTable />
+					<InfoTable size={additionalInformation.tamaño || ""} alergias={additionalInformation.alergias || ""} chip={additionalInformation.chip} collar={additionalInformation.collar} incapacidades={additionalInformation.incapacidades} amigable={additionalInformation.amigable}/>
 					<span className={`${styles.slide__content__copy__lastSeen}`}>
 						<Image className={`${styles.slide__content__copy__lastSeen__img}`} src={lastSeenImg} width={36} height={36} alt="Last seen clock" />
 						Visto por última vez en Aguada - {datePublished}

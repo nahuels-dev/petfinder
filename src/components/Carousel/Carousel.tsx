@@ -118,7 +118,7 @@ export const Carousel: React.FC<CarouselProps> = ({ tipo, titulo }) => {
           <div ref={sliderRef} className={`keen-slider ${styles.container}`}>
             {dataFinal && dataFinal.map((item:any, index:any) => (
               <Link href={`/detalles?q=${item.id}`} key={index}>
-                <CarouselItem  title={item.title} description={item.description} image={item.images[0]} tipo={tipo} datePublished={formatDate(item.lastSeen)}/>
+                <CarouselItem  title={item.title}  description={item.description} additionalInformation={item.additionalInformation} image={item.images[0]} tipo={tipo} datePublished={formatDate(item.lastSeen)}/>
               </Link>
             ))}
           </div>

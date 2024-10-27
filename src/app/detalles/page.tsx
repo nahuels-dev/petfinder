@@ -130,9 +130,17 @@ function PageWrapper() {
     .from('favorites')
     .select('*')
     .eq('user_id', loggedInfo.id)
-    if (data?.length >= 1) {
-      console.log(data)
-      return true
+    if (data && data?.length >= 1) {
+      console.log(data, "aca estan todos los favoritos")
+      console.log(petID)
+      const isPostIdIncluded = data.some(favorite => favorite.post_id == petID);
+      if(isPostIdIncluded){
+        console.log(data, "si?")
+        return true
+      }else{
+        console.log("no taba")
+        return false
+      }
     }else{
       return false
     }
@@ -163,7 +171,7 @@ function PageWrapper() {
         if(error){
           Toast.fire({
             icon: 'error',
-            title: 'Un error ha ocurrido, vuelve a intentarlo mas tarde.',
+            title: 'Un error ha ocurrido, aca.',
             })
         }else{
           setIsFavorite(true)
@@ -479,9 +487,11 @@ function PageWrapper() {
                   <div className={styles.state}>
                     <PetState estado={petInfo.status === "visto" ? "v" : petInfo.status === "busqueda" ? "b" : "r"} texto={petInfo.status} />
                   </div>
-                  <div className={styles.favoriteImg} onClick={(e) => favorite(e)}>
-                      <Image className={`${styles.slide__content__img}`} src={isFavorite ? FavoriteImg : NoFavoriteImg} width={33} height={31} alt="favorite img" />
-                  </div>
+                  {loggedInfo.id != petInfo.user_id && (
+                    <div className={styles.favoriteImg} onClick={(e) => favorite(e)}>
+                        <Image className={`${styles.slide__content__img}`} src={isFavorite ? FavoriteImg : NoFavoriteImg} width={33} height={31} alt="favorite img" />
+                    </div>
+                  )}
                   <div>
                     <AnimalsDetailCarousel images={petInfo.images} />
                   </div>

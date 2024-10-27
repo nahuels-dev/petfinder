@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 import Logo from "@/assets/images/logo.png"
 
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { AuthenticationContext } from '@/context/Authentication';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
@@ -19,6 +19,9 @@ function Navbar() {
   const header = useRef<HTMLElement>(null)
   const supabase = createClientComponentClient()
   const { logOut, isLoggedIn } = useContext(AuthenticationContext)
+
+  const router = useRouter()
+
   const toggleMenu = () => {
     setIsActive(!isActive);
   };
@@ -35,10 +38,15 @@ function Navbar() {
     getUser()
   },[])
 
-const getUser = async ()=>{
-  const { data: { user } } = await supabase.auth.getUser()
-  setUserName(user?.user_metadata.full_name)
-}
+  const getUser = async ()=>{
+    const { data: { user } } = await supabase.auth.getUser()
+    setUserName(user?.user_metadata.full_name)
+  }
+
+  const handleRoute = (route: string) =>{
+    setIsProfileExpanded(false)
+    router.push(route)
+  }
 
   return (
     <nav className={`${styles.navbar}`} ref={header}>
@@ -58,10 +66,10 @@ const getUser = async ()=>{
                 <div className={`${styles.profileNavbar} ${isProfileExpanded ? styles.expanded : ""}`}>
                   <div onClick={() => setIsProfileExpanded(!isProfileExpanded)}>Hola {userName}</div>
                   <div className={styles.navbarHided}>
-                    <Link href="/perfil">Perfil</Link>
-                    <p>Mis publicaciones</p>
-                    <p>Favoritos</p>
-                    <p>Notificaciones</p>
+                    <p onClick={() => handleRoute("/perfil")}>Perfil</p>
+                    <p onClick={() => handleRoute("/perfil?q=Publicaciones")}>Mis publicaciones</p>
+                    <p onClick={() => handleRoute("/perfil?q=Favoritos")}>Favoritos</p>
+                    <p onClick={() => handleRoute("/perfil?q=Notificaciones")}>Notificaciones</p>
                     <p onClick={()=> logOut()} >Desconectarse</p>
                   </div>
                 </div>
