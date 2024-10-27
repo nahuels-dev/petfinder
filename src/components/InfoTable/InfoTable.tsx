@@ -1,11 +1,10 @@
 import styles from "./InfoTable.module.scss"
 import {SingleTable} from '../SingleTable/SingleTable'
 
-/* Este componente tiene que recibir los datos (ahora hardcodeados) de la API que va a desarrollar patroncito */
-export const InfoTable: React.FC = () => {
+export const InfoTable: React.FC<{ chip?: boolean, collar?: boolean, size?: string, incapacidades?: boolean, amigable?: boolean, alergias?: string }> = ({ chip = false, collar = false, size = "", incapacidades = false, amigable = false, alergias = "" }) => {
   return (
     <div className={styles.tables} >
-      <SingleTable chip={true} chip_text='Chip' collar={true} collar_text='Collar' size='5kg' size_text='Tamaño' incapacidades={true} incapacidades_text='Incapacidades' amigable={false} amigable_text='Amigable' alergias='Si' alergias_text='Alergias' />
+      <SingleTable chip={chip} chip_text='Chip' collar={collar} collar_text='Collar' size={size} size_text='Tamaño' incapacidades={incapacidades} incapacidades_text='Incapacidades' amigable={amigable} amigable_text='Amigable' alergias={alergias} alergias_text='Alergias' />
     </div>
   )
 }

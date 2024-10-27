@@ -50,6 +50,7 @@ function PageWrapper() {
   const [reportMsg,setReportMsg]= useState("")
   const [editModal, setEditModal] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
+  const [editInfo, setEditInfo] = useState<any>({})
 
   const searchParams = useSearchParams()
 
@@ -180,6 +181,17 @@ function PageWrapper() {
   useEffect(() => {
     if (Object.keys(petInfo).length > 0 && Object.keys(creatorInfo).length > 0) {
       setLoading(false)
+      
+      setEditInfo({
+        title: petInfo.title,
+        description: petInfo.description,
+        tamaño: petInfo.tamaño,
+        chip: petInfo.aditionalInformation?.chip || false,
+        collar: petInfo.aditionalInformation?.collar || false,
+        incapacidades: petInfo.aditionalInformation?.incapacidades || false,
+        amigable: petInfo.aditionalInformation?.amigable || false,
+        alergias: petInfo.aditionalInformation?.alergias || "",
+      })
     }
   }, [petInfo, creatorInfo]);
 
@@ -248,8 +260,47 @@ function PageWrapper() {
    }
   }
 
-  const editPost = ()=> {
-    console.log("editando")
+  const editPost = async()=> {
+    let infoToUpdate = {
+      title: editInfo.title,
+      description: editInfo.description,
+      additionalInformation: {
+        alergias: editInfo.alergias,
+        chip: editInfo.chip,
+        collar: editInfo.collar,
+        incapacidades: editInfo.incapacidades,
+        amigable: editInfo.amigable,
+        tamaño: editInfo.tamaño
+      }
+    }
+
+    const { data, error } = await supa
+          .from('alert_post')
+          .select('lastSeen')
+          .eq('id', petID)
+      
+        const a = await supa
+        .from('alert_post')
+        .update({title: infoToUpdate.title, description: infoToUpdate.description, additionalInformation: infoToUpdate.additionalInformation}  )
+        .eq('id', petID)
+
+        location.reload()
+        if (error) {
+          console.error('Error updating post:', error)
+          Toast.fire({
+            icon: 'error',
+            title: 'Ha ocurrido un error al intentar editar la publicación',
+          })
+        } else {
+          Toast.fire({
+            icon: 'success',
+            title: 'Publicacion editada con exito',
+          })
+
+          setTimeout(() => {
+            location.reload()
+          }, 1000);
+        }
   }
   const finishPost = ()=> {
     console.log("terminando post")
@@ -306,6 +357,41 @@ function PageWrapper() {
     Tendriamos tambien que contar cuantos post ya le borramos, al 3ero pa la calle, ban a la cuenta
     */
   }
+
+  // Edit functions
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditInfo((prevState:any) => ({
+      ...prevState,
+      title: e.target.value,
+    }));
+  };
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditInfo((prevState:any) => ({
+      ...prevState,
+      description: e.target.value,
+    }));
+  };
+  const handleTamañoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditInfo((prevState:any) => ({
+      ...prevState,
+      tamaño: e.target.value,
+    }));
+  };
+  const handleAlergiasChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditInfo((prevState:any) => ({
+      ...prevState,
+      alergias: e.target.value,
+    }));
+  };
+
+  const handleAdditionalInformationChange = (e: React.ChangeEvent<HTMLInputElement>, whitch: string) => {
+    setEditInfo((prevState:any) => ({
+      ...prevState,
+      [whitch]: e.target.checked,
+    }));
+  }
+  // Edit functions
+
   return (
     <>
       <div className={`${styles.iSawItModal} ${ sawitModalOn ? styles.iSawItModal_on : ""}`}>
@@ -328,9 +414,25 @@ function PageWrapper() {
 
       <div className={`${styles.editModal} ${ editModal ? styles.editModal_on : ""}`}>
         <div className={styles.editModal__body}>
-          <input type="text" placeholder='Calle' value={"Por ahora nada"} onChange={(e)=> console.log("algo")}/>
-          <textarea placeholder='Descripcion' value={"Por ahora nada"} onChange={(e)=> console.log("algo")}/>
-          <Button size='small' theme='light' onClick={()=> reportPost()}>Enviar</Button>
+          <input type="text" placeholder='Titulo' value={editInfo.title} onChange={(e) => handleTitleChange(e)}/>
+          <input type="text" placeholder='Descripcion' value={editInfo.description} onChange={(e) => handleDescriptionChange(e)}/>
+          <input type="text" placeholder='Tamaño' value={editInfo.tamaño} onChange={(e) => handleTamañoChange(e)}/>
+          <input type='text' placeholder='Alergias' value={editInfo.alergias} onChange={(e) => handleAlergiasChange(e)}/>
+
+          <label>
+            <input type='checkbox' checked={editInfo.chip} onChange={(e) => handleAdditionalInformationChange(e, 'chip')} />Chip
+          </label>
+          <label>
+            <input type='checkbox' checked={editInfo.collar} onChange={(e) => handleAdditionalInformationChange(e, 'collar')} />Collar
+          </label>
+          <label>
+            <input type='checkbox' checked={editInfo.incapacidades} onChange={(e) => handleAdditionalInformationChange(e, 'incapacidades')} />Incapacidades
+          </label>
+          <label>
+            <input type='checkbox' checked={editInfo.amigable} onChange={(e) => handleAdditionalInformationChange(e, 'amigable')} />Amigable
+          </label>
+          
+          <Button size='small' theme='light' onClick={()=> editPost()}>Enviar</Button>
           <div className={styles.closeModal} onClick={()=> setEditModal(false) }></div>
         </div>
       </div>
@@ -375,7 +477,7 @@ function PageWrapper() {
                   <h3>{petInfo.title}</h3>
                   <p className={styles.mainDescription}>{petInfo.description}</p>
                   <div className={styles.tables}>
-                    <InfoTable />
+                    <InfoTable alergias={petInfo?.additionalInformation?.alergias} chip={petInfo?.additionalInformation?.chip} collar={petInfo?.additionalInformation?.collar} incapacidades={petInfo?.additionalInformation?.incapacidades} amigable={petInfo?.additionalInformation?.amigable} size={petInfo?.additionalInformation?.tamaño}/>
                   </div>
                   <div className={styles.creatorInfo}>
                     <div className={styles.photo}>
