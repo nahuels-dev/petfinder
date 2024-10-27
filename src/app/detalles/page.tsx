@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Suspense } from "react";
 
 import LastSeenImg from "@/assets/images/lastSeenImg.png"
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter  } from 'next/navigation'
 import ReportIconIMG from "@/assets/images/reportIcon.png"
 import EditIconIMG from "@/assets/images/editIcon.png"
 import FinishIconIMG from "@/assets/images/finishIcon.png"
@@ -51,7 +51,7 @@ function PageWrapper() {
   const [editModal, setEditModal] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
   const [editInfo, setEditInfo] = useState<any>({})
-
+  const router = useRouter()
   const searchParams = useSearchParams()
 
   const petID = searchParams.get('q')
@@ -80,9 +80,13 @@ function PageWrapper() {
           .from('alert_post')
           .select('*')
           .eq('id', petID)
-        if (data) {
+        
+        if (data && data?.length > 0) {
+          console.log(data, "este")
           setPetInfo(data[0]!)
           await getCreatorData(data[0].user_id)
+        } else{
+          router.push('/error')
         }
       } catch (error: any) {
         console.log('Hubo un problema con la petición Fetch:' + error.message);
